@@ -13,7 +13,7 @@ class Perfil extends Model
     *
     * @var string
     */
-    protected $table = 'menu';
+    protected $table = 'perfil';
     
     /**
      * The primary key associated with the table.

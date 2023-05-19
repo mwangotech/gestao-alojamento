@@ -27,7 +27,7 @@ class PerfilController extends Controller
 
         $breadcrumbs = array(
             ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],
-            ['name'=> 'Perfis','url' => '','active' => 1]
+            ['name'=> 'Perfil','url' => '','active' => 1]
         );
         return view('pages.perfil.index',compact('perfis','breadcrumbs'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -39,7 +39,12 @@ class PerfilController extends Controller
     */
     public function create(): View
     {
-        return view('perfis.create');
+        $breadcrumbs = array(
+            ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],
+            ['name'=> 'Perfil','url' => route('perfis.index'),'active' => 0],
+            ['name'=> 'Novo','url' => '','active' => 1]
+        );
+        return view('pages.perfil.create',compact('breadcrumbs'));
     }
 
     /**
@@ -50,22 +55,14 @@ class PerfilController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
+            'nome' => 'required',
+            'ordem' => 'required',
+            'estado' => 'required',
         ]);
         
         Perfil::create($request->all());
 
-        return redirect()->route('perfis.index')->with('success','Perfil created successfully.');
-    }
-
-
-    /**
-    * Display the specified resource.
-    */
-    public function show(Perfil $perfil): View
-    {
-        return view('perfis.show',compact('perfil'));
+        return redirect()->route('perfis.index')->with('success','Perfil criado com sucesso.');
     }
 
     /**
@@ -73,7 +70,12 @@ class PerfilController extends Controller
     */
     public function edit(Perfil $perfil): View
     {
-        return view('perfis.edit',compact('perfil'));
+        $breadcrumbs = array(
+            ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],
+            ['name'=> 'Perfil','url' => route('perfis.index'),'active' => 0],
+            ['name'=> 'Editar','url' => '','active' => 1]
+        );
+        return view('pages.perfil.edit',compact('perfil','breadcrumbs'));
     }
 
     /** 
@@ -82,13 +84,14 @@ class PerfilController extends Controller
     public function update(Request $request, Perfil $perfil): RedirectResponse
     {
         $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
+            'nome' => 'required',
+            'ordem' => 'required',
+            'estado' => 'required',
         ]);
         
         $perfil->update($request->all());
 
-        return redirect()->route('perfis.index')->with('success','Perfil updated successfully');
+        return redirect()->route('perfis.index')->with('success','Perfil atualizado com sucesso.');
     }
 
 
@@ -100,6 +103,6 @@ class PerfilController extends Controller
     {
         $perfil->delete();
 
-        return redirect()->route('perfis.index')->with('success','Perfil deleted successfully');
+        return redirect()->route('perfis.index')->with('success','Perfil eliminado com sucesso!');
     }
 }

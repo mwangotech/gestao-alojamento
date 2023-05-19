@@ -10,33 +10,39 @@
         </div>
     </div>
     <br/>
-    @include('components.messages')
 
-    <table class="table table-bordered">
-        <tr>
-            <th>No</th>
-            <th>Name</th>
-            <th>Ordem</th>
-            <th>Estado</th>
-            <th width="280px">Acção</th>
-        </tr>
-        @foreach ($perfis as $perfil)
-        <tr>
-            <td>{{ ++$i }}</td>
-            <td>{{ $perfil->nome }}</td>
-            <td>{{ $perfil->ordem }}</td>
-            <td>{{ $perfil->estado }}</td>
-            <td>
-                <form action="{{ route('perfis.destroy',$perfil->id) }}" method="POST">
-                    <a class="btn btn-info" href="{{ route('perfis.show',$perfil->id) }}">Show</a>
-                    <a class="btn btn-primary" href="{{ route('perfis.edit',$perfil->id) }}">Edit</a>
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </table>
-    {!! $perfis->links() !!}
+    <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Lista de Perfis</h3>
+        </div>
+        <div class="card-body">
+            @include('components.messages')
+            <table class="table table-bordered">
+                <tr>
+                    <th width="100px">No</th>
+                    <th>Name</th>
+                    <th class="text-right">Ordem</th>
+                    <th class="text-center">Estado</th>
+                    <th  class="text-center" width="120px">Acção</th>
+                </tr>
+                @foreach ($perfis as $perfil)
+                <tr>
+                    <td>{{ $perfil->id }}</td>
+                    <td>{{ $perfil->nome }}</td>
+                    <td class="text-right">{{ $perfil->ordem }}</td>
+                    <td class="text-center">@if ($perfil->estado == 1) <span class="right badge badge-success">Ativo</span> @else <span class="right badge badge-danger">Inativo</span> @endif</td>
+                    <td>
+                        <form action="{{ route('perfis.destroy',$perfil->id) }}" method="POST">
+                            <a class="btn btn-primary" href="{{ route('perfis.edit',$perfil->id) }}"><i class="fa fa-pen"></i></a>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </table>
+            {!! $perfis->links() !!}
+        </div>
+    </div>
 @endsection

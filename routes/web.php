@@ -17,7 +17,7 @@ use App\Http\Controllers\PerfilController;
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::group(
         [
-            'middleware' => ['guest'],
+            'middleware' => ['web','guest'],
         ],
         function ($auth_guest) {
             $auth_guest->get('/login', 'AuthController@login')->name('login');
@@ -26,7 +26,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     );
     Route::group(
         [
-            'middleware' => ['auth'],
+            'middleware' => ['web','auth'],
         ],
         function ($route) {
             $route->get('/', function () {
@@ -35,7 +35,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             $route->get('dashboard', function () {
                 return view('index');
             })->name('dashboard');
-            $route->resource('perfis', PerfilController::class);
+            Route::resource('perfis', PerfilController::class)->parameters(['perfis' => 'perfil']);
             $route->get('/logout', 'AuthController@logout')->name('logout');
         }
     );
