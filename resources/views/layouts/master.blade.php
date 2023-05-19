@@ -22,7 +22,16 @@
         @include('common.aside')
         <!-- Content Area -->
         <div class="content-wrapper">
-            @yield('content')
+            <!-- Content Header (Page header) -->
+            @include('common.header')
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <div class="content">
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
+            </div>
         </div>
         <!-- Main Footer -->
         @include('common.footer')

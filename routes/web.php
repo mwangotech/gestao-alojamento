@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PerfilController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,12 +20,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             'middleware' => ['guest'],
         ],
         function ($auth_guest) {
-            $auth_guest
-                ->get('/login', 'AuthController@login')
-                ->name('login.show');
-            $auth_guest
-                ->post('/login', 'AuthController@authenticate')
-                ->name('login.perform');
+            $auth_guest->get('/login', 'AuthController@login')->name('login');
+            $auth_guest->post('/login', 'AuthController@authenticate')->name('login');
         }
     );
     Route::group(
@@ -35,9 +32,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             $route->get('/', function () {
                 return view('index');
             });
-            $route
-                ->post('/logout', 'AuthController@logout')
-                ->name('logout.perform');
+            $route->get('dashboard', function () {
+                return view('index');
+            })->name('dashboard');
+            $route->resource('perfis', PerfilController::class);
+            $route->get('/logout', 'AuthController@logout')->name('logout');
         }
     );
 });

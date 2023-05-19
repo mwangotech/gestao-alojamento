@@ -10,7 +10,6 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
           @auth
-            {{auth()->user()->name}}
             <a href="#" class="d-block"><b>{{auth()->user()->name}}</b> | Online <i class="fas fa-circle nav-icon" style="color:green"></i></a>
           @else
           <a href="#" class="d-block">Offline <i class="fas fa-circle nav-icon" style="color:red"></i></a>
@@ -47,11 +46,11 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('perfis.index') }}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
+                Perfis
+                <span class="right badge badge-danger">0</span>
               </p>
             </a>
           </li>

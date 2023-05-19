@@ -23,7 +23,7 @@ class AuthService
         if (!Auth::validate($credentials)):
             return redirect()
                 ->to('login')
-                ->withErrors(trans('auth.failed'));
+                ->withErrors("Erro ao Autenticar, Verifique o Nome de Utilizador/Senha");
         endif;
 
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
@@ -45,7 +45,7 @@ class AuthService
         return redirect()->intended();
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
         Session::flush();
 

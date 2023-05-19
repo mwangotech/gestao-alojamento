@@ -26,10 +26,10 @@
 
       @include('components.messages')
 
-      <form action="{{ route('login.perform') }}" method="post">
+      <form action="{{ route('login') }}" method="POST">
         @csrf
         <div class="input-group mb-3">
-          <input type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="Email or Username" required="required" autofocus>
+          <input type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="Nome de Utilizaor" required="required" autofocus>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>

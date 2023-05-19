@@ -23,4 +23,8 @@ class AuthController extends Controller
     {
         return $this->service->authenticate($request);
     }
+    public function logout(Request $request)
+    {
+        return $this->service->logout($request);
+    }
 }
