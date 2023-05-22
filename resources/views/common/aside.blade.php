@@ -22,7 +22,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
+          <!--li class="nav-item menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -44,13 +44,21 @@
                 </a>
               </li>
             </ul>
-          </li>
+          </li-->
           <li class="nav-item">
             <a href="{{ route('perfis.index') }}" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Perfis
-                <span class="right badge badge-danger">0</span>
+                <!--span class="right badge badge-danger">0</span-->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('utilizadores.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Utilizadores
               </p>
             </a>
           </li>

@@ -29,13 +29,13 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Nome <span style="color:red">*</span>:</strong>
+                        <strong>Nome:<span style="color:red">*</span></strong>
                         <input type="text" name="nome" value="{{ old('nome') }}" class="form-control" placeholder="Nome">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Ordem <span style="color:red">*</span>:</strong>
+                        <strong>Ordem:<span style="color:red">*</span></strong>
                         <input type="number" name="ordem" value="{{ old('ordem') }}" class="form-control" placeholder="Ordem">
                     </div>
                 </div>
