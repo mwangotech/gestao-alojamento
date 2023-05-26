@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Services\UtilizadorService;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\UtilizadorRequest;
 
 class UtilizadorController extends Controller
 {
@@ -55,16 +56,8 @@ class UtilizadorController extends Controller
     * Store a newly created resource in storage.
 
     */
-    public function store(Request $request): RedirectResponse
+    public function store(UtilizadorRequest $request): RedirectResponse
     {
-        //dd($request->all());
-        $request->validate([
-            'name' => 'required',
-            'username' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'utilizador_perfil' => 'array'
-        ]);
         $data = $request->all();
         DB::transaction(function () use ($data) {
             $utilizador = User::create($data);
@@ -104,14 +97,8 @@ class UtilizadorController extends Controller
     /** 
     * Update the specified resource in storage.
     */
-    public function update(Request $request, User $utilizador): RedirectResponse
+    public function update(UtilizadorRequest $request, User $utilizador): RedirectResponse
     {
-        $request->validate([
-            'name' => 'required',
-            'username' => 'required',
-            'email' => 'required',
-            'utilizador_perfil' => 'array'
-        ]);
         $data = $request->all();
         DB::transaction(function () use ($utilizador, $data) {
             $utilizador->update($data);

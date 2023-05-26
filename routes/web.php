@@ -37,6 +37,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             })->name('dashboard');
             Route::resource('perfis', PerfilController::class)->parameters(['perfis' => 'perfil']);
             Route::resource('utilizadores', UtilizadorController::class)->parameters(['utilizadores' => 'utilizador']);
+            Route::resource('menus', MenuController::class)->parameters(['menus' => 'menu']);
             $route->get('/logout', 'AuthController@logout')->name('logout');
         }
     );

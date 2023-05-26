@@ -1,11 +1,12 @@
 @extends('layouts.master')
-@section('title', 'Utilizadores')
+@section('title', 'Gestão de Utilizadores')
  
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="text-right">
-            <a class="btn btn-default" href="{{ route('utilizadores.index') }}"> Voltar</a>
+            <button type="submit" form="form-utilizador" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;Guardar</button>
+            <a class="btn btn-default" href="{{ route('utilizadores.index') }}"><i class="fa fa-reply"></i>&nbsp;Voltar</a>
         </div>
         <br />
     </div>
@@ -17,14 +18,9 @@
         </div>
         <div class="card-body">
          
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <strong>Oops!</strong> Preecha os campos obrigatorios.<br><br>
-        </div>
-        @endif
+        @include('components.messages')
 
-        <form action="{{ route('utilizadores.store') }}" method="POST">
+        <form id="form-utilizador" action="{{ route('utilizadores.store') }}" method="POST">
             @csrf
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -47,7 +43,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Senha:<span style="color:red">*</span></strong>
+                        <strong>Senha:</strong>
                         <input type="password" name="password" value="" class="form-control" placeholder="Senha">
                     </div>
                 </div>
@@ -93,10 +89,6 @@
                           </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-12 col-md-12 text-right">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </div>
         </form>

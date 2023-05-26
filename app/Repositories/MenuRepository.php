@@ -14,8 +14,8 @@ class MenuRepository
       $this->model = $_model;
    }
 
-   public function list() {
-    return $this->model->paginate(20);
+   public function list($limit=20) {
+      return $this->model->paginate($limit);
    }
 
    public function get($id){

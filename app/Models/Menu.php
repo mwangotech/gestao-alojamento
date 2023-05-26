@@ -67,10 +67,19 @@ class Menu extends Model
     protected $casts = [
        
     ];
+    public function setIdMenuAttribute($value)
+    {
+        if($value <= 0){
+            $this->attributes['idMenu'] = null;
+        } else {
+            $this->attributes['idMenu'] = $value;
+        }
+    }
+
 
     public function perfis()
     {
-        return $this->belongsToMany(Location::class, 'perfil_menu', 'idMenu', 'idPerfil');
+        return $this->belongsToMany(Perfil::class, 'perfil_menu', 'idMenu', 'idPerfil');
     }
 
 

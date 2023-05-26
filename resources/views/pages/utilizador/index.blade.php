@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Utilizadores')
+@section('title', 'Gestão de Utilizadores')
  
 @section('content')
     <div class="row">
@@ -20,7 +20,7 @@
             <table class="table table-bordered">
                 <tr>
                     <th width="100px">No</th>
-                    <th>Name</th>
+                    <th>Nome</th>
                     <th>Utilizador</th>
                     <th>Email</th>
                     <th class="text-center">Estado</th>

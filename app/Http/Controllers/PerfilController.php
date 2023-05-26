@@ -6,6 +6,7 @@ use App\Models\Perfil;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Services\PerfilService;
+use App\Http\Requests\PerfilRequest;
 use Illuminate\Http\RedirectResponse;
 
 class PerfilController extends Controller
@@ -52,14 +53,8 @@ class PerfilController extends Controller
     * Store a newly created resource in storage.
 
     */
-    public function store(Request $request): RedirectResponse
-    {
-        $request->validate([
-            'nome' => 'required',
-            'ordem' => 'required',
-            'estado' => 'required',
-        ]);
-        
+    public function store(PerfilRequest $request): RedirectResponse
+    {        
         Perfil::create($request->all());
 
         return redirect()->route('perfis.index')->with('success','Perfil criado com sucesso.');
@@ -81,14 +76,8 @@ class PerfilController extends Controller
     /** 
     * Update the specified resource in storage.
     */
-    public function update(Request $request, Perfil $perfil): RedirectResponse
-    {
-        $request->validate([
-            'nome' => 'required',
-            'ordem' => 'required',
-            'estado' => 'required',
-        ]);
-        
+    public function update(PerfilRequest $request, Perfil $perfil): RedirectResponse
+    { 
         $perfil->update($request->all());
 
         return redirect()->route('perfis.index')->with('success','Perfil atualizado com sucesso.');
