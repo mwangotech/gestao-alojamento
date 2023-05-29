@@ -32,12 +32,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             $route->get('/', function () {
                 return view('index');
             });
-            $route->get('dashboard', function () {
-                return view('index');
-            })->name('dashboard');
-            Route::resource('perfis', PerfilController::class)->parameters(['perfis' => 'perfil']);
-            Route::resource('utilizadores', UtilizadorController::class)->parameters(['utilizadores' => 'utilizador']);
-            Route::resource('menus', MenuController::class)->parameters(['menus' => 'menu']);
+            $route->get('me',  [AuthController::class, 'me'])->name('me');
+            $route->get('dashboard', function () { return view('index');})->name('dashboard');
+            $route->resource('perfis', PerfilController::class)->parameters(['perfis' => 'perfil']);
+            $route->resource('utilizadores', UtilizadorController::class)->parameters(['utilizadores' => 'utilizador']);
+            $route->resource('menus', MenuController::class)->parameters(['menus' => 'menu']);
             $route->get('/logout', 'AuthController@logout')->name('logout');
         }
     );

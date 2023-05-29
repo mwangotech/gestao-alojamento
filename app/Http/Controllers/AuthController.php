@@ -19,6 +19,10 @@ class AuthController extends Controller
     {
         return view('pages.auth-login');
     }
+    public function me(Request $request)
+    {
+        return $this->service->me($request);
+    }
     public function authenticate(LoginRequest $request)
     {
         return $this->service->authenticate($request);

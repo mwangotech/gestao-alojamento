@@ -23,6 +23,7 @@
                     <th class="text-center">Icone</th>
                     <th>Nome</th>
                     <th>Codigo</th>
+                    <th>Rota</th>
                     <th class="text-center">Estado</th>
                     <th  class="text-center" width="120px">Acção</th>
                 </tr>
@@ -32,6 +33,7 @@
                     <td class="text-center"><i class="{{$menu->icone}}"></i></td>
                     <td>{{ $menu->nome }}</td>
                     <td>{{ $menu->codigo }}</td>
+                    <td>{{ $menu->route }}</td>
                     <td class="text-center">@if ($menu->estado == 1) <span class="right badge badge-success">Ativo</span> @else <span class="right badge badge-danger">Inativo</span> @endif</td>
                     <td>
                         <form action="{{ route('menus.destroy',$menu->id) }}" method="POST">

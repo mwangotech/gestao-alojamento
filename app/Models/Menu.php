@@ -41,6 +41,7 @@ class Menu extends Model
         'nome', 
         'icone',
         'link',
+        'route',
         'codigo',
         'tipo',
         'ordem',
@@ -67,12 +68,22 @@ class Menu extends Model
     protected $casts = [
        
     ];
+
     public function setIdMenuAttribute($value)
     {
         if($value <= 0){
             $this->attributes['idMenu'] = null;
         } else {
             $this->attributes['idMenu'] = $value;
+        }
+    }
+
+    public function setLinkAttribute($value)
+    {
+        if(empty($value)){
+            $this->attributes['link'] = "#";
+        } else {
+            $this->attributes['link'] = $value;
         }
     }
 

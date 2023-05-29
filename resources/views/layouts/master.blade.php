@@ -49,5 +49,66 @@
 
     <!-- AdminLTE App -->
     <script src="{{asset('/assets/js/adminlte.min.js')}}"></script>
+    <script src="{{asset('/assets/js/common.js?v1.0.0.3')}}"></script>  
+    <script>
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: '/me?route={{ Route::currentRouteName() }}',
+            data: {}
+        }).done(function(user) {
+            //console.log(user);
+            if(user.menu_itens) {
+                $itens = "";
+                $.each(user.menu_itens, function( index, menu ) {
+                    console.table(menu);
+                    $itens += buildItens(menu)
+                });
+            }
+            $('#dinamic-side-menu').append($itens);
+        });
+        
+        function buildItens(menu, callback="") {
+            console.table(menu);
+            if(menu.tipo == 'collapse') {
+                if(menu.tem_filho_activo) {
+                    callback+="<li class='nav-item menu-open'>";
+                } else {
+                    callback+="<li class='nav-item'>";
+                }
+                if(menu.activo) {
+                    callback+="<a href='"+menu.link+"' class='nav-link active'>";
+                } else {
+                    callback+="<a href='"+menu.link+"' class='nav-link'>";
+                }
+                callback+="<i class='nav-icon "+menu.icone+"'></i>";
+                callback+="<p>"+menu.nome+"";
+                callback+="<i class='right fas fa-angle-left'></i>";
+                callback+="</p>";
+                callback+="</a>";
+                if(menu.childs.length > 0) {
+                    callback+="<ul class='nav nav-treeview'>";
+                    $.each(menu.childs, function(index, submenu) {
+                        callback += buildItens(submenu)
+                    });
+                    callback+="</ul>";
+                }
+                callback+="</li>";
+            } else {
+                callback+="<li class='nav-item'>";
+                if(menu.activo) {
+                    callback+="<a href='"+menu.link+"' class='nav-link active'>";
+                } else {
+                    callback+="<a href='"+menu.link+"' class='nav-link'>";
+                }
+                callback+="<i class='nav-icon "+menu.icone+"'></i>";
+                callback+="<p>"+menu.nome+"</p>";
+                callback+="</a>";
+                callback+="</li>";
+            }
+            return callback;
+        }
+    });
+    </script>
     </body>
 </html>

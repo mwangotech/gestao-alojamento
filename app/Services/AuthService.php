@@ -16,6 +16,22 @@ class AuthService
         $this->repository = $_repository;
     }
 
+    public function me(Request $request)
+    {
+        $uri = $request->input('route') ?? '';
+        $route = explode('.',$uri)[0] ?? null;
+        $user = $this->repository->get(Auth()->user()->id);
+        $menuList = [];
+        $perfilIds = [];
+        foreach($user->perfis as $perfil) {
+            if(!in_array($perfil->id, $perfilIds)) {
+                $perfilIds[] = $perfil->id;
+            }
+        }
+        $menuList = $this->repository->getMenuList($perfilIds, $route);
+        $user->menu_itens = $menuList;
+        return $user;
+    }
     public function authenticate(LoginRequest $request)
     {
         $credentials = $request->getCredentials();

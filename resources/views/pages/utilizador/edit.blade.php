@@ -96,9 +96,9 @@
         </form>
         </div>
     </div>
+    <script>
+        $(function () {
+    
+        });
+    </script>  
 @endsection
-<script>
-    $(function () {
-
-    });
-</script>  

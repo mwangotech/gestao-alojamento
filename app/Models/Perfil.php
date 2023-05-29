@@ -63,7 +63,7 @@ class Perfil extends Model
 
     public function menus()
     {
-        return $this->belongsToMany(Location::class, 'perfil_menu', 'idPerfil', 'idMenu');
+        return $this->belongsToMany(Menu::class, 'perfil_menu', 'idPerfil', 'idMenu');
     }
 
 }

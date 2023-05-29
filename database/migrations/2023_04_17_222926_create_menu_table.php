@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nome', 50);
             $table->string('icone', 20)->nullable();
             $table->string('link', 250)->nullable();
+            $table->string('route', 150)->nullable();
             $table->string('codigo', 10);
             $table->enum('tipo', ['item', 'collapse']);
             $table->integer('ordem')->default(0);
