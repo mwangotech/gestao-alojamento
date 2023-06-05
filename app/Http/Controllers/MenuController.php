@@ -120,8 +120,9 @@ class MenuController extends Controller
     /**
     * Remove the specified resource from storage.
     */
-    public function destroy(User $menu): RedirectResponse
+    public function destroy(Menu $menu): RedirectResponse
     {
+        $menu->perfis()->detach();
         $menu->delete();
 
         return redirect()->route('menus.index')->with('success','Menu eliminado com sucesso!');

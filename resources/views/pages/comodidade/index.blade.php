@@ -1,11 +1,11 @@
 @extends('layouts.master')
-@section('title', 'Gestão de Menus')
+@section('title', 'Gestão de Comodidades')
  
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="text-right">
-                <a class="btn btn-primary" href="{{ route('menus.create') }}"> Novo</a>
+                <a class="btn btn-primary" href="{{ route('comodidades.create') }}"> Novo</a>
             </div>
         </div>
     </div>
@@ -13,7 +13,7 @@
 
     <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title">Lista de Menus</h3>
+          <h3 class="card-title">Lista de Comodidades</h3>
         </div>
         <div class="card-body">
             @include('components.messages')
@@ -21,25 +21,24 @@
                 <thead>
                 <tr>
                     <th width="10px">No</th>
-                    <th class="text-center" width="20px">Icone</th>
-                    <th>Nome</th>
-                    <th>Rota</th>
-                    <th width="100px">Codigo</th>
+                    <th>Name</th>
+                    <th class="text-right" width="100px">Preço</th>
+                    <th class="text-right" width="50px">Ordem</th>
                     <th class="text-center" width="100px">Estado</th>
                     <th  class="text-center" width="70px">Acção</th>
                 </tr>
                 </thead>
-                @foreach ($menus as $menu)
+                <tbody>
+                @foreach ($comodidades as $comodidade)
                 <tr>
-                    <td>{{ $menu->id }}</td>
-                    <td class="text-center"><i class="{{$menu->icone}}"></i></td>
-                    <td>{{ $menu->nome }}</td>
-                    <td>{{ $menu->route }}</td>
-                    <td>{{ $menu->codigo }}</td>
-                    <td class="text-center">@if ($menu->estado == 1) <span class="right badge badge-success">Ativo</span> @else <span class="right badge badge-danger">Inativo</span> @endif</td>
+                    <td>{{ $comodidade->id }}</td>
+                    <td>{{ $comodidade->nome }}</td>
+                    <td class="text-right">{{ $comodidade->preco }}</td>
+                    <td class="text-right">{{ $comodidade->ordem }}</td>
+                    <td class="text-center">@if ($comodidade->estado == 1) <span class="right badge badge-success">Ativo</span> @else <span class="right badge badge-danger">Inativo</span> @endif</td>
                     <td>
-                        <form id="list-form-delete" action="{{ route('menus.destroy',$menu->id) }}" method="POST">
-                            <a class="btn btn-primary" href="{{ route('menus.edit',$menu->id) }}"><i class="fa fa-pen"></i></a>
+                        <form id="list-form-delete" action="{{ route('comodidades.destroy',$comodidade->id) }}" method="POST">
+                            <a class="btn btn-primary" href="{{ route('comodidades.edit',$comodidade->id) }}"><i class="fa fa-pen"></i></a>
                             @csrf
                             @method('DELETE')
                             <button type="button" class="btn btn-danger form-delete-button"><i class="fa fa-trash"></i></button>
@@ -47,8 +46,8 @@
                     </td>
                 </tr>
                 @endforeach
+                </tbody>
             </table>
-            {!! $menus->links() !!}
         </div>
     </div>
 @endsection

@@ -2,19 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Perfil extends Model
+class Comodidade extends Model
 {
     use HasFactory;
+
     /**
     * The table associated with the model.
     *
     * @var string
     */
-    protected $table = 'perfil';
+    protected $table = 'comodidade';
     
     /**
      * The primary key associated with the table.
@@ -28,7 +28,7 @@ class Perfil extends Model
      *
      * @var bool
      */
-    public $timestamps = true;
+    public $timestamps = false;
    
     /**
      * The attributes that are mass assignable.
@@ -36,8 +36,10 @@ class Perfil extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id', 
+        'id',
         'nome', 
+        'descricao', 
+        'preco',
         'ordem',
         'estado',
     ];
@@ -48,8 +50,6 @@ class Perfil extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'created_at', 
-        'updated_at',
         'pivot'
     ];
 
@@ -62,28 +62,10 @@ class Perfil extends Model
        
     ];
 
-    protected $appends = [
-        'can_delete'
-    ];
-
-    public function menus()
+    public function quartos()
     {
-        return $this->belongsToMany(Menu::class, 'perfil_menu', 'idPerfil', 'idMenu');
+        //return $this->belongsToMany(Quarto::class, 'comodidade_quarto', 'idComodidade', 'idQuarto');
     }
 
-    public function utilizadores()
-    {
-        return $this->belongsToMany(Menu::class, 'perfil_utilizador', 'idPerfil', 'idUtilizador');
-    }
-
-    protected function getCanDeleteAttribute() 
-    {
-        $user = DB::table('perfil_utilizador')->where('idPerfil', $this->id)->get();
-        $menus = DB::table('perfil_menu')->where('idPerfil', $this->id)->get();
-        if(count($user)>0 || count($menus)>0) {
-            return false;
-        } 
-        return true;
-    }
 
 }

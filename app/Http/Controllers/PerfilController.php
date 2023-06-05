@@ -90,6 +90,8 @@ class PerfilController extends Controller
     */
     public function destroy(Perfil $perfil): RedirectResponse
     {
+        $perfil->utilizadores()->detach();
+        $perfil->menus()->detach();
         $perfil->delete();
 
         return redirect()->route('perfis.index')->with('success','Perfil eliminado com sucesso!');

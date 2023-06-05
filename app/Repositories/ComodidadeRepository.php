@@ -2,20 +2,21 @@
 
 namespace App\Repositories;
 
-use App\Models\Perfil;
+use App\Models\Comodidade;
 use Illuminate\Support\Facades\DB;
 
-class PerfilRepository
+class ComodidadeRepository
 {
    private $model;
    
-   public function __construct(Perfil $_model)
+   public function __construct(Comodidade $_model)
    {
       $this->model = $_model;
    }
 
    public function list($limit=20) {
-      return $this->model->paginate($limit);
+    //return $this->model->paginate($limit);
+    return $this->model->all();
    }
 
    public function get($id){
@@ -39,16 +40,15 @@ class PerfilRepository
       return $this->model->create($data);
    }
 
-    public function update($id, $data){
+   public function update($id, $data){
       $d = $this->model->find($id);
       if($d) {
          return $d->update($data);
       }
       return false;
-    }
+   }
 
-    public function delete($id){
-        return $this->model->find($id)->delete();
-    }
-
+   public function delete($id){
+      return $this->model->find($id)->delete();
+   }
 }

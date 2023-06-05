@@ -59,6 +59,7 @@ class PerfilService
         }
         return response()->json(['message' => 'Please, send a valid Json Request'], 400, []);
     }
+    
     public function delete($id, Request $request)
     {
         $res = $this->repository->delete($id);

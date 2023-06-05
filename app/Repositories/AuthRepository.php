@@ -21,16 +21,6 @@ class AuthRepository
         return $this->model->find($id);
     }
 
-    public function getByName($name)
-    {
-        $sql =
-            "SELECT id,name FROM rm_partner WHERE name LIKE '%" .
-            $this->escape($name) .
-            "%'" .
-            ' LIMIT 10';
-        return DB::select($sql) ?? [];
-    }
-
     public function getMenuList($perfil_ids, $rota_activa) {
         $parents = $this->getParentMenuList($perfil_ids);
         foreach($parents as $key => $parent) {
@@ -61,7 +51,7 @@ class AuthRepository
     public function getParentMenuList($perfil_ids)
     {
         $sql = "SELECT 
-            m.*
+            DISTINCT m.*
         FROM 
             `menu` m,
             perfil_menu pm
@@ -69,6 +59,9 @@ class AuthRepository
             m.id = pm.idMenu AND 
             m.`idMenu` IS NULL AND 
             pm.idPerfil IN (".join(',',$perfil_ids).")
+        ORDER BY
+            m.ordem ASC,
+            m.nome ASC
         ";
         return DB::select($sql) ?? [];
     }
@@ -76,7 +69,7 @@ class AuthRepository
     public function getChildMenuList($perfil_ids, $parent_id)
     {
         $sql = "SELECT 
-            m.*
+            DISTINCT m.*
         FROM 
             `menu` m,
             perfil_menu pm
@@ -84,6 +77,9 @@ class AuthRepository
             m.id = pm.idMenu AND 
             m.`idMenu` = ".(int)$parent_id." AND 
             pm.idPerfil IN (".join(',',$perfil_ids).")
+        ORDER BY
+            m.ordem ASC,
+            m.nome ASC
         ";
         return DB::select($sql) ?? [];
     }

@@ -118,6 +118,8 @@ class UtilizadorController extends Controller
     */
     public function destroy(User $utilizador): RedirectResponse
     {
+        
+        $utilizador->perfis()->detach();
         $utilizador->delete();
 
         return redirect()->route('utilizadores.index')->with('success','Utilizador eliminado com sucesso!');

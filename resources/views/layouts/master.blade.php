@@ -10,6 +10,15 @@
         <!-- Font Awesome Icons -->
         <link rel="stylesheet" href="{{asset('/assets/plugins/fontawesome-free/css/all.min.css')}}">
         <link rel="stylesheet" href="{{asset('/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
+
+        <!-- DataTables -->
+        <link rel="stylesheet" href="{{asset('/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+        <link rel="stylesheet" href="{{asset('/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+        <link rel="stylesheet" href="{{asset('/assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+        <!-- SweetAlert2 -->
+        <link rel="stylesheet" href="{{asset('/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
+        <!-- Toastr -->
+        <link rel="stylesheet" href="{{asset('/assets/plugins/toastr/toastr.min.css')}}">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{asset('/assets/css/adminlte.min.css')}}">
     </head>
@@ -46,10 +55,31 @@
     <!-- Bootstrap 4 -->
     <script src="{{asset('/assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}"></script>
-
+    <!-- DataTables  & Plugins -->
+    <script src="{{asset('/assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('/assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+    <!-- SweetAlert2 -->
+    <script src="{{asset('/assets/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+    <!-- Toastr -->
+    <script src="{{asset('/assets/plugins/toastr/toastr.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('/assets/js/adminlte.min.js')}}"></script>
-    <script src="{{asset('/assets/js/common.js?v1.0.0.3')}}"></script>  
+    <script src="{{asset('/assets/js/common.js?v1.0.0.3')}}"></script> 
+    <script>
+        $(function () {
+          $(".table-list").DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+          });
+        });
+    </script> 
     <script>
     $(function () {
         $.ajax({
@@ -61,7 +91,6 @@
             if(user.menu_itens) {
                 $itens = "";
                 $.each(user.menu_itens, function( index, menu ) {
-                    console.table(menu);
                     $itens += buildItens(menu)
                 });
             }
@@ -69,7 +98,6 @@
         });
         
         function buildItens(menu, callback="") {
-            console.table(menu);
             if(menu.tipo == 'collapse') {
                 if(menu.tem_filho_activo) {
                     callback+="<li class='nav-item menu-open'>";
@@ -110,5 +138,6 @@
         }
     });
     </script>
+    @yield('footer-scripts')
     </body>
 </html>
