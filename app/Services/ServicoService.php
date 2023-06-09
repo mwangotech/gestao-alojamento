@@ -4,13 +4,13 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use App\Repositories\ComodidadeRepository;
+use App\Repositories\ServicoRepository;
 use Illuminate\Http\RedirectResponse;
 
-class ComodidadeService
+class ServicoService
 {
     private $repository;
-    public function __construct(ComodidadeRepository $_repository)
+    public function __construct(ServicoRepository $_repository)
     {
         $this->repository = $_repository;
     }

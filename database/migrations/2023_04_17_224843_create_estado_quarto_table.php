@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('estado_quarto', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 155);
+            $table->string('cor', 20)->nullable();
             $table->integer('ordem')->default(0);
             $table->boolean('estado')->default(1);
         });

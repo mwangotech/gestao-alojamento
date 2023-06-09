@@ -20,8 +20,8 @@
             <table class="table-list table table-bordered table-striped">
                 <thead>
                 <tr>
-                    <th width="10px">No</th>
-                    <th>Name</th>
+                    <th width="10px">Cod.</th>
+                    <th>Nome</th>
                     <th class="text-right" width="50px">Ordem</th>
                     <th class="text-center" width="100px">Estado</th>
                     <th  class="text-center" width="70px">Acção</th>

@@ -1,11 +1,11 @@
 @extends('layouts.master')
-@section('title', 'Gestão de Utilizadores')
+@section('title', 'Gestão de Serviços')
  
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="text-right">
-                <a class="btn btn-primary" href="{{ route('utilizadores.create') }}"> Novo</a>
+                <a class="btn btn-primary" href="{{ route('servicos.create') }}"> Novo</a>
             </div>
         </div>
     </div>
@@ -13,31 +13,32 @@
 
     <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title">Lista de Utilizadores</h3>
+          <h3 class="card-title">Lista de Serviços</h3>
         </div>
         <div class="card-body">
             @include('components.messages')
             <table class="table-list table table-bordered table-striped">
                 <thead>
-                    <tr>
-                        <th width="10px">Cod.</th>
-                        <th>Nome</th>
-                        <th>Utilizador</th>
-                        <th>Email</th>
-                        <th class="text-center" width="100px">Estado</th>
-                        <th  class="text-center" width="70px">Acção</th>
-                    </tr>
-                </thead>
-                @foreach ($utilizadores as $utilizador)
                 <tr>
-                    <td>{{ $utilizador->id }}</td>
-                    <td>{{ $utilizador->name }}</td>
-                    <td>{{ $utilizador->username }}</td>
-                    <td>{{ $utilizador->email }}</td>
-                    <td class="text-center">@if ($utilizador->status == 1) <span class="right badge badge-success">Ativo</span> @else <span class="right badge badge-danger">Inativo</span> @endif</td>
+                    <th width="10px">Cod.</th>
+                    <th>Nome</th>
+                    <th class="text-right" width="100px">Preço</th>
+                    <th class="text-right" width="50px">Ordem</th>
+                    <th class="text-center" width="100px">Estado</th>
+                    <th  class="text-center" width="70px">Acção</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($servicos as $servico)
+                <tr>
+                    <td>{{ $servico->id }}</td>
+                    <td>{{ $servico->nome }}</td>
+                    <td class="text-right">{{ $servico->preco }}</td>
+                    <td class="text-right">{{ $servico->ordem }}</td>
+                    <td class="text-center">@if ($servico->estado == 1) <span class="right badge badge-success">Ativo</span> @else <span class="right badge badge-danger">Inativo</span> @endif</td>
                     <td>
-                        <form id="list-form-delete" action="{{ route('utilizadores.destroy',$utilizador->id) }}" method="POST">
-                            <a class="btn btn-primary" href="{{ route('utilizadores.edit',$utilizador->id) }}"><i class="fa fa-pen"></i></a>
+                        <form id="list-form-delete" action="{{ route('servicos.destroy',$servico->id) }}" method="POST">
+                            <a class="btn btn-primary" href="{{ route('servicos.edit',$servico->id) }}"><i class="fa fa-pen"></i></a>
                             @csrf
                             @method('DELETE')
                             <button type="button" class="btn btn-danger form-delete-button"><i class="fa fa-trash"></i></button>
@@ -45,8 +46,8 @@
                     </td>
                 </tr>
                 @endforeach
+                </tbody>
             </table>
-            {!! $utilizadores->links() !!}
         </div>
     </div>
 @endsection

@@ -19,21 +19,5 @@ class MenuService
     {
         return $this->repository->list();
     }
-    public function get($id, Request $request)
-    {
-        $res = $this->repository->get($id);
-        if ($res) {
-        return response()->json(['success' => true, 'data' => $res], 200);
-        }
-        return response()->json(['message' => 'Data not found'], 404);
-    }
-    public function delete($id, Request $request)
-    {
-        $res = $this->repository->delete($id);
-        if ($res) {
-        return response()->json(['success' => $res], 200);
-        }
-        return response()->json(['message' => 'Data not found'], 404);
-    }
 
 }

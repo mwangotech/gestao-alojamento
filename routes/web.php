@@ -38,6 +38,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             $route->resource('utilizadores', UtilizadorController::class)->parameters(['utilizadores' => 'utilizador']);
             $route->resource('menus', MenuController::class)->parameters(['menus' => 'menu']);
             $route->resource('comodidades', ComodidadeController::class)->parameters(['comodidades' => 'comodidade']);
+            $route->resource('servicos', ServicoController::class)->parameters(['servicos' => 'servico']);
+            $route->resource('quartos', QuartoController::class)->parameters(['quartos' => 'quarto']);
+            $route->resource('prestadores', PrestadorController::class)->parameters(['prestadores' => 'prestador']);
             $route->get('/logout', 'AuthController@logout')->name('logout');
         }
     );

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('prestador', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 155);
+            $table->boolean('estado')->default(0);
         });
     }
 
