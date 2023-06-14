@@ -19,5 +19,12 @@ class ComodidadeService
     {
         return $this->repository->list();
     }
+    public function autocomplete(Request $request)
+    {
+        $filter_name = $request->input('filter_name');
+        $res = $this->repository->autocomplete($filter_name);
+        return response()->json($res, 200);
+    }
+    
 
 }

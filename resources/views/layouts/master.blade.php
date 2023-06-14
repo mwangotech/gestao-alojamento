@@ -15,6 +15,8 @@
         <link rel="stylesheet" href="{{asset('/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
         <link rel="stylesheet" href="{{asset('/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
         <link rel="stylesheet" href="{{asset('/assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+        <!-- JQUERY UI -->
+        <link rel="stylesheet" href="{{asset('/assets/plugins/jquery-ui/jquery-ui.min.css')}}">
         <!-- SweetAlert2 -->
         <link rel="stylesheet" href="{{asset('/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
         <!-- Toastr -->
@@ -52,6 +54,7 @@
     
     <!-- jQuery -->
     <script src="{{asset('/assets/plugins/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('/assets/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{asset('/assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{asset('/assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}"></script>
@@ -69,6 +72,7 @@
     <script src="{{asset('/assets/js/common.js?v1.0.0.3')}}"></script> 
     <script>
         $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
           $(".table-list").DataTable({
             "paging": true,
             "lengthChange": false,

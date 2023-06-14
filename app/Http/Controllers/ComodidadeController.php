@@ -33,6 +33,11 @@ class ComodidadeController extends Controller
         return view('pages.comodidade.index',compact('comodidades','breadcrumbs'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
+    public function autocomplete(Request $request)
+    {
+        return $this->service->autocomplete($request);
+    }
+    
     /**
  
     * Show the form for creating a new resource.

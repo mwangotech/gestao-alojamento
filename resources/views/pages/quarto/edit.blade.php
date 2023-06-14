@@ -12,11 +12,11 @@
     </div>
 </div>
    
-    <div class="card card-primary">
-        <div class="card-header">
-          <h3 class="card-title">Editar Quarto</h3>
-        </div>
-        <div class="card-body">
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Editar Quarto</h3>
+    </div>
+    <div class="card-body">
          
         @include('components.messages')
 
@@ -70,17 +70,104 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
+                        <label for="input-comodidade"><span data-toggle="tooltip" title="Filtro letra-a-letra">Comodidades</span></label>
+                        <input type="text" name="comodidade" value="" placeholder="Comodidades" id="input-comodidade" class="form-control"/>
+                        <div id="quarto-comodidade" class="well well-sm" style="padding:10px;background-color: #f5f5f5; height: 150px; overflow: auto;"> 
+                            @foreach ($comodidades as $data)
+                            <div id="quarto-comodidade{{$data->id}}"><i class="fa fa-minus-circle"></i> {{$data->nome}}
+                                <input type="hidden" name="quarto_comodidade[]" value="{{$data->id}}"/>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <label for="input-servico"><span data-toggle="tooltip" title="Filtro letra-a-letra">Serviços</span></label>
+                        <input type="text" name="servico" value="" placeholder="Serviços" id="input-servico" class="form-control"/>
+                        <div id="quarto-servico" class="well well-sm" style="padding:10px;background-color: #f5f5f5; height: 150px; overflow: auto;"> 
+                            @foreach ($servicos as $data)
+                            <div id="quarto-servico{{$data->id}}"><i class="fa fa-minus-circle"></i> {{$data->nome}}
+                                <input type="hidden" name="quarto_servico[]" value="{{$data->id}}"/>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
                         <label>Descrição</label>
                         <textarea class="form-control" name="descricao" rows="5" placeholder="Descrição">{{ $quarto->descricao }}</textarea>
                     </div>
                 </div>
             </div>
         </form>
-        </div>
     </div>
-    <script>
-        $(function () {
-    
+</div>
+@endsection
+@section('footer-scripts')
+<script>
+    $(function () {
+        //Comodidades Autocomplete
+        $('input[name=\'comodidade\']').autocomplete({
+            'source': function(request, response) {
+                console.log(request.term);
+                $.ajax({
+                url: "{{ url('comodidade_autocomplete') }}?filter_name=" + encodeURIComponent(request.term),
+                dataType: 'json',
+                success: function(json) {
+                    response($.map(json, function(item) {
+                    return {
+                        label: item['nome'],
+                        value: item['id']
+                    }
+                    }));
+                }
+                });
+            },
+            'select': function(event, ui) {
+                $('#quarto-comodidade' + ui.item['value']).remove();
+
+                $('#quarto-comodidade').append('<div id="quarto-comodidade' + ui.item['value'] + '"><i class="fa fa-minus-circle"></i> ' + ui.item['label'] + '<input type="hidden" name="quarto_comodidade[]" value="' + ui.item['value'] + '" /></div>');
+
+                $('input[name=\'comodidade\']').val('');
+                event.preventDefault();
+            }
         });
-    </script>  
+
+        $('#quarto-comodidade').delegate('.fa-minus-circle', 'click', function() {
+            $(this).parent().remove();
+        });
+        //Servicos Autocomplete
+        $('input[name=\'servico\']').autocomplete({
+            'source': function(request, response) {
+                console.log(request.term);
+                $.ajax({
+                url: "{{ url('servico_autocomplete') }}?filter_name=" + encodeURIComponent(request.term),
+                dataType: 'json',
+                success: function(json) {
+                    response($.map(json, function(item) {
+                    return {
+                        label: item['nome'],
+                        value: item['id']
+                    }
+                    }));
+                }
+                });
+            },
+            'select': function(event, ui) {
+                $('#quarto-servico' + ui.item['value']).remove();
+
+                $('#quarto-servico').append('<div id="quarto-servico' + ui.item['value'] + '"><i class="fa fa-minus-circle"></i> ' + ui.item['label'] + '<input type="hidden" name="quarto_servico[]" value="' + ui.item['value'] + '" /></div>');
+
+                $('input[name=\'servico\']').val('');
+                event.preventDefault();
+            }
+        });
+
+        $('#quarto-servico').delegate('.fa-minus-circle', 'click', function() {
+            $(this).parent().remove();
+        });
+    });
+</script>  
 @endsection

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\ServicoController;
+use App\Http\Controllers\ComodidadeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +40,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             $route->resource('utilizadores', UtilizadorController::class)->parameters(['utilizadores' => 'utilizador']);
             $route->resource('menus', MenuController::class)->parameters(['menus' => 'menu']);
             $route->resource('comodidades', ComodidadeController::class)->parameters(['comodidades' => 'comodidade']);
+            $route->get('comodidade_autocomplete', [ComodidadeController::class, 'autocomplete']);
             $route->resource('servicos', ServicoController::class)->parameters(['servicos' => 'servico']);
+            $route->get('servico_autocomplete', [ServicoController::class, 'autocomplete']);
             $route->resource('quartos', QuartoController::class)->parameters(['quartos' => 'quarto']);
             $route->resource('prestadores', PrestadorController::class)->parameters(['prestadores' => 'prestador']);
             $route->get('/logout', 'AuthController@logout')->name('logout');
