@@ -2,14 +2,14 @@
 
 namespace App\Repositories;
 
-use App\Models\Comodidade;
+use App\Models\Pais;
 use Illuminate\Support\Facades\DB;
 
-class ComodidadeRepository
+class PaisRepository
 {
    private $model;
    
-   public function __construct(Comodidade $_model)
+   public function __construct(Pais $_model)
    {
       $this->model = $_model;
    }
@@ -17,13 +17,14 @@ class ComodidadeRepository
    public function list($limit=20) {
     return $this->model->all();
    }
-    public function autocomplete($filter_name) {
+   public function autocomplete($filter_name) {
         if(!empty($filter_name)) {
             return $this->model->where('nome', 'LIKE', "%{$filter_name}%")->limit(6)->get();
         } else {
             return $this->model->limit(6)->get();
-        }
-    }
+        } 
+   }
+   
    public function get($id){
       return $this->model->find($id);
    }

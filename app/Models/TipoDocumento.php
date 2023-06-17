@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class EstadoQuarto extends Model
+class TipoDocumento extends Model
 {
     use HasFactory;
     /**
@@ -14,7 +14,7 @@ class EstadoQuarto extends Model
     *
     * @var string
     */
-    protected $table = 'estado_quarto';
+    protected $table = 'tipo_documento';
     
     /**
      * The primary key associated with the table.
@@ -38,6 +38,8 @@ class EstadoQuarto extends Model
     protected $fillable = [
         'id', 
         'nome', 
+        'civil',
+        'fiscal',
         'ordem',
         'estado',
     ];

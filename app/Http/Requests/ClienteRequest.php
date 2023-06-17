@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 
-class QuartoRequest extends FormRequest
+class ClienteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,7 @@ class QuartoRequest extends FormRequest
     {
         return [
             'nome' => 'required',
-            'preco' => 'required',
-            'numero' => 'required',
-            'idEstadoQuarto' => 'required',
-            'limit_adulto' => 'required',
-            'limit_crianca' => 'required'
+            'email' => 'required',
         ];
     }
 
@@ -37,12 +33,8 @@ class QuartoRequest extends FormRequest
     {
         return [
             'nome.required' => 'Nome é obrigatório',
-            'preco.required' => 'Preço é obrigatório',
-            'numero.required' => 'Número é obrigatório',
-            'idEstadoQuarto.required' => 'Estado Quarto é obrigatório',
-            'limit_adulto.required' => 'Limite Adulto é obrigatório',
-            'limit_crianca.required' => 'Limite Criança é obrigatório',
+            'email.required' => 'Email é obrigatório',
         ];
     }
-
+ 
 }

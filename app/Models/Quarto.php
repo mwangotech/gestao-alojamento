@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Quarto extends Model
 {
@@ -69,7 +70,8 @@ class Quarto extends Model
 
     protected $appends = [
         'nomeEstadoQuarto',
-        'corEstadoQuarto'
+        'corEstadoQuarto',
+        'can_delete'
     ];
 
     protected function estadoQuarto()
@@ -98,5 +100,14 @@ class Quarto extends Model
         return $this->belongsToMany(Servico::class, 'servico_quarto', 'idQuarto', 'idServico');
     }
 
+
+    protected function getCanDeleteAttribute() 
+    {
+        $reservas = DB::table('reserva')->where('idQuarto', $this->id)->get();
+        if(count($reservas)>0) {
+            return false;
+        } 
+        return true;
+    }
 
 }

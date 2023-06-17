@@ -27,7 +27,7 @@ return new class extends Migration
 
             $table->foreign('idTipo')->references('id')->on('tipo_cliente');
             $table->foreign('idNacionalidade')->references('id')->on('pais');
-            $table->foreign('idProvincia')->references('id')->on('perfil');
+            $table->foreign('idProvincia')->references('id')->on('provincia');
             $table->foreign('idGenero')->references('id')->on('genero');
             $table->foreign('idEstadoCivil')->references('id')->on('estado_civil');
         });

@@ -2,19 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class EstadoQuarto extends Model
+class Pais extends Model
 {
     use HasFactory;
+
     /**
     * The table associated with the model.
     *
     * @var string
     */
-    protected $table = 'estado_quarto';
+    protected $table = 'pais';
     
     /**
      * The primary key associated with the table.
@@ -36,8 +36,14 @@ class EstadoQuarto extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id', 
+        'id',
         'nome', 
+        'nacionalidade', 
+        'prefixTelefone',
+        'codigoIso2',
+        'codigoIso3',
+        'formatoEndereco',
+        'codigoPostalObrigatorio',
         'ordem',
         'estado',
     ];
@@ -57,11 +63,14 @@ class EstadoQuarto extends Model
      * @var array<string, string>
      */
     protected $casts = [
-       
     ];
 
     protected $appends = [
-
     ];
+
+    protected function provincias()
+    {
+        return $this->hasMany(Provincia::class, 'idPais');
+    }
 
 }

@@ -1,11 +1,11 @@
 @extends('layouts.master')
-@section('title', 'Gestão de Quartos')
+@section('title', 'Gestão de Clientes')
  
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="text-right">
-                <a class="btn btn-primary" href="{{ route('quartos.create') }}"> Novo</a>
+                <a class="btn btn-primary" href="{{ route('clientes.create') }}"> Novo</a>
             </div>
         </div>
     </div>
@@ -13,7 +13,7 @@
 
     <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title">Lista de Quartos</h3>
+          <h3 class="card-title">Lista de Clientes</h3>
         </div>
         <div class="card-body">
             @include('components.messages')
@@ -22,30 +22,33 @@
                 <tr>
                     <th width="10px">Cod.</th>
                     <th>Nome</th>
-                    <th>número</th>
-                    <th class="text-right" width="100px">Preço</th>
-                    <th class="text-right" width="100px">Nº Adulto</th>
-                    <th class="text-right" width="100px">Nº Crianças</th>
-                    <th class="text-center" width="100px">Estado</th>
-                    <th  class="text-center" width="70px">Acção</th>
+                    <th>Email</th>
+                    <th width="70px">Telefone</th>
+                    <th width="70px">Tipo</th>
+                    <th width="100px">Nacionalidade</th>
+                    <th width="100px">Provincia</th>
+                    <th width="70px">Genero</th>
+                    <th class="text-center" width="120px">Acção</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($quartos as $quarto)
+                @foreach ($clientes as $cliente)
                 <tr>
-                    <td>{{ $quarto->id }}</td>
-                    <td>{{ $quarto->nome }}</td>
-                    <td>{{ $quarto->numero }}</td>
-                    <td class="text-right">{{ $quarto->preco }}</td>
-                    <td class="text-right">{{ $quarto->limit_adulto }}</td>
-                    <td class="text-right">{{ $quarto->limit_crianca }}</td>
-                    <td class="text-center"><span class="right badge {{ $quarto->corEstadoQuarto }}">{{ $quarto->nomeEstadoQuarto }}</span></td>
+                    <td>{{ $cliente->id }}</td>
+                    <td>{{ $cliente->nome }}</td>
+                    <td>{{ $cliente->email }}</td>
+                    <td>{{ $cliente->telefone }}</td>
+                    <td>{{ $cliente->nomeTipo }}</td>
+                    <td>{{ $cliente->nomeNacionalidade }}</td>
+                    <td>{{ $cliente->nomeProvincia }}</td>
+                    <td>{{ $cliente->nomeGenero }}</td>
                     <td>
-                        <form id="list-form-delete" action="{{ route('quartos.destroy',$quarto->id) }}" method="POST">
-                            <a class="btn btn-primary" href="{{ route('quartos.edit',$quarto->id) }}"><i class="fa fa-pen"></i></a>
+                        <form id="list-form-delete" action="{{ route('clientes.destroy',$cliente->id) }}" method="POST">
+                            <a class="btn btn-success" href="{{ route('clientes.show',$cliente->id) }}"><i class="fa fa-eye"></i></a>
+                            <a class="btn btn-primary" href="{{ route('clientes.edit',$cliente->id) }}"><i class="fa fa-pen"></i></a>
                             @csrf
                             @method('DELETE')
-                            <button @if (!$quarto->can_delete) disabled="disabled" @endif type="button" class="btn btn-danger form-delete-button"><i class="fa fa-trash"></i></button>
+                            <button @if (!$cliente->can_delete) disabled="disabled" @endif type="button" class="btn btn-danger form-delete-button"><i class="fa fa-trash"></i></button>
                         </form>
                     </td>
                 </tr>

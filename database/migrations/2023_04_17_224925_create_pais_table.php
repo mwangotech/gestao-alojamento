@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pais', function (Blueprint $table) {
             $table->id();
-            $table->string('pais');
+            $table->string('nome');
             $table->string('nacionalidade')->nullable();
             $table->string('prefixTelefone', 10)->nullable();
             $table->string('regexTelefone', 255)->nullable();
