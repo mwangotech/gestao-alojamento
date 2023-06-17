@@ -26,7 +26,7 @@
                     <th width="70px">Telefone</th>
                     <th width="70px">Tipo</th>
                     <th width="100px">Nacionalidade</th>
-                    <th width="100px">Provincia</th>
+                    <th width="100px">Província</th>
                     <th width="70px">Genero</th>
                     <th class="text-center" width="120px">Acção</th>
                 </tr>

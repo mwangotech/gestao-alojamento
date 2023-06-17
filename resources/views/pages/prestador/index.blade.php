@@ -23,6 +23,7 @@
                     <th width="10px">Cod.</th>
                     <th>Nome</th>
                     <th class="text-center" width="100px">Estado</th>
+                    <th  class="text-center" width="70px">Acção</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,14 @@
                     <td>{{ $prestador->id }}</td>
                     <td>{{ $prestador->nome }}</td>
                     <td class="text-center">@if ($prestador->estado == 1) <span class="right badge badge-success">Ativo</span> @else <span class="right badge badge-danger">Inativo</span> @endif</td>
+                    <td>
+                        <form id="list-form-delete" action="{{ route('prestadores.destroy',$prestador->id) }}" method="POST">
+                            <a class="btn btn-primary" href="{{ route('prestadores.edit',$prestador->id) }}"><i class="fa fa-pen"></i></a>
+                            @csrf
+                            @method('DELETE')
+                            <button type="button" class="btn btn-danger form-delete-button"><i class="fa fa-trash"></i></button>
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
                 </tbody>

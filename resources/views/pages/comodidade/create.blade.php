@@ -25,19 +25,19 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Nome:<span style="color:red">*</span></strong>
+                        <label>Nome:<span style="color:red">*</span></label>
                         <input type="text" name="nome" value="{{ old('nome') }}" class="form-control" placeholder="Nome">
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-xs-12 col-sm-12 col-md-6">
                     <div class="form-group">
-                        <strong>Preço:<span style="color:red">*</span></strong>
+                        <label>Preço:<span style="color:red">*</span></label>
                         <input type="number" name="preco" value="{{ old('preco') }}" class="form-control" placeholder="Preço">
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-xs-12 col-sm-12 col-md-6">
                     <div class="form-group">
-                        <strong>Ordem:<span style="color:red">*</span></strong>
+                        <label>Ordem:<span style="color:red">*</span></label>
                         <input type="number" name="ordem" value="{{ old('ordem') }}" class="form-control" placeholder="Ordem">
                     </div>
                 </div>
@@ -50,7 +50,7 @@
             
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Activo?:</strong>
+                        <label>Activo?:</label>
                         <input type="hidden" value="0" name="estado">
                         <div class="icheck-primary d-inline">
                             <input type="checkbox" name="estado" value="1" @if (old('estado'))checked="checked"@endif id="checkboxPrimary2">

@@ -26,6 +26,8 @@ class ClienteRequest extends FormRequest
         return [
             'nome' => 'required',
             'email' => 'required',
+            'idNacionalidade' => 'required',
+            'idProvincia' => 'required'
         ];
     }
 
@@ -34,6 +36,8 @@ class ClienteRequest extends FormRequest
         return [
             'nome.required' => 'Nome é obrigatório',
             'email.required' => 'Email é obrigatório',
+            'idNacionalidade.required' => 'Nacionalidade é obrigatório',
+            'idProvincia.required' => 'Província é obrigatório',
         ];
     }
  
