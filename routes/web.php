@@ -42,14 +42,16 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             $route->resource('utilizadores', UtilizadorController::class)->parameters(['utilizadores' => 'utilizador']);
             $route->resource('menus', MenuController::class)->parameters(['menus' => 'menu']);
             $route->resource('prestadores', PrestadorController::class)->parameters(['prestadores' => 'prestador']);
+            $route->resource('paises', PaisController::class)->parameters(['paises' => 'pais']);
+            $route->resource('provincias', ProvinciaController::class)->parameters(['provincias' => 'provincia']);
+            $route->get('pais_autocomplete', [PaisController::class, 'autocomplete']);
+            $route->get('provincia_autocomplete', [ProvinciaController::class, 'autocomplete']);
             $route->resource('comodidades', ComodidadeController::class)->parameters(['comodidades' => 'comodidade']);
             $route->get('comodidade_autocomplete', [ComodidadeController::class, 'autocomplete']);
             $route->resource('servicos', ServicoController::class)->parameters(['servicos' => 'servico']);
             $route->get('servico_autocomplete', [ServicoController::class, 'autocomplete']);
             $route->resource('quartos', QuartoController::class)->parameters(['quartos' => 'quarto']);
             $route->resource('clientes', ClienteController::class)->parameters(['clientes' => 'cliente']);
-            $route->get('pais_autocomplete', [PaisController::class, 'autocomplete']);
-            $route->get('provincia_autocomplete', [ProvinciaController::class, 'autocomplete']);
             $route->get('/logout', 'AuthController@logout')->name('logout');
         }
     );

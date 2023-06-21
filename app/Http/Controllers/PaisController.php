@@ -24,13 +24,13 @@ class PaisController extends Controller
     */
     public function index(Request $request): View
     {
-        $paiss = $this->service->list();
+        $paises = $this->service->list();
 
         $breadcrumbs = array(
             ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],
             ['name'=> 'Pais','url' => '','active' => 1]
         );
-        return view('pages.pais.index',compact('paiss','breadcrumbs'))->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('pages.pais.index',compact('paises','breadcrumbs'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     public function autocomplete(Request $request)
@@ -47,7 +47,7 @@ class PaisController extends Controller
     {
         $breadcrumbs = array(
             ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],
-            ['name'=> 'Pais','url' => route('paiss.index'),'active' => 0],
+            ['name'=> 'Pais','url' => route('paises.index'),'active' => 0],
             ['name'=> 'Novo','url' => '','active' => 1]
         );
         return view('pages.pais.create',compact('breadcrumbs'));
@@ -62,7 +62,7 @@ class PaisController extends Controller
     {        
         Pais::create($request->all());
 
-        return redirect()->route('paiss.index')->with('success','Pais criado com sucesso.');
+        return redirect()->route('paises.index')->with('success','Pais criado com sucesso.');
     }
 
     /**
@@ -72,7 +72,7 @@ class PaisController extends Controller
     {
         $breadcrumbs = array(
             ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],
-            ['name'=> 'Pais','url' => route('paiss.index'),'active' => 0],
+            ['name'=> 'Pais','url' => route('paises.index'),'active' => 0],
             ['name'=> 'Editar','url' => '','active' => 1]
         );
         return view('pages.pais.edit',compact('pais','breadcrumbs'));
@@ -85,7 +85,7 @@ class PaisController extends Controller
     { 
         $pais->update($request->all());
 
-        return redirect()->route('paiss.index')->with('success','Pais atualizado com sucesso.');
+        return redirect()->route('paises.index')->with('success','Pais atualizado com sucesso.');
     }
 
 
@@ -97,6 +97,6 @@ class PaisController extends Controller
     {
         $pais->delete();
 
-        return redirect()->route('paiss.index')->with('success','Pais eliminado com sucesso!');
+        return redirect()->route('paises.index')->with('success','Pais eliminado com sucesso!');
     }
 }

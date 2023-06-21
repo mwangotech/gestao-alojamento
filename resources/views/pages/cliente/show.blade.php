@@ -16,7 +16,7 @@
                     <strong class="text-info"><i class="fas fa-venus-double mr-1"></i> Estado Civil</strong> <span class="float-right">{{ $cliente->nomeEstadoCivil }}</span>
                   </li>
                   <li class="list-group-item">
-                    <strong class="text-info"><i class="fas fa-venus-double mr-1"></i> Nascimento</strong> <span class="float-right">{{ $cliente->dataNascimento }}</span>
+                    <strong class="text-info"><i class="fas fa-calendar mr-1"></i> Nascimento</strong> <span class="float-right">{{ $cliente->dataNascimento }}</span>
                   </li>
                   <li class="list-group-item">
                     <strong class="text-info"><i class="fas fa-globe mr-1"></i> Pais</strong> <span class="float-right">{{ $cliente->nomeNacionalidade }}</span>
