@@ -14,7 +14,7 @@
    
     <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title">Nova Quarto</h3>
+          <h3 class="card-title">Novo Quarto</h3>
         </div>
         <div class="card-body">
          

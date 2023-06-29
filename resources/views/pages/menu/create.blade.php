@@ -50,7 +50,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Icone:</strong>
-                            <input type="text" name="icone" value="{{ old('icone') }}" class="form-control" placeholder="Icone">
+                            <input type="text" name="icone" value="{{ old('icone')??'far fa-circle' }}" class="form-control" placeholder="Icone">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">

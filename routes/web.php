@@ -8,16 +8,6 @@ use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\ComodidadeController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::group(
         [
@@ -42,6 +32,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             $route->resource('utilizadores', UtilizadorController::class)->parameters(['utilizadores' => 'utilizador']);
             $route->resource('menus', MenuController::class)->parameters(['menus' => 'menu']);
             $route->resource('prestadores', PrestadorController::class)->parameters(['prestadores' => 'prestador']);
+            $route->resource('disponibilidades', DisponibilidadeController::class)->parameters(['disponibilidades' => 'disponibilidade']);
             $route->resource('paises', PaisController::class)->parameters(['paises' => 'pais']);
             $route->resource('provincias', ProvinciaController::class)->parameters(['provincias' => 'provincia']);
             $route->get('pais_autocomplete', [PaisController::class, 'autocomplete']);

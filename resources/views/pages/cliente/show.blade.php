@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Gestão de Clientes')
+@section('title', 'Detalhes do Cliente')
  
 @section('content')
 <div class="row">
@@ -51,11 +51,11 @@
                   <div class="tab-pane active" id="timeline">
                     <div class="timeline timeline-inverse">
                         <div class="time-label">
-                           <span class="bg-danger">
-                           10 Feb. 2014
+                           <span class="bg-success">
+                           28 Jun. 2023
                            </span>
                         </div>
-                        <div>
+                        {{--<div>
                            <i class="fas fa-envelope bg-primary"></i>
                            <div class="timeline-item">
                               <span class="time"><i class="far fa-clock"></i> 12:05</span>
@@ -71,26 +71,28 @@
                                  <a href="#" class="btn btn-danger btn-sm">Delete</a>
                               </div>
                            </div>
-                        </div>
+                        </div>--}}
                         <div>
                            <i class="fas fa-user bg-info"></i>
                            <div class="timeline-item">
-                              <span class="time"><i class="far fa-clock"></i> 5 mins ago</span>
-                              <h3 class="timeline-header border-0"><a href="#">Sarah Young</a> accepted your friend request</h3>
+                              <span class="time"><i class="far fa-clock"></i> Há 5 minutos</span>
+                              <h3 class="timeline-header border-0"><a href="#">Maria Francisco</a> Finalizou a limpeza do quarto</h3>
                            </div>
                         </div>
                         <div>
+                            <i class="fas fa-user bg-info"></i>
+                            <div class="timeline-item">
+                               <span class="time"><i class="far fa-clock"></i> Há 25 minutos</span>
+                               <h3 class="timeline-header border-0"><a href="#">Maria Francisco</a> Iniciou a limpeza do quarto</h3>
+                            </div>
+                         </div>
+                        <div>
                            <i class="fas fa-comments bg-warning"></i>
                            <div class="timeline-item">
-                              <span class="time"><i class="far fa-clock"></i> 27 mins ago</span>
-                              <h3 class="timeline-header"><a href="#">Jay White</a> commented on your post</h3>
+                              <span class="time"><i class="far fa-clock"></i> Há 22 horas</span>
+                              <h3 class="timeline-header"><a href="#">Recepção</a> Check-in Reserva #987</h3>
                               <div class="timeline-body">
-                                 Take me to your leader!
-                                 Switzerland is small and neutral!
-                                 We are more like Germany, ambitious and misunderstood!
-                              </div>
-                              <div class="timeline-footer">
-                                 <a href="#" class="btn btn-warning btn-flat btn-sm">View comment</a>
+                                 Está incluido na reserva os seguintes serviços: pequeno almoço, acesso a biblioteca
                               </div>
                            </div>
                         </div>
@@ -100,20 +102,14 @@
                            </span>
                         </div>
                         <div>
-                           <i class="fas fa-camera bg-purple"></i>
-                           <div class="timeline-item">
-                              <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
-                              <h3 class="timeline-header"><a href="#">Mina Lee</a> uploaded new photos</h3>
-                              <div class="timeline-body">
-                                 <img src="https://placehold.it/150x100" alt="...">
-                                 <img src="https://placehold.it/150x100" alt="...">
-                                 <img src="https://placehold.it/150x100" alt="...">
-                                 <img src="https://placehold.it/150x100" alt="...">
-                              </div>
-                           </div>
-                        </div>
+                            <i class="fas fa-comments bg-warning"></i>
+                            <div class="timeline-item">
+                               <span class="time"><i class="far fa-clock"></i> Há 2 meses</span>
+                               <h3 class="timeline-header"><a href="#">Recepção</a> check-out Reserva #587</h3>
+                            </div>
+                         </div>
                         <div>
-                           <i class="far fa-clock bg-gray"></i>
+                           <i class="far fa-clock bg-grey"></i>
                         </div>
                     </div>
                   </div>

@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box">
-              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+              <span class="info-box-icon bg-info elevation-1"><i class="far fa-flag"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">Quartos Disponiveis</span>
@@ -20,7 +20,7 @@
           <!-- /.col -->
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
-              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-podcast"></i></span>
 
               <div class="info-box-content">
                 <span class="info-box-text">Quartos Oucupados</span>
@@ -69,37 +69,11 @@
             <div class="card">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                  <a href="javascript:void(0);"><h3 class="card-title">Hospedes/Semana</h3></a>
+                  <a href="javascript:void(0);"><h3 class="card-title">Reservas por Semana</h3></a>
                 </div>
               </div>
               <div class="card-body">
-                <div class="d-flex">
-                  <p class="d-flex flex-column">
-                    <span class="text-bold text-lg">820</span>
-                    <span>Ao Longo do Periodo</span>
-                  </p>
-                  <p class="ml-auto d-flex flex-column text-right">
-                    <span class="text-success">
-                      <i class="fas fa-arrow-up"></i> 12.5%
-                    </span>
-                    <span class="text-muted">Desde a Semana Passada</span>
-                  </p>
-                </div>
-                <!-- /.d-flex -->
-
-                <div class="position-relative mb-4">
-                  <canvas id="visitors-chart" height="200"></canvas>
-                </div>
-
-                <div class="d-flex flex-row justify-content-end">
-                  <span class="mr-2">
-                    <i class="fas fa-square text-primary"></i> Está Semana
-                  </span>
-
-                  <span>
-                    <i class="fas fa-square text-gray"></i> Semana Passada
-                  </span>
-                </div>
+                <div style="height: 300px;" id="week-chart"></div>
               </div>
             </div>
             <!-- /.card -->
@@ -107,104 +81,41 @@
             <div class="card">
               <div class="card-header border-0">
                 <h3 class="card-title"><a href="javascript:void(0);"><h3 class="card-title">Reservas a Começar</h3></a></h3>
-                <div class="card-tools">
-                  <a href="#" class="btn btn-tool btn-sm">
-                    <i class="fas fa-download"></i>
-                  </a>
-                  <a href="#" class="btn btn-tool btn-sm">
-                    <i class="fas fa-bars"></i>
-                  </a>
-                </div>
               </div>
               <div class="card-body table-responsive p-0">
-                <table class="table table-striped table-valign-middle">
-                  <thead>
-                  <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Sales</th>
-                    <th>More</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Some Product
-                    </td>
-                    <td>$13 USD</td>
-                    <td>
-                      <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        12%
-                      </small>
-                      12,000 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Another Product
-                    </td>
-                    <td>$29 USD</td>
-                    <td>
-                      <small class="text-warning mr-1">
-                        <i class="fas fa-arrow-down"></i>
-                        0.5%
-                      </small>
-                      123,234 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Amazing Product
-                    </td>
-                    <td>$1,230 USD</td>
-                    <td>
-                      <small class="text-danger mr-1">
-                        <i class="fas fa-arrow-down"></i>
-                        3%
-                      </small>
-                      198 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Perfect Item
-                      <span class="badge bg-danger">NEW</span>
-                    </td>
-                    <td>$199 USD</td>
-                    <td>
-                      <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        63%
-                      </small>
-                      87 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  </tbody>
+                <table class="table-home table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Quarto</th>
+                            <th>Cliente</th>
+                            <th>Faturação</th>
+                            <th>Data</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><a href="#" class="text-muted">998&nbsp;<i class="fas fa-link"></i></a></td>
+                            <td>Quarto Solteiro#201</td>
+                            <td>Mario Diogo</td>
+                            <td>75 000 kz</td>
+                            <td>29/06/2023 11:30</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="text-muted">1002&nbsp;<i class="fas fa-link"></i></a></td>
+                            <td>Quarto Solteiro#203</td>
+                            <td>Matos Zenga</td>
+                            <td>80 000 kz</td>
+                            <td>30/06/2023 13:30</td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="text-muted">10021&nbsp;<i class="fas fa-link"></i></a></td>
+                            <td>Quarto Casal#102</td>
+                            <td>Igor Viera</td>
+                            <td>133 000 kz</td>
+                            <td>30/06/2023 12:30</td>
+                        </tr>
+                        </tbody>
                 </table>
               </div>
             </div>
@@ -215,37 +126,11 @@
             <div class="card">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title"><a href="javascript:void(0);"><h3 class="card-title">Reservas/Mês</h3></a></h3>
+                  <h3 class="card-title"><a href="javascript:void(0);"><h3 class="card-title">Reservas por Mês</h3></a></h3>
                 </div>
               </div>
               <div class="card-body">
-                <div class="d-flex">
-                  <p class="d-flex flex-column">
-                    <span class="text-bold text-lg">$18,230.00</span>
-                    <span>Ao Longo do Periodo</span>
-                  </p>
-                  <p class="ml-auto d-flex flex-column text-right">
-                    <span class="text-success">
-                      <i class="fas fa-arrow-up"></i> 33.1%
-                    </span>
-                    <span class="text-muted">Desde o Mês Passado</span>
-                  </p>
-                </div>
-                <!-- /.d-flex -->
-
-                <div class="position-relative mb-4">
-                  <canvas id="sales-chart" height="200"></canvas>
-                </div>
-
-                <div class="d-flex flex-row justify-content-end">
-                  <span class="mr-2">
-                    <i class="fas fa-square text-primary"></i> Esté Ano
-                  </span>
-
-                  <span>
-                    <i class="fas fa-square text-gray"></i> Ano Passado
-                  </span>
-                </div>
+                <div style="height: 300px;" id="month-chart"></div>
               </div>
             </div>
             <!-- /.card -->
@@ -253,102 +138,39 @@
             <div class="card">
               <div class="card-header border-0">
                 <h3 class="card-title"><h3 class="card-title"><a href="javascript:void(0);"><h3 class="card-title">Reservas a Terminar</h3></a></h3></h3>
-                <div class="card-tools">
-                  <a href="#" class="btn btn-tool btn-sm">
-                    <i class="fas fa-download"></i>
-                  </a>
-                  <a href="#" class="btn btn-tool btn-sm">
-                    <i class="fas fa-bars"></i>
-                  </a>
-                </div>
               </div>
               <div class="card-body table-responsive p-0">
-                <table class="table table-striped table-valign-middle">
+                <table class="table-home table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Sales</th>
-                    <th>More</th>
+                    <th>#</th>
+                    <th>Quarto</th>
+                    <th>Cliente</th>
+                    <th>Faturação</th>
+                    <th>Data</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Some Product
-                    </td>
-                    <td>$13 USD</td>
-                    <td>
-                      <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        12%
-                      </small>
-                      12,000 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
+                    <td><a href="#" class="text-muted">1001&nbsp;<i class="fas fa-link"></i></a></td>
+                    <td>Quarto Casal#101</td>
+                    <td>Sampaio Pedro</td>
+                    <td>125 000 kz</td>
+                    <td>10/07/2023  09:30</td>
                   </tr>
                   <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Another Product
-                    </td>
-                    <td>$29 USD</td>
-                    <td>
-                      <small class="text-warning mr-1">
-                        <i class="fas fa-arrow-down"></i>
-                        0.5%
-                      </small>
-                      123,234 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
+                    <td><a href="#" class="text-muted">1011&nbsp;<i class="fas fa-link"></i></a></td>
+                    <td>Quarto Solteiro#105</td>
+                    <td>Zenilda Zenga</td>
+                    <td>160 000 kz</td>
+                    <td>12/07/2023 12:00</td>
                   </tr>
                   <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Amazing Product
-                    </td>
-                    <td>$1,230 USD</td>
-                    <td>
-                      <small class="text-danger mr-1">
-                        <i class="fas fa-arrow-down"></i>
-                        3%
-                      </small>
-                      198 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="dist/img/default-150x150.png" alt="Product 1" class="img-circle img-size-32 mr-2">
-                      Perfect Item
-                      <span class="badge bg-danger">NEW</span>
-                    </td>
-                    <td>$199 USD</td>
-                    <td>
-                      <small class="text-success mr-1">
-                        <i class="fas fa-arrow-up"></i>
-                        63%
-                      </small>
-                      87 Sold
-                    </td>
-                    <td>
-                      <a href="#" class="text-muted">
-                        <i class="fas fa-search"></i>
-                      </a>
-                    </td>
+                    <td><a href="#" class="text-muted">1031&nbsp;<i class="fas fa-link"></i></a></td>
+                    <td>Quarto Casal#100</td>
+                    <td>Kiesse Matos</td>
+                    <td>134 000 kz</td>
+                    <td>03/07/2023 13:00</td>
                   </tr>
                   </tbody>
                 </table>
@@ -358,4 +180,164 @@
           <!-- /.col-md-6 -->
         </div>
         <!-- /.row -->
-@stop
+@endsection
+@section('footer-scripts')
+<script>
+const dataSource = [{
+    day: 'Seg',
+    values: 3,
+  }, {
+    day: 'Ter',
+    values: 2,
+  }, {
+    day: 'Qua',
+    values: 3,
+  }, {
+    day: 'Qui',
+    values: 4,
+  }, {
+    day: 'Sex',
+    values: 6,
+  }, {
+    day: 'Sab',
+    values: 11,
+  }, {
+    day: 'Dom',
+    values: 4,
+  }];
+$('#week-chart').dxChart({
+    dataSource: dataSource,
+    series: {
+        argumentField: 'day',
+        valueField: 'values',
+        name: {
+            visible: false
+        },
+        type: 'bar',
+        color: '#17A2B8',
+    },
+    legend: {
+        visible:false
+    },
+    commonAxisSettings: {
+        label: {
+            visible:false
+        },
+        grid: {
+            visible: false
+        },
+        tick: {
+            visible: false
+        },
+    },
+    argumentAxis: {
+        visible: false,
+        label: {
+            visible:true
+        },
+    },
+    valueAxis: {
+        visible: false,
+        label: {
+            visible:true
+        },
+        grid: {
+            visible: true
+        }
+    },
+    tooltip: {
+        enabled: true,
+        zIndex: 999,
+        customizeTooltip(arg) {
+            return {
+                text: `Reservas: ${format_AOA(arg.valueText)}`,
+            };
+        },
+    },
+});
+const dataSource2 = [{
+    month: 'Jan',
+    values: 10,
+  }, {
+    month: 'Fev',
+    values: 23,
+  }, {
+    month: 'Mar',
+    values: 14,
+  }, {
+    month: 'Mai',
+    values: 7,
+  }, {
+    month: 'Jun',
+    values: 9,
+  }, {
+    month: 'Jul',
+    values: 5,
+  }, {
+    month: 'Ago',
+    values: 13,
+  }, {
+    month: 'Set',
+    values: 15,
+  }, {
+    month: 'Out',
+    values: 23,
+  }, {
+    month: 'Nov',
+    values: 20,
+  }, {
+    month: 'Dez',
+    values: 22,
+  }];
+$('#month-chart').dxChart({
+    dataSource: dataSource2,
+    series: {
+        argumentField: 'month',
+        valueField: 'values',
+        name: {
+            visible: false
+        },
+        type: 'bar',
+        color: '#17A2B8',
+    },
+    legend: {
+        visible:false
+    },
+    commonAxisSettings: {
+        label: {
+            visible:false
+        },
+        grid: {
+            visible: false
+        },
+        tick: {
+            visible: false
+        },
+    },
+    argumentAxis: {
+        visible: false,
+        label: {
+            visible:true
+        },
+    },
+    valueAxis: {
+        visible: false,
+        label: {
+            visible:true
+        },
+        grid: {
+            visible: true
+        }
+    },
+    tooltip: {
+        enabled: true,
+        zIndex: 999,
+        customizeTooltip(arg) {
+            return {
+                text: `Reservas: ${format_AOA(arg.valueText)}`,
+            };
+        },
+    },
+  });
+</script>
+@endsection

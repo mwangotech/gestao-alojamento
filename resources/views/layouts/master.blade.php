@@ -21,8 +21,12 @@
         <link rel="stylesheet" href="{{asset('/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
         <!-- Toastr -->
         <link rel="stylesheet" href="{{asset('/assets/plugins/toastr/toastr.min.css')}}">
+
         <!-- Theme style -->
         <link rel="stylesheet" href="{{asset('/assets/css/adminlte.min.css')}}">
+
+        <!-- DevExtrem CSS -->
+        <link rel="stylesheet" href="{{asset('/assets/plugins/devextreme_v21_2_6/dx.light.css')}}">
     </head>
     <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -67,21 +71,36 @@
     <script src="{{asset('/assets/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
     <!-- Toastr -->
     <script src="{{asset('/assets/plugins/toastr/toastr.min.js')}}"></script>
+    <!-- DevExtrem JS -->
+    <script type="text/javascript" src="{{asset('/assets/plugins/devextreme_v21_2_6/dx.all.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('/assets/js/adminlte.min.js')}}"></script>
     <script src="{{asset('/assets/js/common.js?v1.0.0.3')}}"></script> 
     <script>
+
+        function format_AOA(num) {
+            return new Intl.NumberFormat('pt-AO', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(num);
+        }
         $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-          $(".table-list").DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-          });
+            $('[data-toggle="tooltip"]').tooltip()
+            $(".table-list").DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+            $(".table-home").DataTable({
+                "paging": false,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": false,
+                "autoWidth": false,
+                "responsive": true,
+            });
         });
     </script> 
     <script>
