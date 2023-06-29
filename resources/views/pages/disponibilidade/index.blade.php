@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="text-right">
-                <a class="btn btn-primary" href="{{ route('disponibilidades.create') }}"> Novo</a>
+                {{--<a class="btn btn-primary" href="{{ route('disponibilidades.create') }}"> Novo</a>--}}
             </div>
         </div>
     </div>
