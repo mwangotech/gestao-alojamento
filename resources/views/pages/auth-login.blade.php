@@ -13,8 +13,24 @@
     <link rel="stylesheet" href="{{asset('/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('/assets/css/adminlte.min.css')}}">
+    <style>
+        #background-video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            z-index: -1;
+        }
+    </style>
 </head>
 <body class="hold-transition login-page">
+<video id="background-video" autoplay loop muted>
+    <source src="{{asset('/assets/video/bg.mp4')}}" type="video/mp4">
+</video>
 <div class="login-box">
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">

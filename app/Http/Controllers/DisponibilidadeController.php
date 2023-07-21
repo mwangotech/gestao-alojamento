@@ -23,12 +23,12 @@ class DisponibilidadeController extends Controller
     */
     public function index(Request $request): View
     {
-        $disponibilidadees = $this->service->list();
+        $disponibilidades = $this->service->list();
 
         $breadcrumbs = array(
             ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],
             ['name'=> 'Disponibilidade','url' => '','active' => 1]
         );
-        return view('pages.disponibilidade.index',compact('breadcrumbs'))->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('pages.disponibilidade.index',compact('breadcrumbs','disponibilidades'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 }

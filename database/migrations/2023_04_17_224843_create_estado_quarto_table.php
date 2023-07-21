@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nome', 155);
             $table->string('cor', 20)->nullable();
+            $table->string('icon', 50)->nullable();
             $table->integer('ordem')->default(0);
             $table->boolean('estado')->default(1);
         });

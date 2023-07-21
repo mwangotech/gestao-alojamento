@@ -36,10 +36,10 @@
                     <td>{{ $quarto->id }}</td>
                     <td>{{ $quarto->nome }}</td>
                     <td>{{ $quarto->numero }}</td>
-                    <td class="text-right">{{ $quarto->preco }}</td>
+                    <td class="text-right">{{number_format($quarto->preco,0,',',' ')}}kz</td>
                     <td class="text-right">{{ $quarto->limit_adulto }}</td>
                     <td class="text-right">{{ $quarto->limit_crianca }}</td>
-                    <td class="text-center"><span class="right badge {{ $quarto->corEstadoQuarto }}">{{ $quarto->nomeEstadoQuarto }}</span></td>
+                    <td class="text-center"><span class="right badge badge-{{ $quarto->corEstadoQuarto }}">{{ $quarto->nomeEstadoQuarto }}</span></td>
                     <td>
                         <form id="list-form-delete" action="{{ route('quartos.destroy',$quarto->id) }}" method="POST">
                             <a class="btn btn-primary" href="{{ route('quartos.edit',$quarto->id) }}"><i class="fa fa-pen"></i></a>

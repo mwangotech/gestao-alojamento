@@ -71,6 +71,7 @@ class Quarto extends Model
     protected $appends = [
         'nomeEstadoQuarto',
         'corEstadoQuarto',
+        'iconEstadoQuarto',
         'can_delete'
     ];
 
@@ -88,7 +89,12 @@ class Quarto extends Model
     {
         return $this->estadoQuarto->cor;
     }
+    protected function getIconEstadoQuartoAttribute()
+    {
+        return $this->estadoQuarto->icon;
+    }
     
+
 
     public function comodidades()
     {

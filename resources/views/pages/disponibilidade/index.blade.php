@@ -10,6 +10,23 @@
         </div>
     </div>
     <br/>
+    <div class="row">
+        @foreach ($disponibilidades as $disponibilidade)
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box bg-{{ $disponibilidade->corEstadoQuarto }}">
+                <span class="info-box-icon"><i class="{{$disponibilidade->iconEstadoQuarto}}"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">{{$disponibilidade->nome}}</span>
+                    <span class="info-box-number">{{number_format($disponibilidade->preco,0,',',' ')}}kz</span>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 90%"></div>
+                    </div>
+                    <span class="progress-description">90% {{$disponibilidade->nomeEstadoQuarto}}</span>
+                </div>
+            </div>
+        </div>
+        @endforeach
+    </div>
 
     
 @endsection

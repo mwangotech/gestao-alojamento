@@ -38,6 +38,8 @@ class EstadoQuarto extends Model
     protected $fillable = [
         'id', 
         'nome', 
+        'cor',
+        'icon',
         'ordem',
         'estado',
     ];
