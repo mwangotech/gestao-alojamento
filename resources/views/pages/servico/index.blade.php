@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="text-right">
-                <a class="btn btn-primary" href="{{ route('servicos.create') }}"> Novo</a>
+                <a class="btn btn-primary" href="{{ route('servicos.create') }}"> Adicionar <i class="fas fa-plus-circle"></i></a>
             </div>
         </div>
     </div>

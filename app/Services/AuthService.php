@@ -18,7 +18,7 @@ class AuthService
 
     public function me(Request $request)
     {
-        $uri = $request->input('route') ?? '';
+        $uri = $request->input('route') ?? 'dashboard';
         $route = explode('.',$uri)[0] ?? null;
         $user = $this->repository->get(Auth()->user()->id);
         $menuList = [];

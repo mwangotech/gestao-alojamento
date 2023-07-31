@@ -1,19 +1,19 @@
 @extends('layouts.master')
-@section('title', 'Gestão de Comodidades')
+@section('title', 'Reservas')
  
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="text-right">
-                <a class="btn btn-primary" href="{{ route('comodidades.create') }}"> Adicionar <i class="fas fa-plus-circle"></i></a>
+                <a class="btn btn-primary" href="{{ route('reservas.create') }}"> Adicionar <i class="fas fa-plus-circle"></i></a>
             </div>
         </div>
     </div>
     <br/>
-
+    
     <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title">Lista de Comodidades</h3>
+          <h3 class="card-title">Lista de Reservas</h3>
         </div>
         <div class="card-body">
             @include('components.messages')
@@ -21,28 +21,31 @@
                 <thead>
                 <tr>
                     <th width="10px">Cod.</th>
-                    <th>Nome</th>
+                    <th>Cliente</th>
+                    <th>Quarto</th>
                     <th class="text-right" width="100px">Preço</th>
-                    <th class="text-right" width="50px">Ordem</th>
+                    <th class="text-right" width="50px">Nº Dias</th>
+                    <th class="text-right" width="100px">Valor</th>
+                    <th class="text-right" width="80px">Checkin</th>
+                    <th class="text-right" width="80px">Checkout</th>
                     <th class="text-center" width="100px">Estado</th>
-                    <th  class="text-center" width="70px">Acção</th>
+                    <th  class="text-center" width="40px">Acção</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach ($comodidades as $comodidade)
+                @foreach ($reservas as $reserva)
                 <tr>
-                    <td>{{ $comodidade->id }}</td>
-                    <td>{{ $comodidade->nome }}</td>
-                    <td class="text-right">{{ $comodidade->preco }}</td>
-                    <td class="text-right">{{ $comodidade->ordem }}</td>
-                    <td class="text-center">@if ($comodidade->estado == 1) <span class="right badge badge-success">Ativo</span> @else <span class="right badge badge-danger">Inativo</span> @endif</td>
+                    <td>{{ $reserva->id }}</td>
+                    <td>{{ $reserva->nomeCliente }}</td>
+                    <td>{{ $reserva->numeroQuarto }}</td>
+                    <td class="text-right">{{number_format($reserva->preco,0,',',' ')}}kz</td>
+                    <td class="text-right">{{$reserva->qtdDias}}Dias</td>
+                    <td class="text-right">{{number_format($reserva->valor,0,',',' ')}}kz</td>
+                    <td class="text-right">{{ $reserva->checkin }}</td>
+                    <td class="text-right">{{ $reserva->checkout }}</td>
+                    <td class="text-center"><span class="right badge badge-{{ $reserva->corEstadoReserva }}">{{ $reserva->nomeEstadoReserva }}</span></td>
                     <td>
-                        <form id="list-form-delete" action="{{ route('comodidades.destroy',$comodidade->id) }}" method="POST">
-                            <a class="btn btn-primary" href="{{ route('comodidades.edit',$comodidade->id) }}"><i class="fa fa-pen"></i></a>
-                            @csrf
-                            @method('DELETE')
-                            <button type="button" class="btn btn-danger form-delete-button"><i class="fa fa-trash"></i></button>
-                        </form>
+                        <a class="btn btn-primary" href="{{ route('reservas.edit',$reserva->id) }}"><i class="fa fa-pen"></i></a>
                     </td>
                 </tr>
                 @endforeach
@@ -50,6 +53,8 @@
             </table>
         </div>
     </div>
+
+    
 @endsection
 @section('footer-scripts')
 <script>
