@@ -21,6 +21,7 @@
                 <thead>
                 <tr>
                     <th width="10px">Cod.</th>
+                    <th>Tipo</th>
                     <th>Nome</th>
                     <th>número</th>
                     <th class="text-right" width="100px">Preço</th>
@@ -34,6 +35,7 @@
                 @foreach ($quartos as $quarto)
                 <tr>
                     <td>{{ $quarto->id }}</td>
+                    <td>{{ $quarto->nomeTipoQuarto }}</td>
                     <td>{{ $quarto->nome }}</td>
                     <td>{{ $quarto->numero }}</td>
                     <td class="text-right">{{number_format($quarto->preco,0,',',' ')}}kz</td>

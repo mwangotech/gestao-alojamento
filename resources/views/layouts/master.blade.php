@@ -21,7 +21,8 @@
         <link rel="stylesheet" href="{{asset('/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
         <!-- Toastr -->
         <link rel="stylesheet" href="{{asset('/assets/plugins/toastr/toastr.min.css')}}">
-
+        <!-- BS Stepper -->
+        <link rel="stylesheet" href="{{asset('/assets/plugins/bs-stepper/css/bs-stepper.min.css')}}">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{asset('/assets/css/adminlte.min.css')}}">
 
@@ -70,6 +71,8 @@
     <!-- SweetAlert2 -->
     <script src="{{asset('/assets/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
     <!-- Toastr -->
+    <!-- BS-Stepper -->
+    <script src="{{asset('/assets/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
     <script src="{{asset('/assets/plugins/toastr/toastr.min.js')}}"></script>
     <!-- DevExtrem JS -->
     <script type="text/javascript" src="{{asset('/assets/plugins/devextreme_v21_2_6/dx.all.js')}}"></script>

@@ -2,19 +2,67 @@
 @section('title', 'Nova Reserva')
  
 @section('content')
+<form id="form-quarto" action="{{ route('reservas.store') }}" method="POST">
+    @csrf
 <div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="text-right">
-            <button type="submit" form="form-quarto" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;Guardar</button>
-            <a class="btn btn-default" href="{{ route('quartos.index') }}"><i class="fa fa-reply"></i>&nbsp;Voltar</a>
+    <div class="col-md-12">
+      <div class="card card-default">
+        <div class="card-body p-0">
+          <div class="bs-stepper">
+            <div class="bs-stepper-header" role="tablist">
+              <!-- your steps here -->
+              <div class="step" data-target="#room-part">
+                <button type="button" class="step-trigger" role="tab" aria-controls="room-part" id="room-part-trigger">
+                  <span class="bs-stepper-circle">1</span>
+                  <span class="bs-stepper-label">Selecionar Quarto</span>
+                </button>
+              </div>
+              <div class="line"></div>
+              <div class="step" data-target="#information-part">
+                <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                  <span class="bs-stepper-circle">2</span>
+                  <span class="bs-stepper-label">Dados da Reserva</span>
+                </button>
+              </div>
+              <div class="line"></div>
+              <div class="step" data-target="#payment-part">
+                <button type="button" class="step-trigger" role="tab" aria-controls="payment-part" id="payment-part-trigger">
+                  <span class="bs-stepper-circle">3</span>
+                  <span class="bs-stepper-label">Pagamento</span>
+                </button>
+              </div>
+            </div>
+            <div class="bs-stepper-content">
+              <!-- your steps content here -->
+              <div id="room-part" class="content" role="tabpanel" aria-labelledby="room-part-trigger">
+                    1<br/>
+                    <button type="button" class="btn btn-primary" onclick="stepper.next()">Seguinte</button>
+              </div>
+              <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                    2<br/>
+                    <button type="button" class="btn btn-primary" onclick="stepper.previous()">Anterior</button>
+                    <button type="button" class="btn btn-primary" onclick="stepper.next()">Seguinte</button>
+              </div>
+              <div id="payment-part" class="content" role="tabpanel" aria-labelledby="payment-part-trigger">
+                    3<br/>
+                    <button type="button" class="btn btn-primary">Finalizar</button> 
+              </div>
+            </div>
+          </div>
         </div>
-        <br />
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
     </div>
-</div>
-   
+  </div>
+</form>
 @endsection
 @section('footer-scripts')
 <script>
+    // BS-Stepper Init
+    document.addEventListener('DOMContentLoaded', function () {
+        window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+    })
     $(function () {
         //Comodidades Autocomplete
         $('input[name=\'comodidade\']').autocomplete({

@@ -6,6 +6,7 @@ use App\Models\Quarto;
 use App\Models\Servico;
 use Illuminate\View\View;
 use App\Models\Comodidade;
+use App\Models\TipoQuarto;
 use App\Models\EstadoQuarto;
 use Illuminate\Http\Request;
 use App\Services\QuartoService;
@@ -44,13 +45,14 @@ class QuartoController extends Controller
     */
     public function create(): View
     {
+        $tipos = TipoQuarto::where('estado', 1)->get();
         $estados = EstadoQuarto::where('estado', 1)->get();
         $breadcrumbs = array(
             ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],
             ['name'=> 'Quarto','url' => route('quartos.index'),'active' => 0],
             ['name'=> 'Novo','url' => '','active' => 1]
         );
-        return view('pages.quarto.create',compact('breadcrumbs', 'estados'));
+        return view('pages.quarto.create',compact('breadcrumbs', 'estados','tipos'));
     }
 
     /**
@@ -75,11 +77,12 @@ class QuartoController extends Controller
         return redirect()->route('quartos.index')->with('success','Quarto criado com sucesso.');
     }
 
-    /**
+    /** scp root@10.10.10.136:/speechcare_app_2023_08_02.sql speechcare_app_2023_08_02.sql
     * Show the form for editing the specified resource.
     */
     public function edit(Quarto $quarto): View
     {
+        $tipos = TipoQuarto::where('estado', 1)->get();
         $estados = EstadoQuarto::where('estado', 1)->get();
         $breadcrumbs = array(
             ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],
@@ -88,7 +91,7 @@ class QuartoController extends Controller
         );
         $servicos = $quarto->servicos;
         $comodidades = $quarto->comodidades;
-        return view('pages.quarto.edit',compact('quarto','breadcrumbs','estados','servicos','comodidades'));
+        return view('pages.quarto.edit',compact('quarto','breadcrumbs','estados','tipos','servicos','comodidades'));
     }
 
     /** 

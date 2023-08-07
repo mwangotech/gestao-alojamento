@@ -24,7 +24,21 @@
             @csrf
             @method('PUT')
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    <div class="form-group">
+                        <label>Tipo:</label>
+                        <select name="idTipoQuarto" class="form-control">
+                            @foreach ($tipos as $tipo)
+                                @if($tipo->id == $quarto->idTipoQuarto) 
+                                    <option selected="selected" value="{{$tipo->id}}">{{$tipo->nome}}</option>
+                                @else
+                                <option value="{{$tipo->id}}">{{$tipo->nome}}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-9">
                     <div class="form-group">
                         <strong>Nome:<span style="color:red">*</span></strong>
                         <input type="text" name="nome" value="{{ $quarto->nome }}" class="form-control" placeholder="Nome">

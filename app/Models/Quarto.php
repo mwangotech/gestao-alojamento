@@ -42,6 +42,7 @@ class Quarto extends Model
         'descricao', 
         'numero',
         'idFotoPrincipal',
+        'idTipoQuarto',
         'idEstadoQuarto',
         'limit_adulto',
         'limit_crianca',
@@ -69,6 +70,7 @@ class Quarto extends Model
     ];
 
     protected $appends = [
+        'nomeTipoQuarto',
         'nomeEstadoQuarto',
         'corEstadoQuarto',
         'iconEstadoQuarto',
@@ -78,6 +80,11 @@ class Quarto extends Model
     protected function estadoQuarto()
     {
         return $this->belongsTo(EstadoQuarto::class, 'idEstadoQuarto');
+    }
+
+    protected function tipoQuarto()
+    {
+        return $this->belongsTo(TipoQuarto::class, 'idTipoQuarto');
     }
 
     protected function getNomeEstadoQuartoAttribute()
@@ -94,7 +101,11 @@ class Quarto extends Model
         return $this->estadoQuarto->icon;
     }
     
-
+    protected function getNomeTipoQuartoAttribute()
+    {
+        return $this->tipoQuarto->nome;
+    }
+    
 
     public function comodidades()
     {

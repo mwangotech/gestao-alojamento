@@ -43,6 +43,8 @@ class Reserva extends Model
         'totalHospedes',
         'totalAdulto',
         'totalCrianca',
+        'dataInicio',
+        'dataFim',
         'checkin',
         'checkout',
         'idUtilizador',
