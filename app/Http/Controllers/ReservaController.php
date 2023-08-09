@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Quarto;
 use App\Models\Reserva;
+use App\Models\Servico;
 use Illuminate\View\View;
+use App\Models\Comodidade;
+use App\Models\TipoQuarto;
 use Illuminate\Http\Request;
 use App\Services\ReservaService;
 use Illuminate\Support\Facades\DB;
@@ -41,12 +45,17 @@ class ReservaController extends Controller
     */
     public function create(): View
     {
+        $tipos = TipoQuarto::where('estado', 1)->get();
+        $comodidades = Comodidade::where('estado', 1)->get();
+        $servicos = Servico::where('estado', 1)->get();
+        $quartosTest = Quarto::all();
+        //dd($quartosTest);
         $breadcrumbs = array(
             ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],
             ['name'=> 'Reserva','url' => route('reservas.index'),'active' => 0],
             ['name'=> 'Novo','url' => '','active' => 1]
         );
-        return view('pages.reserva.create',compact('breadcrumbs'));
+        return view('pages.reserva.create',compact('breadcrumbs','tipos','comodidades','servicos','quartosTest'));
     }
 
     /**

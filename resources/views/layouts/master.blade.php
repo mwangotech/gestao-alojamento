@@ -10,7 +10,8 @@
         <!-- Font Awesome Icons -->
         <link rel="stylesheet" href="{{asset('/assets/plugins/fontawesome-free/css/all.min.css')}}">
         <link rel="stylesheet" href="{{asset('/assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
-
+        <!-- daterange picker -->
+        <link rel="stylesheet" href="{{asset('/assets/plugins/daterangepicker/daterangepicker.css')}}">
         <!-- DataTables -->
         <link rel="stylesheet" href="{{asset('/assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
         <link rel="stylesheet" href="{{asset('/assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
@@ -25,7 +26,9 @@
         <link rel="stylesheet" href="{{asset('/assets/plugins/bs-stepper/css/bs-stepper.min.css')}}">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{asset('/assets/css/adminlte.min.css')}}">
-
+        <!-- Select2 -->
+        <link rel="stylesheet" href="{{asset('/assets/plugins/select2/css/select2.min.css')}}">
+        <link rel="stylesheet" href="{{asset('/assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
         <!-- DevExtrem CSS -->
         <link rel="stylesheet" href="{{asset('/assets/plugins/devextreme_v21_2_6/dx.light.css')}}">
     </head>
@@ -70,12 +73,16 @@
     <script src="{{asset('/assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
     <!-- SweetAlert2 -->
     <script src="{{asset('/assets/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
-    <!-- Toastr -->
+    <!-- date-range-picker -->
+    <script src="{{asset('/assets/plugins/moment/moment.min.js')}}"></script>
+    <script src="{{asset('/assets/plugins/daterangepicker/daterangepicker.js')}}"></script>
     <!-- BS-Stepper -->
     <script src="{{asset('/assets/plugins/bs-stepper/js/bs-stepper.min.js')}}"></script>
     <script src="{{asset('/assets/plugins/toastr/toastr.min.js')}}"></script>
     <!-- DevExtrem JS -->
     <script type="text/javascript" src="{{asset('/assets/plugins/devextreme_v21_2_6/dx.all.js')}}"></script>
+    <!-- Select2 -->
+    <script src="{{asset('/assets/plugins/select2/js/select2.full.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('/assets/js/adminlte.min.js')}}"></script>
     <script src="{{asset('/assets/js/common.js?v1.0.0.3')}}"></script> 
@@ -85,6 +92,11 @@
             return new Intl.NumberFormat('pt-AO', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(num);
         }
         $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({ theme: 'bootstrap4' });
+
             $('[data-toggle="tooltip"]').tooltip()
             $(".table-list").DataTable({
                 "paging": true,

@@ -58,13 +58,13 @@
                 <div class="col-xs-12 col-sm-12 col-md-3">
                     <div class="form-group">
                         <strong>Qtd Adulto:<span style="color:red">*</span></strong>
-                        <input type="number" name="limit_adulto" value="{{ old('limit_adulto') }}" class="form-control" placeholder="Qtd Adulto">
+                        <input type="number" name="limit_adulto"  min="0" max="6" value="{{ old('limit_adulto') }}" class="form-control" placeholder="Qtd Adulto">
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3">
                     <div class="form-group">
                         <strong>Qtd Crianças:<span style="color:red">*</span></strong>
-                        <input type="number" name="limit_crianca" value="{{ old('limit_crianca') }}" class="form-control" placeholder="Qtd Crianças">
+                        <input type="number" name="limit_crianca" min="0" max="6" value="{{ old('limit_crianca') }}" class="form-control" placeholder="Qtd Crianças">
                     </div>
                 </div>
 
