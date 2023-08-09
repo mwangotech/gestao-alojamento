@@ -115,7 +115,6 @@
                                     <div class="widget-user-header bg-info" style="height: auto !important">
                                     <h3 class="widget-user-username">{{$quarto->nome}}</h3>
                                     <h5 class="widget-user-desc">{{$quarto->nomeTipoQuarto}}</h5>
-                                    <h5 class="widget-user-desc">{{$quarto->descricao}}</h5>
                                     </div>
                                     <div class="card-footer">
                                         <div class="row">
