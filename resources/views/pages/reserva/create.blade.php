@@ -44,7 +44,7 @@
                             <form id="form-pesquisa-quarto">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="col-xs-12 col-sm-12 col-md-7">
                                         <div class="form-group">
                                             <strong>Tipo de Quarto:</strong>
                                             <select name="idTipoQuarto" class="form-control">
@@ -54,13 +54,13 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="col-xs-12 col-sm-12 col-md-5">
                                         <div class="form-group">
                                             <strong>Qtd Hospedes:</strong>
-                                            <input type="number" name="numHospedes" value="{{ old('numHospedes') }}" min="0" max="6" class="form-control" placeholder="Quantidade de Hospedes">
+                                            <input type="number" name="numHospedes" value="{{ old('numHospedes') }}" min="0" max="6" class="form-control" placeholder="Qtd de Hospedes">
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="col-xs-12 col-sm-12 col-md-7">
                                         <div class="form-group">
                                             <strong>Data Reserva:</strong>
                                             <div class="input-group">
@@ -73,7 +73,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="col-xs-12 col-sm-12 col-md-5">
                                         <div class="form-group">
                                             <strong>Nº Dias:</strong>
                                             <input type="number" name="numDias" value="{{ old('numDias') }}" min="0" max="6" class="form-control" placeholder="Nº de Dias">
@@ -116,7 +116,7 @@
                                     <h3 class="widget-user-username">{{$quarto->nome}}</h3>
                                     <h5 class="widget-user-desc">{{$quarto->nomeTipoQuarto}}</h5>
                                     </div>
-                                    <div class="card-footer">
+                                    <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-4 border-bottom">
                                             <div class="description-block">
@@ -157,6 +157,13 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="text-right">
+                                            <div class="icheck-success d-inline">
+                                              <input type="radio" class="quartoSelecionado" value="{{$quarto->id}}" name="quartoSelecionado" id="quartoSelecionado_{{$quarto->id}}">
+                                              <label for="quartoSelecionado_{{$quarto->id}}">
+                                              </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -165,7 +172,7 @@
                     </div>
                 </div>  
                 <div class="text-right">
-                    <button type="button" class="btn btn-primary" onclick="stepper.next()">Seguinte</button>
+                    <button type="button" id="stp-one" class="btn btn-primary" onclick="stepper.next()">Seguinte</button>
                 </div>
               </div>
               <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
@@ -218,10 +225,18 @@
     });
 </script>
 <script>
+    $(function () {
+        $('#stp-one').on('click', function () {
+            var idQuarto = $('input[name="quartoSelecionado"]:checked').val();
+            console.log(idQuarto);
+        });
+    });
+</script>
+<script>
     // BS-Stepper Init
     document.addEventListener('DOMContentLoaded', function () {
-        window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-    })
+        window.stepper = new Stepper(document.querySelector('.bs-stepper'));
+    });
     $(function () {
         //Comodidades Autocomplete
         $('input[name=\'comodidade\']').autocomplete({
