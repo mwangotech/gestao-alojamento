@@ -138,22 +138,55 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-4 border-bottom">
                                             <div class="description-block">
                                                 <h5 class="description-header text-info">Número</h5>
                                                 <span class="description-text">{{$quarto->numero}}</span>
                                             </div>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-4 border-bottom">
                                                 <div class="description-block">
                                                     <h5 class="description-header text-info">Adultos</h5>
                                                     <span class="description-text">{{$quarto->limit_adulto}}</span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-4 border-bottom">
                                                 <div class="description-block">
                                                     <h5 class="description-header text-info">Crianças</h5>
                                                     <span class="description-text">{{$quarto->limit_crianca}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br/>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <p>
+                                                    <button class="btn  btn-sm btn-info" type="button" data-toggle="collapse" data-target="#collapseExample-comodidade{{$quarto->id}}" aria-expanded="false" aria-controls="collapseExample-comodidade{{$quarto->id}}">
+                                                        Comodidades
+                                                      </button>
+                                                    <button class="btn btn-sm btn-info" type="button" data-toggle="collapse" data-target="#collapseExample-servico{{$quarto->id}}" aria-expanded="false" aria-controls="collapseExample-servico{{$quarto->id}}">
+                                                      Serviços
+                                                    </button>
+                                                </p>
+                                                <div class="collapse" id="collapseExample-comodidade{{$quarto->id}}">
+                                                    Comodidades:<br/>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            @foreach ($quarto->comodidades as $comodidade)
+                                                                <span class="badge badge-secondary">{{$comodidade->nome}}</span>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="collapse" id="collapseExample-servico{{$quarto->id}}">
+                                                    Serviços:<br/>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            @foreach ($quarto->servicos as $servico)
+                                                                <span class="badge badge-secondary">{{$servico->nome}}</span>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

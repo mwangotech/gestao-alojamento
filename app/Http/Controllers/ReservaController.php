@@ -49,6 +49,7 @@ class ReservaController extends Controller
         $comodidades = Comodidade::where('estado', 1)->get();
         $servicos = Servico::where('estado', 1)->get();
         $quartosTest = Quarto::all();
+
         //dd($quartosTest);
         $breadcrumbs = array(
             ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],
