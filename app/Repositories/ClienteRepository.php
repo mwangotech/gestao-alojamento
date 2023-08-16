@@ -18,6 +18,16 @@ class ClienteRepository
     return $this->model->all();
    }
 
+   public function pesquisa_cliente($filters=array()) {
+         $query = $this->model::query();
+
+         if(!empty($filters["filter_bi"])) {
+            $query->where('BI', $filters["filter_bi"]);
+         }
+
+         return $query->get();
+     }
+  
    public function get($id){
       return $this->model->find($id);
    }

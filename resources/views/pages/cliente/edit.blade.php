@@ -24,7 +24,13 @@
             @csrf
             @method('PUT')
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                    <div class="form-group">
+                        <label>Nº de Identificação(BI/NIF):<span style="color:red">*</span></label>
+                        <input type="text" name="BI" value="{{ $cliente->BI }}" class="form-control" placeholder="Nº de Identificação(BI/NIF)">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-8">
                     <div class="form-group">
                         <label>Nome:<span style="color:red">*</span></label>
                         <input type="text" name="nome" value="{{ $cliente->nome }}" class="form-control" placeholder="Nome">

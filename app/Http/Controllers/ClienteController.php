@@ -21,6 +21,11 @@ class ClienteController extends Controller
        $this->service = $_Service;
     }
 
+    public function pesquisa_cliente(Request $request)
+    {
+        return $this->service->pesquisa_cliente($request);
+    }
+    
     /**
 
     * Display a listing of the resource.

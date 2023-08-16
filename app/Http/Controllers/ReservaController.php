@@ -9,6 +9,7 @@ use Illuminate\View\View;
 use App\Models\Comodidade;
 use App\Models\TipoQuarto;
 use Illuminate\Http\Request;
+use App\Models\MetodoPagamento;
 use App\Services\ReservaService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ReservaRequest;
@@ -46,6 +47,7 @@ class ReservaController extends Controller
     public function create(): View
     {
         $tipos = TipoQuarto::where('estado', 1)->get();
+        $mPagamentos = MetodoPagamento::where('estado', 1)->get();
         $comodidades = Comodidade::where('estado', 1)->get();
         $servicos = Servico::where('estado', 1)->get();
         $quartosTest = Quarto::all();
@@ -56,7 +58,7 @@ class ReservaController extends Controller
             ['name'=> 'Reserva','url' => route('reservas.index'),'active' => 0],
             ['name'=> 'Novo','url' => '','active' => 1]
         );
-        return view('pages.reserva.create',compact('breadcrumbs','tipos','comodidades','servicos','quartosTest'));
+        return view('pages.reserva.create',compact('breadcrumbs','tipos','mPagamentos','comodidades','servicos','quartosTest'));
     }
 
     /**
@@ -64,6 +66,7 @@ class ReservaController extends Controller
     * Store a newly created resource in storage.
 
     */
+
     public function store(ReservaRequest $request): RedirectResponse
     {        
         $data = $request->all();
@@ -80,5 +83,4 @@ class ReservaController extends Controller
 
         return redirect()->route('reservas.index')->with('success','Reserva criado com sucesso.');
     }
-
 }

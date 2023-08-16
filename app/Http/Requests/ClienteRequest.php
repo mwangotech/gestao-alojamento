@@ -27,7 +27,8 @@ class ClienteRequest extends FormRequest
             'nome' => 'required',
             'email' => 'required',
             'idNacionalidade' => 'required',
-            'idProvincia' => 'required'
+            'idProvincia' => 'required',
+            'BI' => 'required|unique:cliente,BI,'.$this->id
         ];
     }
 
@@ -38,6 +39,8 @@ class ClienteRequest extends FormRequest
             'email.required' => 'Email é obrigatório',
             'idNacionalidade.required' => 'Nacionalidade é obrigatório',
             'idProvincia.required' => 'Província é obrigatório',
+            'BI.required' => 'BI / NIF é obrigatório',
+            'BI.unique' => 'BI/NIF deve ser único',
         ];
     }
  

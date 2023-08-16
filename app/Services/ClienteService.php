@@ -20,4 +20,14 @@ class ClienteService
         return $this->repository->list();
     }
 
+    public function pesquisa_cliente(Request $request)
+    {
+        $filters = array(
+            'filter_name' => $request->input('filter_name') ?? null,
+            'filter_bi' => $request->input('filter_bi') ?? null,
+        );
+        $res = $this->repository->pesquisa_cliente($filters);
+        return response()->json($res, 200);
+    }
+    
 }

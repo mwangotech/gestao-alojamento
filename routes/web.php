@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PaisController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\ComodidadeController;
@@ -44,6 +45,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             $route->get('servico_autocomplete', [ServicoController::class, 'autocomplete']);
             $route->resource('quartos', QuartoController::class)->parameters(['quartos' => 'quarto']);
             $route->resource('clientes', ClienteController::class)->parameters(['clientes' => 'cliente']);
+            $route->get('pesquisa_cliente', [ClienteController::class, 'pesquisa_cliente']);
             $route->get('/logout', 'AuthController@logout')->name('logout');
         }
     );

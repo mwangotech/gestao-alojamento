@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('cliente', function (Blueprint $table) {
             $table->string('BI', 20)->unique();
-            $table->string('NIF', 20)->unique();
         });
     }
 

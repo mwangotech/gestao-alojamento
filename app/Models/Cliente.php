@@ -47,6 +47,7 @@ class Cliente extends Model
         'idGenero',
         'idEstadoCivil',
         'dataNascimento',
+        'BI',
         'profissao',
         'created_at',
         'updated_at'

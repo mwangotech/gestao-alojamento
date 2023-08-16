@@ -2,8 +2,6 @@
 @section('title', 'Nova Reserva')
  
 @section('content')
-<form id="form-quarto" action="{{ route('reservas.store') }}" method="POST">
-    @csrf
 <div class="row">
     <div class="col-md-12">
       <div class="card card-default">
@@ -24,13 +22,6 @@
                   <span class="bs-stepper-label">Dados da Reserva</span>
                 </button>
               </div>
-              <div class="line"></div>
-              <div class="step" data-target="#payment-part">
-                <button type="button" class="step-trigger" role="tab" aria-controls="payment-part" id="payment-part-trigger">
-                  <span class="bs-stepper-circle">3</span>
-                  <span class="bs-stepper-label">Pagamento</span>
-                </button>
-              </div>
             </div>
             <div class="bs-stepper-content">
               <!-- your steps content here -->
@@ -44,27 +35,33 @@
                             <form id="form-pesquisa-quarto">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-7">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Tipo de Quarto:</strong>
-                                            <select name="idTipoQuarto" class="form-control">
+                                            <select name="filtro_idTipoQuarto" class="form-control">
                                                 @foreach ($tipos as $tipo)
                                                     <option value="{{$tipo->id}}">{{$tipo->nome}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-5">
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
                                         <div class="form-group">
-                                            <strong>Qtd Hospedes:</strong>
-                                            <input type="number" name="numHospedes" value="{{ old('numHospedes') }}" min="0" max="6" class="form-control" placeholder="Qtd de Hospedes">
+                                            <strong>Qtd Adultos:</strong>
+                                            <input type="number" name="filtro_numAdulto" value="{{ old('numAdulto') }}" min="0" max="6" class="form-control" placeholder="Qtd de Adultos">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                        <div class="form-group">
+                                            <strong>Qtd Crianças:</strong>
+                                            <input type="number" name="filtro_numCrianca" value="{{ old('numCrianca') }}" min="0" max="6" class="form-control" placeholder="Qtd de Crianças">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-7">
                                         <div class="form-group">
                                             <strong>Data Reserva:</strong>
                                             <div class="input-group">
-                                                <input type="text" class="form-control float-right" id="reservationdate">
+                                                <input name="filtro_data" type="text" class="form-control float-right" id="reservationdate">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <i class="fa fa-calendar"></i>
@@ -76,13 +73,13 @@
                                     <div class="col-xs-12 col-sm-12 col-md-5">
                                         <div class="form-group">
                                             <strong>Nº Dias:</strong>
-                                            <input type="number" name="numDias" value="{{ old('numDias') }}" min="0" max="6" class="form-control" placeholder="Nº de Dias">
+                                            <input type="number" name="filtro_numDias" value="{{ old('numDias') }}" min="0" max="6" class="form-control" placeholder="Nº de Dias">
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Comodidades:</strong>
-                                            <select class="select2bs4" multiple="multiple" data-placeholder="Selecionar Comunidades" style="width: 100%;">
+                                            <select name="filtro_comodidades[]" class="select2bs4" multiple="multiple" data-placeholder="Selecionar Comunidades" style="width: 100%;">
                                                 @foreach ($comodidades as $comodidade)
                                                     <option value="{{$comodidade->id}}">{{$comodidade->nome}}</option>
                                                 @endforeach
@@ -92,7 +89,7 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                         <div class="form-group">
                                             <strong>Serviços:</strong>
-                                            <select class="select2bs4" multiple="multiple" data-placeholder="Selecionar Serviço" style="width: 100%;">
+                                            <select name="filtro_servicos[]" class="select2bs4" multiple="multiple" data-placeholder="Selecionar Serviço" style="width: 100%;">
                                                 @foreach ($servicos as $servico)
                                                     <option value="{{$servico->id}}">{{$servico->nome}}</option>
                                                 @endforeach
@@ -121,6 +118,7 @@
                                             <div class="col-sm-4 border-bottom">
                                             <div class="description-block">
                                                 <h5 class="description-header text-info">Preço</h5>
+                                                <input type="hidden" value="{{$quarto->preco}}" name="pesquisa_preco" id="pesquisa-preco"/>
                                                 <span class="description-text">{{number_format($quarto->preco,0,',',' ')}}kz</span>
                                             </div>
                                             </div>
@@ -133,6 +131,7 @@
                                             <div class="col-sm-4 border-bottom">
                                                 <div class="description-block">
                                                     <h5 class="description-header text-info">Total</h5>
+                                                    <input type="hidden" value="{{$quarto->preco}}" name="pesquisa_valor" id="pesquisa-valor"/>
                                                     <span class="description-text">N/A</span>
                                                 </div>
                                             </div>
@@ -208,19 +207,120 @@
                     <button type="button" id="stp-one" class="btn btn-primary" onclick="stepper.next()">Seguinte</button>
                 </div>
               </div>
-              <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
-                    2<br/>
-                    <div class="text-right">
-                        <button type="button" class="btn btn-danger" onclick="stepper.previous()">Anterior</button>
-                        <button type="button" class="btn btn-primary" onclick="stepper.next()">Seguinte</button>
+              
+                <form id="form-quarto" action="{{ route('reservas.store') }}" method="POST">
+                    @csrf
+                    <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                        <input type="hidden" value="{{ old('idQuarto') }}" name="idQuarto" id="input-idQuarto" />
+                        <input type="hidden" value="{{ old('idCliente') }}" name="idCliente" id="input-idCliente"/>
+                        <input type="hidden" value="{{ old('qtdDias') }}" name="qtdDias" id="input-qtdDias"/>
+                        <input type="hidden" value="{{ old('preco') }}" name="preco" id="input-preco"/>
+                        <input type="hidden" value="{{ old('valor') }}" name="valor" id="input-valor"/>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <strong>Nº de Identificação:</strong>
+                                    <div class="input-group mb-3">
+                                        <input name="BI" id="input-BI" value="{{ old('BI') }}" type="text" class="form-control" placeholder="00000000000UE000">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" style="cursor: pointer;" id="pesquisa-cliente"><i class="fas fa-search"></i></span>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <strong>Tipo:</strong>
+                                    <input type="text" readonly name="nomeTipo" value="{{ old('nomeTipo') }}" class="form-control" placeholder="Tipo de Cliente">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <strong>Cliente:</strong>
+                                    <input type="text" readonly name="nomeCliente" value="{{ old('nome') }}" class="form-control" placeholder="Nome do Cliente">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <strong>Nº Adulto:</strong>
+                                    <input type="text" readonly name="totalAdulto" value="{{ old('totalAdulto') }}" class="form-control" placeholder="Nº Adultos">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <strong>Nº Crianças:</strong>
+                                    <input type="text" readonly name="totalCrianca" value="{{ old('totalCrianca') }}" class="form-control" placeholder="Nº Crianças">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <strong>Data de Inicio da Reserva:</strong>
+                                    <div class="input-group">
+                                        <input name="filtro_data" readonly type="text" class="form-control float-right" id="reservationdate">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-3">
+                                <div class="form-group">
+                                    <strong>Data de Fim da Reserva:</strong>
+                                    <div class="input-group">
+                                        <input name="filtro_data" readonly type="text" class="form-control float-right" id="reservationdate">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6">
+                                <div class="card card-info">
+                                    <div class="card-header">
+                                    <h3 class="card-title">Pagamentos</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-5">
+                                                <div class="form-group">
+                                                    <strong>Metódo de Pagamento:</strong>
+                                                    <select name="metodoPagamento" id="input-metodoPagamento" class="form-control">
+                                                        @foreach ($mPagamentos as $mPagamento)
+                                                            <option value="{{$mPagamento->id}}">{{$mPagamento->nome}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-5">
+                                                <div class="form-group">
+                                                    <strong>Valor a Pagar:</strong>
+                                                    <input type="text" name="valorPagamento" id="input-metodoPagamento" class="form-control" placeholder="Valor a Pagar">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-2">
+                                                <br>
+                                                <button type="button" class="btn btn-info">Adicionar</button> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-danger" onclick="stepper.previous()">Anterior</button>
+                            <button type="button" class="btn btn-success">Concluir</button> 
+                        </div>
                     </div>
-              </div>
-              <div id="payment-part" class="content" role="tabpanel" aria-labelledby="payment-part-trigger">
-                    3<br/>
-                    <div class="text-right">
-                        <button type="button" class="btn btn-success">Finalizar</button> 
-                    </div>
-              </div>
+                </form>
             </div>
           </div>
         </div>
@@ -229,7 +329,6 @@
       <!-- /.card -->
     </div>
   </div>
-</form>
 @endsection
 @section('footer-scripts')
 <script>
@@ -262,6 +361,29 @@
         $('#stp-one').on('click', function () {
             var idQuarto = $('input[name="quartoSelecionado"]:checked').val();
             console.log(idQuarto);
+            $("#input-idQuarto").val(idQuarto);
+        });
+        $('#pesquisa-cliente').on('click', function(){
+            var bi = $('#input-BI').val();
+            if(bi.length >= 5) {
+                $.ajax({
+                    url: "{{ url('pesquisa_cliente') }}?filter_bi=" + encodeURIComponent(bi),
+                    dataType: 'json',
+                    success: function(json) {
+                     if(json.length == 1) {
+                        $("input[name='idCliente']").val(json[0].id);
+                        $("input[name='nomeTipo']").val(json[0].nomeTipo);
+                        $("input[name='nomeCliente']").val(json[0].nome);
+                     } else {
+                        Swal.fire({
+                            title: 'Resultado',
+                            text: "A Pesquisa não retornou nenhuma informação.",
+                            icon: 'info',
+                        });
+                     }
+                    }
+                });
+            }
         });
     });
 </script>
