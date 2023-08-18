@@ -27,41 +27,42 @@
               <!-- your steps content here -->
               <div id="room-part" class="content" role="tabpanel" aria-labelledby="room-part-trigger">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="card card-info">
                             <div class="card-header">
                             <h3 class="card-title">Encontrar Quarto</h3>
                             </div>
                             <form id="form-pesquisa-quarto">
+                                @csrf
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="col-xs-12 col-sm-12 col-md-3">
                                         <div class="form-group">
                                             <strong>Tipo de Quarto:</strong>
-                                            <select name="filtro_idTipoQuarto" class="form-control">
+                                            <select required name="filtro_idTipoQuarto" class="form-control">
                                                 @foreach ($tipos as $tipo)
                                                     <option value="{{$tipo->id}}">{{$tipo->nome}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <div class="col-xs-12 col-sm-12 col-md-3">
                                         <div class="form-group">
                                             <strong>Qtd Adultos:</strong>
-                                            <input type="number" name="filtro_numAdulto" value="{{ old('numAdulto') }}" min="0" max="6" class="form-control" placeholder="Qtd de Adultos">
+                                            <input required type="number" name="filtro_numAdulto" value="{{ old('numAdulto') }}" min="0" max="6" class="form-control" placeholder="Qtd de Adultos">
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-6">
+                                    <div class="col-xs-12 col-sm-12 col-md-3">
                                         <div class="form-group">
                                             <strong>Qtd Crianças:</strong>
-                                            <input type="number" name="filtro_numCrianca" value="{{ old('numCrianca') }}" min="0" max="6" class="form-control" placeholder="Qtd de Crianças">
+                                            <input required type="number" name="filtro_numCrianca" value="{{ old('numCrianca') }}" min="0" max="6" class="form-control" placeholder="Qtd de Crianças">
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-7">
+                                    <div class="col-xs-12 col-sm-12 col-md-3">
                                         <div class="form-group">
                                             <strong>Data Reserva:</strong>
                                             <div class="input-group">
-                                                <input name="filtro_data" type="text" class="form-control float-right" id="reservationdate">
+                                                <input required name="filtro_data" type="text" class="form-control float-right" id="reservationdate">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">
                                                         <i class="fa fa-calendar"></i>
@@ -70,13 +71,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-5">
+                                    <div class="col-xs-12 col-sm-12 col-md-2">
                                         <div class="form-group">
                                             <strong>Nº Dias:</strong>
-                                            <input type="number" name="filtro_numDias" value="{{ old('numDias') }}" min="0" max="6" class="form-control" placeholder="Nº de Dias">
+                                            <input required type="number" name="filtro_numDias" value="{{ old('numDias') }}" min="0" class="form-control" placeholder="Nº de Dias">
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="col-xs-12 col-sm-12 col-md-4">
                                         <div class="form-group">
                                             <strong>Comodidades:</strong>
                                             <select name="filtro_comodidades[]" class="select2bs4" multiple="multiple" data-placeholder="Selecionar Comunidades" style="width: 100%;">
@@ -86,7 +87,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="col-xs-12 col-sm-12 col-md-6">
                                         <div class="form-group">
                                             <strong>Serviços:</strong>
                                             <select name="filtro_servicos[]" class="select2bs4" multiple="multiple" data-placeholder="Selecionar Serviço" style="width: 100%;">
@@ -100,108 +101,13 @@
                             </div>
                             </form>
                             <div class="card-footer text-right">
-                            <button type="button" class="btn btn-info">Pesquisar&nbsp;<i class="fa fa-search"></i></button>
+                            <button type="button" id="pesquisar-quarto" class="btn btn-info">Pesquisar&nbsp;<i class="fa fa-search"></i></button>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8">
-                        <div class="row">
-                            @foreach ($quartosTest as $quarto)
-                            <div class="col-md-4">
-                                <div class="card card-widget widget-user">
-                                    <div class="widget-user-header bg-info" style="height: auto !important">
-                                    <h3 class="widget-user-username">{{$quarto->nome}}</h3>
-                                    <h5 class="widget-user-desc">{{$quarto->nomeTipoQuarto}}</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-4 border-bottom">
-                                            <div class="description-block">
-                                                <h5 class="description-header text-info">Preço</h5>
-                                                <input type="hidden" value="{{$quarto->preco}}" name="pesquisa_preco" id="pesquisa-preco"/>
-                                                <span class="description-text">{{number_format($quarto->preco,0,',',' ')}}kz</span>
-                                            </div>
-                                            </div>
-                                            <div class="col-sm-4 border-bottom">
-                                                <div class="description-block">
-                                                    <h5 class="description-header text-info">Dias</h5>
-                                                    <span class="description-text">N/A</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 border-bottom">
-                                                <div class="description-block">
-                                                    <h5 class="description-header text-info">Total</h5>
-                                                    <input type="hidden" value="{{$quarto->preco}}" name="pesquisa_valor" id="pesquisa-valor"/>
-                                                    <span class="description-text">N/A</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-4 border-bottom">
-                                            <div class="description-block">
-                                                <h5 class="description-header text-info">Número</h5>
-                                                <span class="description-text">{{$quarto->numero}}</span>
-                                            </div>
-                                            </div>
-                                            <div class="col-sm-4 border-bottom">
-                                                <div class="description-block">
-                                                    <h5 class="description-header text-info">Adultos</h5>
-                                                    <span class="description-text">{{$quarto->limit_adulto}}</span>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-4 border-bottom">
-                                                <div class="description-block">
-                                                    <h5 class="description-header text-info">Crianças</h5>
-                                                    <span class="description-text">{{$quarto->limit_crianca}}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <br/>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <p>
-                                                    <button class="btn  btn-sm btn-info" type="button" data-toggle="collapse" data-target="#collapseExample-comodidade{{$quarto->id}}" aria-expanded="false" aria-controls="collapseExample-comodidade{{$quarto->id}}">
-                                                        Comodidades
-                                                      </button>
-                                                    <button class="btn btn-sm btn-info" type="button" data-toggle="collapse" data-target="#collapseExample-servico{{$quarto->id}}" aria-expanded="false" aria-controls="collapseExample-servico{{$quarto->id}}">
-                                                      Serviços
-                                                    </button>
-                                                </p>
-                                                <div class="collapse" id="collapseExample-comodidade{{$quarto->id}}">
-                                                    Comodidades:<br/>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            @foreach ($quarto->comodidades as $comodidade)
-                                                                <span class="badge badge-secondary">{{$comodidade->nome}}</span>
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="collapse" id="collapseExample-servico{{$quarto->id}}">
-                                                    Serviços:<br/>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            @foreach ($quarto->servicos as $servico)
-                                                                <span class="badge badge-secondary">{{$servico->nome}}</span>
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <div class="icheck-success d-inline">
-                                              <input type="radio" class="quartoSelecionado" value="{{$quarto->id}}" name="quartoSelecionado" id="quartoSelecionado_{{$quarto->id}}">
-                                              <label for="quartoSelecionado_{{$quarto->id}}">
-                                              </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
+                    <div class="col-md-12" id="lista-quartos">
                     </div>
+                    <br/>
                 </div>  
                 <div class="text-right">
                     <button type="button" id="stp-one" class="btn btn-primary" onclick="stepper.next()">Seguinte</button>
@@ -257,7 +163,7 @@
                                 <div class="form-group">
                                     <strong>Data de Inicio da Reserva:</strong>
                                     <div class="input-group">
-                                        <input name="filtro_data" readonly type="text" class="form-control float-right" id="reservationdate">
+                                        <input name="dataInicio" readonly type="text" class="form-control float-right" id="reservationdate">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
                                                 <i class="fa fa-calendar"></i>
@@ -270,7 +176,7 @@
                                 <div class="form-group">
                                     <strong>Data de Fim da Reserva:</strong>
                                     <div class="input-group">
-                                        <input name="filtro_data" readonly type="text" class="form-control float-right" id="reservationdate">
+                                        <input name="dataFim" readonly type="text" class="form-control float-right" id="reservationdate">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">
                                                 <i class="fa fa-calendar"></i>
@@ -308,6 +214,38 @@
                                             <div class="col-xs-12 col-sm-12 col-md-2">
                                                 <br>
                                                 <button type="button" class="btn btn-info">Adicionar</button> 
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 10px">#</th>
+                                                            <th>Metódo de Pagamento</th>
+                                                            <th>Valor</th>
+                                                            <th style="width: 40px">Estado</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>1.</td>
+                                                            <td>Transferência Bancaria</td>
+                                                            <td>
+                                                            10 000 kz
+                                                            </td>
+                                                            <td><span class="badge bg-success">Pago</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>2.</td>
+                                                            <td>TPA</td>
+                                                            <td>
+                                                            5 000 kz
+                                                            </td>
+                                                            <td><span class="badge bg-danger">Pendente</span></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -358,10 +296,68 @@
 </script>
 <script>
     $(function () {
+        $('#pesquisar-quarto').on('click', function () {
+            if (!$('#form-pesquisa-quarto')[0].checkValidity()) {
+                $('#form-pesquisa-quarto')[0].reportValidity()
+            } else {
+                var formElement = document.querySelector("#form-pesquisa-quarto");
+		        var formData = new FormData(formElement); 
+
+                $.ajax({
+                    url: "{{ url('pesquisa_quarto') }}",
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $('#pesquisar-quarto').button('loading');
+                    },
+                    complete: function() {
+                        $('#pesquisar-quarto').button('reset');
+                    },
+                    success: function(json) {
+                        if(json.data && json.data.length > 0) {
+                            $('#lista-quartos').html(json.data);
+                            $(".table-list").DataTable({
+                                "paging": true,
+                                "lengthChange": false,
+                                "searching": true,
+                                "ordering": true,
+                                "info": true,
+                                "autoWidth": false,
+                                "responsive": true,
+                            });
+                            location.href="#lista-quartos";
+                        } else {
+                            $('#lista-quartos').empty();
+                        }
+
+                    }
+                });
+            }
+        });
         $('#stp-one').on('click', function () {
             var idQuarto = $('input[name="quartoSelecionado"]:checked').val();
-            console.log(idQuarto);
             $("#input-idQuarto").val(idQuarto);
+            
+            var numDias = $("input[name='filtro_numDias']").val();
+            var dateParts = $("input[name='filtro_data']").val().split("/");
+
+            var date = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+            var days = parseInt(numDias, 10);
+
+            console.log(date);
+            if(!isNaN(date.getTime())){
+                date.setDate(date.getDate() + days);
+                $("input[name='dataFim']").val(date.toInputFormat());
+            }                           
+            $("input[name='totalAdulto']").val($("input[name='filtro_numAdulto']").val());
+            $("input[name='totalCrianca']").val($("input[name='filtro_numCrianca']").val());
+            $("input[name='dataInicio']").val($("input[name='filtro_data']").val());
+            
         });
         $('#pesquisa-cliente').on('click', function(){
             var bi = $('#input-BI').val();
@@ -379,12 +375,29 @@
                             title: 'Resultado',
                             text: "A Pesquisa não retornou nenhuma informação.",
                             icon: 'info',
-                        });
+                            showCancelButton: true,
+                            confirmButtonColor: '#1B98F5',
+                            cancelButtonColor: '#1FAA59',
+                            cancelButtonText: 'Criar Novo',
+                            confirmButtonText: 'Ok'
+                        }).then((result) => {
+                            if (result.isDismissed) {
+                               //New Customer form
+                               alert("Create new customer Page");
+                            }
+                        })
                      }
                     }
                 });
             }
         });
+        
+        Date.prototype.toInputFormat = function() {
+            var yyyy = this.getFullYear().toString();
+            var mm = (this.getMonth()+1).toString();
+            var dd  = this.getDate().toString();
+            return (dd[1]?dd:"0"+dd[0]) + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + yyyy;
+        };
     });
 </script>
 <script>

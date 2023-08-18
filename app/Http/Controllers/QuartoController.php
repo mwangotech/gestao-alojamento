@@ -38,6 +38,16 @@ class QuartoController extends Controller
         return view('pages.quarto.index',compact('quartos','breadcrumbs'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
+    public function pesquisa_quarto(Request $request)
+    {
+        $quartos = $this->service->pesquisa_quarto($request);
+        $content = array(
+            'success'=>true,
+            'data'=>view('pages.quarto.listaQuarto',compact('quartos'))->render()
+        );
+        return response()->json($content, 200);
+    }
+    
     /**
  
     * Show the form for creating a new resource.

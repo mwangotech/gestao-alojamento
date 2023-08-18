@@ -116,6 +116,7 @@
                 "autoWidth": false,
                 "responsive": true,
             });
+            
         });
     </script> 
     <script>

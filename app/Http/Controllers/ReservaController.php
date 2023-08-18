@@ -50,7 +50,6 @@ class ReservaController extends Controller
         $mPagamentos = MetodoPagamento::where('estado', 1)->get();
         $comodidades = Comodidade::where('estado', 1)->get();
         $servicos = Servico::where('estado', 1)->get();
-        $quartosTest = Quarto::all();
 
         //dd($quartosTest);
         $breadcrumbs = array(
@@ -58,7 +57,7 @@ class ReservaController extends Controller
             ['name'=> 'Reserva','url' => route('reservas.index'),'active' => 0],
             ['name'=> 'Novo','url' => '','active' => 1]
         );
-        return view('pages.reserva.create',compact('breadcrumbs','tipos','mPagamentos','comodidades','servicos','quartosTest'));
+        return view('pages.reserva.create',compact('breadcrumbs','tipos','mPagamentos','comodidades','servicos'));
     }
 
     /**
