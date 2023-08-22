@@ -8,10 +8,12 @@ use App\Models\Quarto;
 use App\Models\Cliente;
 use App\Models\Reserva;
 use App\Models\Servico;
+use App\Models\Pagamento;
 use Illuminate\View\View;
 use App\Models\Comodidade;
 use App\Models\TipoQuarto;
 use Illuminate\Http\Request;
+use App\Models\CheckinConfig;
 use App\Models\EstadoReserva;
 use App\Models\MetodoPagamento;
 use App\Models\HistoricoReserva;
@@ -50,16 +52,28 @@ class ReservaController extends Controller
     public function show(Reserva $reserva): View
     {
         $mPagamentos = MetodoPagamento::where('estado', 1)->get();
-        $estados = EstadoReserva::where('estado', 1)->get();
         $cliente = Cliente::find($reserva->idCliente);
         $quarto = Quarto::find($reserva->idQuarto);
         $historicos = HistoricoReserva::where('idReserva', $reserva->id)->orderBy('created_at', 'DESC')->get();
+        $pagamentos = Pagamento::where('idReserva', $reserva->id)->orderBy('created_at', 'ASC')->get();
+        $totalPagamentos = 0;
+        foreach($pagamentos as $pagamento) {
+            $totalPagamentos += $pagamento->montante;
+        }
+        $divida = ((float)$reserva->valor - (float)$totalPagamentos);
+        if($divida <= 0) {
+            $estados = EstadoReserva::where('estado', 1)->get();
+        } else {
+            $estados = EstadoReserva::where('estado', 1)->whereNotIn('id', [2,3])->get();
+        }
+        
+
         $breadcrumbs = array(
             ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],
             ['name'=> 'Reserva','url' => route('reservas.index'),'active' => 0],
             ['name'=> 'Detalhes','url' => '','active' => 1]
         );
-        return view('pages.reserva.show', compact('reserva','breadcrumbs','cliente','quarto','historicos','estados','mPagamentos'));
+        return view('pages.reserva.show', compact('reserva','breadcrumbs','cliente','quarto','historicos','pagamentos','totalPagamentos','divida','estados','mPagamentos'));
     }
     
     public function add_historico_reserva(Request $request)
@@ -97,10 +111,47 @@ class ReservaController extends Controller
         } else {
             $sucesso = false;
         }
-        $historicos = HistoricoReserva::where('idReserva', $idReserva)->orderBy('created_at', 'DESC')->get();
+        //$historicos = HistoricoReserva::where('idReserva', $idReserva)->orderBy('created_at', 'DESC')->get();
         $content = array(
             'success' => $sucesso,
-            'data' => view('pages.reserva.listaHistorico',compact('historicos'))->render()
+            //'data' => view('pages.reserva.listaHistorico',compact('historicos'))->render()
+        );
+        return response()->json($content, 200);
+    }
+    
+    public function add_pagamento_reserva(Request $request)
+    {
+        $idReserva = $request->input('idReserva') ?? null;
+        if($idReserva) {
+            try {
+                $data = $request->all();
+                $sucesso = DB::transaction(function() use($idReserva, $data) {
+                    $data['idUtilizador'] =auth()->user()->id;   
+                    $data['dataPagamento'] = date('Y-m-d H:i:s');   
+                    /*$reserva = Reserva::find($idReserva);  
+                    $pagamentos = Pagamento::where('idReserva', $reserva->id)->get();
+                    $totalPagamentos = 0;
+                    foreach($pagamentos as $pagamento) {
+                        $totalPagamentos += $pagamento->montante;
+                    }
+                    $divida = ((float)$reserva->valor - (float)$totalPagamentos);  
+                    if($divida <= 0) {
+                        return false;
+                    }*/          
+                    Pagamento::create($data);
+                   return true;
+                });
+            } catch(Exception $e) {
+                //print_r($e);die();
+                $sucesso = false;
+            }
+        } else {
+            $sucesso = false;
+        }
+        //$historicos = HistoricoReserva::where('idReserva', $idReserva)->orderBy('created_at', 'DESC')->get();
+        $content = array(
+            'success' => $sucesso,
+            //'data' => view('pages.reserva.listaHistorico',compact('historicos'))->render()
         );
         return response()->json($content, 200);
     }
@@ -137,8 +188,12 @@ class ReservaController extends Controller
         $data = $request->all();
         //dd($data);
         $res = DB::transaction(function () use ($data) {
-            $data["dataInicio"] = DateTime::createFromFormat('d/m/Y', $data["dataInicio"])->format('Y-m-d');
-            $data["dataFim"] = DateTime::createFromFormat('d/m/Y', $data["dataFim"])->format('Y-m-d');
+            $config = CheckinConfig::find(1);
+            $tempoInicio = $data["dataInicio"].' '.$config->horaCheckin.':'.($config->minuteCheckin<10?'0'.$config->minuteCheckin:$config->minuteCheckin);
+            $tempoFim = $data["dataFim"].' '.$config->horaCheckout.':'.($config->minuteCheckout<10?'0'.$config->minuteCheckout:$config->minuteCheckout);
+
+            $data["dataInicio"] = DateTime::createFromFormat('d/m/Y H:i', $tempoInicio)->format('Y-m-d H:i');
+            $data["dataFim"] = DateTime::createFromFormat('d/m/Y H:i', $tempoFim)->format('Y-m-d H:i');
             $data["idUtilizador"] = auth()->user()->id;
             $reserva = Reserva::create($data);
 

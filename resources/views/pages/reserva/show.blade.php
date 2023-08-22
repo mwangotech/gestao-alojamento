@@ -72,7 +72,7 @@
                                 </tr>
                                 <tr>
                                    <td><button data-toggle="tooltip" title="" class="btn btn-info btn-xs" data-original-title="Montante"><i class="fas fa-money-bill-alt fa-fw"></i></button></td>
-                                   <td>{{number_format($reserva->valor,0,',',' ')}} kz</td>
+                                   <td>{{number_format($reserva->valor,0,',',' ')}} kz &nbsp;&nbsp;@if($divida>0) <span class="right badge badge-danger">{{ number_format($divida,0,',',' ')}} kz</span> @else <span class="right badge badge-success"><i class="fas fa-check-circle"></i></span> @endif</td>
                                 </tr>
                                  <tr>
                                     <td style="width: 1%;"><button data-toggle="tooltip" title="" class="btn btn-info btn-xs" data-original-title="Quantidade de Adultos"><i class="fas fa-restroom fa-fw"></i></button></td>
@@ -179,59 +179,70 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-5">
-                                        <div class="form-group">
-                                            <strong>Metódo de Pagamento:</strong>
-                                            <select name="metodoPagamento" id="input-metodoPagamento" class="form-control">
-                                                @foreach ($mPagamentos as $mPagamento)
-                                                    <option value="{{$mPagamento->id}}">{{$mPagamento->nome}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-5">
-                                        <div class="form-group">
-                                            <strong>Valor a Pagar:</strong>
-                                            <input type="text" name="valorPagamento" id="input-metodoPagamento" class="form-control" placeholder="Valor a Pagar">
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-2">
-                                        <br>
-                                        <button type="button" class="btn btn-info">Adicionar</button> 
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-md-12">
+                                        @if(count($pagamentos) > 0)
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th style="width: 10px">#</th>
+                                                    <th>Adicionado por</th>
                                                     <th>Metódo de Pagamento</th>
-                                                    <th>Valor</th>
-                                                    <th style="width: 40px">Estado</th>
+                                                    <th class="text-right">Valor</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @foreach ($pagamentos as $pagamento)
                                                 <tr>
-                                                    <td>1.</td>
-                                                    <td>Transferência Bancaria</td>
-                                                    <td>
-                                                    10 000 kz
-                                                    </td>
-                                                    <td><span class="badge bg-success">Pago</span></td>
+                                                    <td><a href="javascript:void(0)">{{$pagamento->nomeUtilizador}}</a>&nbsp;.:.&nbsp;{{$pagamento->created_at}}</td>
+                                                    <td>{{$pagamento->nomeMetodoPagamento}}</td>
+                                                    <td class="text-right">{{number_format($pagamento->montante,0,',',' ')}} kz</td>
                                                 </tr>
-                                                <tr>
-                                                    <td>2.</td>
-                                                    <td>TPA</td>
-                                                    <td>
-                                                    5 000 kz
-                                                    </td>
-                                                    <td><span class="badge bg-danger">Pendente</span></td>
-                                                </tr>
+                                                @endforeach
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="2"><b>Total</b></td>
+                                                    <td  class="text-right"><b>{{number_format($totalPagamentos,0,',',' ')}} kz</b></td>
+                                                </tr>
+                                            </tfoot>
                                         </table>
+                                        @else 
+                                        <div class="alert alert-warning alert-dismissible">
+                                            <h5><i class="icon fas fa-exclamation-triangle"></i> Nenhum pagamento adicionado!</h5>
+                                            Fazer o primeiro pagamaneto para continuar com a reserva!
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
+                                <fieldset>
+                                    <legend>Adicionar Pagamento</legend>
+                                    <form id="form-add-pagamento">
+                                        @csrf
+                                        <input type="hidden" value="{{$reserva->id}}" name="idReserva">
+                                        <input type="hidden" value="{{$reserva->idCliente}}" name="idCliente">
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <strong>Metódo de Pagamento:</strong>
+                                                    <select name="idMetodoPagamento" class="form-control" @if($divida<=0) readonly @endif>
+                                                        @foreach ($mPagamentos as $mPagamento)
+                                                            <option value="{{$mPagamento->id}}">{{$mPagamento->nome}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <strong>Valor:</strong>
+                                                    <input type="text" name="montante" class="form-control" placeholder="Valor a Pagar" @if($divida<=0) readonly @endif>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-2">
+                                                <br>
+                                                <button type="button" @if($divida<=0) disabled="disabled" @endif id="btn-add-pagamento" class="btn btn-info">Adicionar</button> 
+                                            </div>
+                                        </div>
+                                    </form>
+                                </fieldset>
                             </div>
                         </div>
                     </div>
@@ -248,7 +259,48 @@
 @section('footer-scripts')
 <script>
     $(function () {
-        
+        $('#btn-add-pagamento').on('click', function () {
+            if (!$('#form-add-pagamento')[0].checkValidity()) {
+                $('#form-add-pagamento')[0].reportValidity()
+            } else {
+                var formElement = document.querySelector("#form-add-pagamento");
+		        var formData = new FormData(formElement); 
+
+                $.ajax({
+                    url: "{{ url('add_pagamento_reserva') }}",
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $('#btn-add-pagamento').button('loading');
+                    },
+                    complete: function() {
+                        $('#btn-add-pagamento').button('reset');
+                    },
+                    success: function(json) {
+                        if(json.success) {
+                            Swal.fire({
+                                title: 'Sucesso',
+                                text: "Pagamento adicionado com sucesso.",
+                                icon: 'success'
+                            }).then((result) => {
+                                window.location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Oops',
+                                text: "Ocorreu um erro ao adicionar o pagamento.",
+                                icon: 'error',
+                            });
+                        }
+                    }
+                });
+            }
+        });
     });
 </script>
 <script>
@@ -277,26 +329,13 @@
                     },
                     success: function(json) {
                         if(json.success) {
-                            if(json.data && json.data.length > 0) {
-                                $('#lista-historico').html(json.data);
-                                $(".table-list-reserva").DataTable({
-                                    "paging": true,
-                                    "lengthChange": false,
-                                    "pageLength": 3,
-                                    "searching": true,
-                                    "ordering": false,
-                                    "info": true,
-                                    "autoWidth": false,
-                                    "responsive": true,
-                                });
-                                Swal.fire({
+                            Swal.fire({
                                 title: 'Sucesso',
                                 text: "Histórico adicionado com sucesso.",
                                 icon: 'success'
                             }).then((result) => {
                                 window.location.reload();
                             });
-                            }
                         } else {
                             Swal.fire({
                                 title: 'Oops',

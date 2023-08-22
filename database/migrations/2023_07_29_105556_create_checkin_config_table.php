@@ -17,7 +17,6 @@ return new class extends Migration
             $table->integer('minuteCheckin')->default(0);
             $table->integer('horaCheckout')->default(12);
             $table->integer('minuteCheckout')->default(0);
-            $table->timestamps();
         });
     }
 

@@ -23,12 +23,13 @@ class ClienteRequest extends FormRequest
      */
     public function rules(): array
     {
+        //dd($this->id);
         return [
             'nome' => 'required',
             'email' => 'required',
             'idNacionalidade' => 'required',
             'idProvincia' => 'required',
-            'BI' => 'required|unique:cliente,BI,'.$this->id
+            'BI' => 'required'
         ];
     }
 
@@ -40,7 +41,6 @@ class ClienteRequest extends FormRequest
             'idNacionalidade.required' => 'Nacionalidade é obrigatório',
             'idProvincia.required' => 'Província é obrigatório',
             'BI.required' => 'BI / NIF é obrigatório',
-            'BI.unique' => 'BI/NIF deve ser único',
         ];
     }
  

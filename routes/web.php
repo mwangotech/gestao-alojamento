@@ -38,6 +38,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             $route->resource('disponibilidades', DisponibilidadeController::class)->parameters(['disponibilidades' => 'disponibilidade']);
             $route->resource('reservas', ReservaController::class)->parameters(['reservas' => 'reserva']);
             $route->post('add_historico_reserva', [ReservaController::class, 'add_historico_reserva']);
+            $route->post('add_pagamento_reserva', [ReservaController::class, 'add_pagamento_reserva']);
             $route->resource('paises', PaisController::class)->parameters(['paises' => 'pais']);
             $route->resource('provincias', ProvinciaController::class)->parameters(['provincias' => 'provincia']);
             $route->get('pais_autocomplete', [PaisController::class, 'autocomplete']);

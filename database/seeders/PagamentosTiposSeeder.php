@@ -29,6 +29,11 @@ class PagamentosTiposSeeder extends Seeder
                     'nome' => 'TPA',
                     'ordem' => 1,
                     'estado' => 1
+                ],[
+                    'id' => 3,
+                    'nome' => 'Dinheiro',
+                    'ordem' => 2,
+                    'estado' => 1
                 ]
             ]);
             DB::table('estado_pagamento')->insert([
