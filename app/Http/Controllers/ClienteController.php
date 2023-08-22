@@ -47,7 +47,12 @@ class ClienteController extends Controller
     */
     public function show(Cliente $cliente): View
     {
-        return view('pages.cliente.show', compact('cliente'));
+        $breadcrumbs = array(
+            ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],
+            ['name'=> 'Cliente','url' => route('clientes.index'),'active' => 0],
+            ['name'=> 'Detalhes','url' => '','active' => 1]
+        );
+        return view('pages.cliente.show', compact('cliente','breadcrumbs'));
     }
 
     /**

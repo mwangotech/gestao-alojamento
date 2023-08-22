@@ -39,7 +39,7 @@ class EstadoReservaSeeder extends Seeder
             'ordem' => 2,
             'estado' => 1
         ],[
-            'id' => 3,
+            'id' => 4,
             'nome' => 'Cancelado',
             'cor' => 'danger',
             'icon' => 'fa-calendar-times-o',

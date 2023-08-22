@@ -22,18 +22,25 @@ class ReservaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome' => 'required',
-            'preco' => 'required',
-            'ordem' => 'required',
+            'totalAdulto' => 'required',
+            'totalCrianca' => 'required',
+            'dataInicio' => 'required',
+            'qtdDias' => 'required',
+            'idCliente' => 'required',
+            'idQuarto' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'nome.required' => 'Nome é obrigatório',
-            'preco.required' => 'Preço é obrigatório',
-            'ordem.required' => 'Ordem é obrigatório',
+            'totalAdulto.required' => 'Quantidade de Adultos é obrigatório',
+            'totalCrianca.required' => 'Quantidade de Crianças é obrigatório',
+            'dataInicio.required' => 'Data de Inicio da reserva é obrigatório',
+            'dataInicio.required' => 'Data de Termino da reserva é obrigatório',
+            'qtdDias.required' => 'Quantidade de Dias é obrigatório',
+            'idCliente.required' => 'Cliente é obrigatório',
+            'idQuarto.required' => 'QUarto é obrigatório',
         ];
     }
 }

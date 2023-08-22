@@ -16,7 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('idCliente');
             $table->unsignedBigInteger('idQuarto');
             $table->unsignedBigInteger('idEstadoReserva');
-            $table->integer('totalHospedes')->default(0);
             $table->integer('totalAdulto')->default(0);
             $table->integer('totalCrianca')->default(0);
             $table->dateTime('checkin')->nullable();

@@ -4,6 +4,9 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
+        
+    @include('components.messages')
+
       <div class="card card-default">
         <div class="card-body p-0">
           <div class="bs-stepper">
@@ -186,76 +189,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6"></div>
-                            <div class="col-md-6">
-                                <div class="card card-info">
-                                    <div class="card-header">
-                                    <h3 class="card-title">Pagamentos</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-xs-12 col-sm-12 col-md-5">
-                                                <div class="form-group">
-                                                    <strong>Metódo de Pagamento:</strong>
-                                                    <select name="metodoPagamento" id="input-metodoPagamento" class="form-control">
-                                                        @foreach ($mPagamentos as $mPagamento)
-                                                            <option value="{{$mPagamento->id}}">{{$mPagamento->nome}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-5">
-                                                <div class="form-group">
-                                                    <strong>Valor a Pagar:</strong>
-                                                    <input type="text" name="valorPagamento" id="input-metodoPagamento" class="form-control" placeholder="Valor a Pagar">
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-12 col-sm-12 col-md-2">
-                                                <br>
-                                                <button type="button" class="btn btn-info">Adicionar</button> 
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width: 10px">#</th>
-                                                            <th>Metódo de Pagamento</th>
-                                                            <th>Valor</th>
-                                                            <th style="width: 40px">Estado</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>1.</td>
-                                                            <td>Transferência Bancaria</td>
-                                                            <td>
-                                                            10 000 kz
-                                                            </td>
-                                                            <td><span class="badge bg-success">Pago</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>2.</td>
-                                                            <td>TPA</td>
-                                                            <td>
-                                                            5 000 kz
-                                                            </td>
-                                                            <td><span class="badge bg-danger">Pendente</span></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <br/>
                         <div class="text-right">
                             <button type="button" class="btn btn-danger" onclick="stepper.previous()">Anterior</button>
-                            <button type="button" class="btn btn-success">Concluir</button> 
+                            <button type="submit" class="btn btn-success">Concluir</button> 
                         </div>
                     </div>
                 </form>
@@ -341,7 +278,17 @@
         });
         $('#stp-one').on('click', function () {
             var idQuarto = $('input[name="quartoSelecionado"]:checked').val();
-            $("#input-idQuarto").val(idQuarto);
+            if(idQuarto) {
+                $("#input-idQuarto").val(idQuarto);
+            }
+            var preco = $('input[name="quartoSelecionado"]:checked').attr('data-preco');
+            if(preco) {
+                $("input[name='preco']").val(preco);
+            }
+            var valor = $('input[name="quartoSelecionado"]:checked').attr('data-valor');
+            if(valor) {
+                $("input[name='valor']").val(valor);
+            }
             
             var numDias = $("input[name='filtro_numDias']").val();
             var dateParts = $("input[name='filtro_data']").val().split("/");
@@ -357,6 +304,9 @@
             $("input[name='totalAdulto']").val($("input[name='filtro_numAdulto']").val());
             $("input[name='totalCrianca']").val($("input[name='filtro_numCrianca']").val());
             $("input[name='dataInicio']").val($("input[name='filtro_data']").val());
+            $("input[name='qtdDias']").val(numDias);
+
+            location.href = "#information-part";
             
         });
         $('#pesquisa-cliente').on('click', function(){
@@ -396,7 +346,7 @@
             var yyyy = this.getFullYear().toString();
             var mm = (this.getMonth()+1).toString();
             var dd  = this.getDate().toString();
-            return (dd[1]?dd:"0"+dd[0]) + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + yyyy;
+            return (dd[1]?dd:"0"+dd[0]) + "/" + (mm[1]?mm:"0"+mm[0]) + "/" + yyyy;
         };
     });
 </script>

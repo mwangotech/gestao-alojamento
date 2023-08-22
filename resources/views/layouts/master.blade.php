@@ -116,6 +116,16 @@
                 "autoWidth": false,
                 "responsive": true,
             });
+            $(".table-list-reserva").DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "pageLength": 3,
+                "searching": true,
+                "ordering": false,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
             
         });
     </script> 

@@ -6,6 +6,7 @@ use App\Http\Controllers\PaisController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\QuartoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\ComodidadeController;
@@ -36,6 +37,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             $route->resource('prestadores', PrestadorController::class)->parameters(['prestadores' => 'prestador']);
             $route->resource('disponibilidades', DisponibilidadeController::class)->parameters(['disponibilidades' => 'disponibilidade']);
             $route->resource('reservas', ReservaController::class)->parameters(['reservas' => 'reserva']);
+            $route->post('add_historico_reserva', [ReservaController::class, 'add_historico_reserva']);
             $route->resource('paises', PaisController::class)->parameters(['paises' => 'pais']);
             $route->resource('provincias', ProvinciaController::class)->parameters(['provincias' => 'provincia']);
             $route->get('pais_autocomplete', [PaisController::class, 'autocomplete']);

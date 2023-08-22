@@ -2,19 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Reserva extends Model
+class HistoricoReserva extends Model
 {
     use HasFactory;
-
     /**
     * The table associated with the model.
     *
     * @var string
     */
-    protected $table = 'reserva';
+    protected $table = 'historico_reserva';
     
     /**
      * The primary key associated with the table.
@@ -36,22 +36,13 @@ class Reserva extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'id',
-        'idCliente', 
-        'idQuarto', 
-        'idEstadoReserva',
-        'totalAdulto',
-        'totalCrianca',
-        'dataInicio',
-        'dataFim',
-        'checkin',
-        'checkout',
+        'id', 
+        'idReserva', 
         'idUtilizador',
-        'qtdDias',
-        'preco',
-        'valor',
+        'idEstadoReserva',
+        'notas',
         'created_at',
-        'updated_at',
+        'updated_at'
     ];
 
     /**
@@ -60,7 +51,8 @@ class Reserva extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'pivot'
+        'pivot',
+        'utilizador'
     ];
 
     /**
@@ -73,29 +65,11 @@ class Reserva extends Model
     ];
 
     protected $appends = [
-        'nomeCliente',
-        'numeroQuarto',
+        'nomeUtilizador',
         'nomeEstadoReserva',
-        'corEstadoReserva',
-        'nomeUtilizador'
+        'corEstadoReserva'
     ];
-
-    protected function cliente()
-    {
-        return $this->belongsTo(Cliente::class, 'idCliente');
-    }
-
-    protected function getNomeClienteAttribute()
-    {
-        return $this->cliente->nome;
-    }
     
-
-    protected function quarto()
-    {
-        return $this->belongsTo(Quarto::class, 'idQuarto');
-    }
-
     protected function getNumeroQuartoAttribute()
     {
         return $this->quarto->numero;
@@ -117,7 +91,6 @@ class Reserva extends Model
         return $this->estadoReserva->cor;
     }
     
-
     protected function utilizador()
     {
         return $this->belongsTo(User::class, 'idUtilizador');
@@ -128,11 +101,5 @@ class Reserva extends Model
         return $this->utilizador->name;
     }
     
-
-    public function comodities()
-    {
-        //return $this->belongsToMany(Quarto::class, 'reserva_quarto', 'idReserva', 'idQuarto');
-    }
-
 
 }

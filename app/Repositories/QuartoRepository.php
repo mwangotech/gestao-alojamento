@@ -50,10 +50,10 @@ class QuartoRepository
          $sql.=" AND q.idTipoQuarto= ".$filters["filtro_idTipoQuarto"]."";
       }
       if(!empty($filters["filtro_numAdulto"])) {
-         $sql.=" AND q.limit_adulto <= ".$filters["filtro_numAdulto"]."";
+         $sql.=" AND q.limit_adulto >= ".$filters["filtro_numAdulto"]."";
       }
       if(!empty($filters["filtro_numCrianca"])) {
-         $sql.=" AND q.limit_crianca <= ".$filters["filtro_numCrianca"]."";
+         $sql.=" AND q.limit_crianca >= ".$filters["filtro_numCrianca"]."";
       }
       if(!empty($filters["filtro_data"])) {
          if($numDias>0) {

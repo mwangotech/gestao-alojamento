@@ -25,7 +25,7 @@
         <td class="text-right">{{$quarto->limit_crianca}}</td>
         <td class="text-center">
             <div class="icheck-success d-inline">
-                <input type="radio" class="quartoSelecionado" value="{{$quarto->id}}" name="quartoSelecionado" id="quartoSelecionado_{{$quarto->id}}">
+                <input type="radio" class="quartoSelecionado" data-preco="{{$quarto->preco}}" data-valor="{{$quarto->valor}}" value="{{$quarto->id}}" name="quartoSelecionado" id="quartoSelecionado_{{$quarto->id}}">
                 <label for="quartoSelecionado_{{$quarto->id}}">
                 </label>
             </div>

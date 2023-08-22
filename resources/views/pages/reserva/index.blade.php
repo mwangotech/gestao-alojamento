@@ -45,7 +45,7 @@
                     <td class="text-right">{{ $reserva->checkout }}</td>
                     <td class="text-center"><span class="right badge badge-{{ $reserva->corEstadoReserva }}">{{ $reserva->nomeEstadoReserva }}</span></td>
                     <td>
-                        <a class="btn btn-primary" href="{{ route('reservas.edit',$reserva->id) }}"><i class="fa fa-pen"></i></a>
+                        <a class="btn btn-success" href="{{ route('reservas.show',$reserva->id) }}"><i class="fa fa-eye"></i></a>
                     </td>
                 </tr>
                 @endforeach

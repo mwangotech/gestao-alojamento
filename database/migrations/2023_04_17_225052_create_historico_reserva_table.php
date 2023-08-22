@@ -14,16 +14,14 @@ return new class extends Migration
         Schema::create('historico_reserva', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('idReserva');
-            $table->unsignedBigInteger('idQuarto');
-            $table->unsignedBigInteger('idUtitlizador');
-            $table->unsignedBigInteger('idEstadoRserva');
+            $table->unsignedBigInteger('idUtilizador');
+            $table->unsignedBigInteger('idEstadoReserva');
             $table->text('notas')->nullable();
             $table->timestamps();
 
             $table->foreign('idReserva')->references('id')->on('reserva');
-            $table->foreign('idQuarto')->references('id')->on('quarto');
-            $table->foreign('idUtitlizador')->references('id')->on('users');
-            $table->foreign('idEstadoRserva')->references('id')->on('estado_reserva');
+            $table->foreign('idUtilizador')->references('id')->on('users');
+            $table->foreign('idEstadoReserva')->references('id')->on('estado_reserva');
         });
     }
 

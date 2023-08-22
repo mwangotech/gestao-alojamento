@@ -1,6 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="." class="brand-link text-center">
+    <a href="." class="brand-link">
+      <img src="{{asset('/assets/img/AdminLTELogo.png')}}" alt="SIGALO" class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight"><b>SIGALO</b></span>
     </a>
 
@@ -8,6 +9,9 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{{asset('/assets/img/avatar_x2.png')}}" class="img-circle elevation-2" alt="User Image">
+        </div>
         <div class="info">
           @auth
             <a href="#" class="d-block"><b>{{auth()->user()->name}}</b> | Online <i class="fas fa-circle nav-icon" style="color:green"></i></a>
