@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use DateTime;
 use App\Models\Quarto;
+use App\Models\CheckinConfig;
 use Illuminate\Support\Facades\DB;
 
 class QuartoRepository
@@ -25,19 +26,43 @@ class QuartoRepository
       if(!empty($filters["filtro_numDias"])) {
          $numDias = $filters["filtro_numDias"];
       }
+      if(!empty($filters["filtro_data"])) {
+         if($numDias>0) {
+            //Calculate EndDate
+            $config = CheckinConfig::find(1);
+            $_datetime = $filters["filtro_data"].' '.$config->horaCheckin.':'.($config->minuteCheckin<10?'0'.$config->minuteCheckin:$config->minuteCheckin);
 
+            $datetime = DateTime::createFromFormat('d/m/Y H:i', $_datetime);
+            $start_date = $datetime->format('Y-m-d H:i');
+            $end_date = $datetime->modify("+{$numDias} days")->format('Y-m-d H:i');
+            //dd($start_date.' => '.$end_date);
+         }
+      }
+      //AND (DATE(r.dataInicio) >= ".$start_date." AND DATE(r.dataFim) <= ".$end_date.")
       $sql = "SELECT 
-       q.id,
-       tq.nome as nomeTipoQuarto,
-       q.`nome`,
-       q.`numero`,
-       q.`idTipoQuarto`,
-       q.`idEstadoQuarto`,
-       q.`limit_adulto`,
-       q.`limit_crianca`,
-       q.`preco`,
-       (q.`preco`*?) as valor
-       
+         q.id,
+         tq.nome as nomeTipoQuarto,
+         q.`nome`,
+         q.`numero`,
+         q.`idTipoQuarto`,
+         q.`idEstadoQuarto`,
+         q.`limit_adulto`,
+         q.`limit_crianca`,
+         q.`preco`,
+         (q.`preco`*?) as valor,
+         (
+            SELECT 
+               COUNT(*)
+            FROM
+               reserva r
+            WHERE
+               r.idQuarto = q.id AND
+               r.idEstadoReserva IN (1,2) AND
+               (
+                  r.dataFim > '".$start_date."' AND 
+                  r.dataFim < '".$end_date."'
+               )
+         ) as is_reserved
    FROM 
       `quarto` q 
       LEFT JOIN tipo_quarto tq ON (tq.id=q.idTipoQuarto)
@@ -55,16 +80,7 @@ class QuartoRepository
       if(!empty($filters["filtro_numCrianca"])) {
          $sql.=" AND q.limit_crianca >= ".$filters["filtro_numCrianca"]."";
       }
-      if(!empty($filters["filtro_data"])) {
-         if($numDias>0) {
-            //Calculate EndDate
-            $datetime = DateTime::createFromFormat('d/m/Y', $filters["filtro_data"]);
-            $start_date = $datetime->format('Y-m-d');
-            $end_date = $datetime->modify("+{$numDias} days")->format('Y-m-d');
-            //dd($start_date.' => '.$end_date);
-            //$sql.=" AND q.idTipoQuarto= ".$filters["filtro_numDias"]."";
-         }
-      }
+      
       if(!empty($filters["filtro_comodidades"])) {
          $ids = array();
          foreach($filters["filtro_comodidades"] as $id) {
@@ -80,7 +96,10 @@ class QuartoRepository
          $sql.=" AND sq.idServico IN (".join(',', $ids).")";
       }
 
-      $sql.=" GROUP BY q.id
+      $sql.=" GROUP BY 
+            q.id
+         HAVING
+            is_reserved = 0
          ORDER BY 
             q.limit_adulto DESC,
             q.limit_crianca DESC";

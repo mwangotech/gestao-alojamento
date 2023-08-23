@@ -25,9 +25,10 @@ class ClienteService
         $filters = array(
             'filter_name' => $request->input('filter_name') ?? null,
             'filter_bi' => $request->input('filter_bi') ?? null,
+            'filter_telefone' => $request->input('filter_telefone') ?? null,
+            'filter_email' => $request->input('filter_email') ?? null,
         );
-        $res = $this->repository->pesquisa_cliente($filters);
-        return response()->json($res, 200);
+        return $this->repository->pesquisa_cliente($filters);
     }
     
 }

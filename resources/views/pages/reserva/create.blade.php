@@ -113,7 +113,7 @@
                     <br/>
                 </div>  
                 <div class="text-right">
-                    <button type="button" id="stp-one" class="btn btn-primary" onclick="stepper.next()">Seguinte</button>
+                    <button type="button" id="stp-one" class="btn btn-primary">Seguinte</button>
                 </div>
               </div>
               
@@ -130,12 +130,11 @@
                                 <div class="form-group">
                                     <strong>Nº de Identificação:</strong>
                                     <div class="input-group mb-3">
-                                        <input name="BI" id="input-BI" value="{{ old('BI') }}" type="text" class="form-control" placeholder="00000000000UE000">
+                                        <input name="BI" readonly id="input-BI" value="{{ old('BI') }}" type="text" class="form-control" placeholder="00000000000UE000">
                                         <div class="input-group-append">
-                                            <span class="input-group-text" style="cursor: pointer;" id="pesquisa-cliente"><i class="fas fa-search"></i></span>
+                                            <span class="input-group-text" style="cursor: pointer;background-color:#28A745;color:#fff;" data-toggle="modal" data-target="#modal-pesquisa-cliente"><i class="fas fa-plus"></i></span>
                                         </div>
                                     </div>
-                                
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-3">
@@ -192,7 +191,7 @@
                         <br/>
                         <div class="text-right">
                             <button type="button" class="btn btn-danger" onclick="stepper.previous()">Anterior</button>
-                            <button type="submit" class="btn btn-success">Concluir</button> 
+                            <button type="submit" id="concluir-reserva" disabled class="btn btn-success">Concluir</button> 
                         </div>
                     </div>
                 </form>
@@ -204,6 +203,82 @@
       <!-- /.card -->
     </div>
   </div>
+  <div class="modal fade" id="modal-pesquisa-cliente" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h4 class="modal-title">Pesquisar Cliente</h4>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">×</span>
+             </button>
+          </div>
+          <div class="modal-body">
+            <form id="form-modal-pesquisa-cliente">
+                @csrf
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-3">
+                        <div class="form-group">
+                            <strong>Nº de Identificação:</strong>
+                            <input name="filter_bi" type="text" class="form-control" placeholder="00000000000UE000">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3">
+                        <div class="form-group">
+                            <strong>Nome:</strong>
+                            <input name="filter_name" type="text" class="form-control" placeholder="Nome">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3">
+                        <div class="form-group">
+                            <strong>Telefone:</strong>
+                            <input name="filter_telefone" type="tel" class="form-control" placeholder="Telefone">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3">
+                        <div class="form-group">
+                            <strong>Email:</strong>
+                            <input name="filter_email" type="email" class="form-control" placeholder="Email">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 text-right">
+                        <button type="button" class="btn btn-info" id="pesquisa-cliente">Pesquisar&nbsp;<i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" id="modal-lista-clientes">
+                    </div>
+                </div>
+            </form>
+          </div>
+          <div class="modal-footer text-right">
+             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+             <button type="button" class="btn btn-warning" id="btn-novo-cliente">Cadastrar Novo Cliente</button>
+          </div>
+       </div>
+    </div>
+ </div>
+ 
+ <div class="modal fade" id="modal-novo-cliente" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h4 class="modal-title">Novo Cliente</h4>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">×</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p>One fine body…</p>
+          </div>
+          <div class="modal-footer text-right">
+             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+             <button type="button" class="btn btn-primary">Gravar</button>
+          </div>
+       </div>
+    </div>
+ </div>
 @endsection
 @section('footer-scripts')
 <script>
@@ -228,6 +303,12 @@
             locale: {
                 format: 'DD/MM/YYYY'
                 }
+        });
+
+        $('#btn-novo-cliente').on('click', function(){
+            $('#modal-pesquisa-cliente').modal('hide');
+            $('#modal-novo-cliente').modal('show');
+
         });
     });
 </script>
@@ -276,72 +357,97 @@
                 });
             }
         });
+
         $('#stp-one').on('click', function () {
+
             var idQuarto = $('input[name="quartoSelecionado"]:checked').val();
             if(idQuarto) {
                 $("#input-idQuarto").val(idQuarto);
-            }
-            var preco = $('input[name="quartoSelecionado"]:checked').attr('data-preco');
-            if(preco) {
-                $("input[name='preco']").val(preco);
-            }
-            var valor = $('input[name="quartoSelecionado"]:checked').attr('data-valor');
-            if(valor) {
-                $("input[name='valor']").val(valor);
-            }
-            
-            var numDias = $("input[name='filtro_numDias']").val();
-            var dateParts = $("input[name='filtro_data']").val().split("/");
+                var preco = $('input[name="quartoSelecionado"]:checked').attr('data-preco');
+                if(preco) {
+                    $("input[name='preco']").val(preco);
+                }
+                var valor = $('input[name="quartoSelecionado"]:checked').attr('data-valor');
+                if(valor) {
+                    $("input[name='valor']").val(valor);
+                }
+                
+                var numDias = $("input[name='filtro_numDias']").val();
+                var dateParts = $("input[name='filtro_data']").val().split("/");
 
-            var date = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
-            var days = parseInt(numDias, 10);
+                var date = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+                var days = parseInt(numDias, 10);
 
-            console.log(date);
-            if(!isNaN(date.getTime())){
-                date.setDate(date.getDate() + days);
-                $("input[name='dataFim']").val(date.toInputFormat());
-            }                           
-            $("input[name='totalAdulto']").val($("input[name='filtro_numAdulto']").val());
-            $("input[name='totalCrianca']").val($("input[name='filtro_numCrianca']").val());
-            $("input[name='dataInicio']").val($("input[name='filtro_data']").val());
-            $("input[name='qtdDias']").val(numDias);
+                console.log(date);
+                if(!isNaN(date.getTime())){
+                    date.setDate(date.getDate() + days);
+                    $("input[name='dataFim']").val(date.toInputFormat());
+                }                           
+                $("input[name='totalAdulto']").val($("input[name='filtro_numAdulto']").val());
+                $("input[name='totalCrianca']").val($("input[name='filtro_numCrianca']").val());
+                $("input[name='dataInicio']").val($("input[name='filtro_data']").val());
+                $("input[name='qtdDias']").val(numDias);
 
-            location.href = "#information-part";
-            
-        });
-        $('#pesquisa-cliente').on('click', function(){
-            var bi = $('#input-BI').val();
-            if(bi.length >= 5) {
-                $.ajax({
-                    url: "{{ url('pesquisa_cliente') }}?filter_bi=" + encodeURIComponent(bi),
-                    dataType: 'json',
-                    success: function(json) {
-                     if(json.length == 1) {
-                        $("input[name='idCliente']").val(json[0].id);
-                        $("input[name='nomeTipo']").val(json[0].nomeTipo);
-                        $("input[name='nomeCliente']").val(json[0].nome);
-                     } else {
-                        Swal.fire({
-                            title: 'Resultado',
-                            text: "A Pesquisa não retornou nenhuma informação.",
-                            icon: 'info',
-                            showCancelButton: true,
-                            confirmButtonColor: '#1B98F5',
-                            cancelButtonColor: '#1FAA59',
-                            cancelButtonText: 'Criar Novo',
-                            confirmButtonText: 'Ok'
-                        }).then((result) => {
-                            if (result.isDismissed) {
-                               //New Customer form
-                               alert("Create new customer Page");
-                            }
-                        })
-                     }
-                    }
+                location.href = "#information-part";
+                stepper.next();
+            } else {
+                Swal.fire({
+                    title: 'Oops',
+                    text: "Nenhum quarto selecionado.",
+                    icon: 'error',
                 });
             }
         });
         
+        $('#pesquisa-cliente').on('click', function(){
+            var formElement = document.querySelector("#form-modal-pesquisa-cliente");
+            var formData = new FormData(formElement); 
+
+            $.ajax({
+                url: "{{ url('pesquisa_cliente') }}",
+                type: 'post',
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $('#pesquisa-cliente').button('loading');
+                },
+                complete: function() {
+                    $('#pesquisa-cliente').button('reset');
+                },
+                success: function(json) {
+                    if(json.data && json.data.length > 0) {
+                        $('#modal-lista-clientes').html(json.data);
+                        $(".table-lista-clientes").DataTable({
+                                "paging": true,
+                                "lengthChange": false,
+                                "searching": true,
+                                "ordering": true,
+                                "info": true,
+                                "autoWidth": false,
+                                "responsive": true,
+                            });
+                    } else {
+                        $('#modal-lista-clientes').empty();
+                    }
+                }
+            });
+        });
+
+        $("#modal-lista-clientes" ).delegate(".select-modal-pesquisa-cliente", "click", function() {
+       
+            $("input[name='idCliente']").val($(this).attr('data-idCliente'));
+            $("input[name='BI']").val($(this).attr('data-bi'));
+            $("input[name='nomeTipo']").val($(this).attr('data-nome'));
+            $("input[name='nomeCliente']").val($(this).attr('data-nomeTipo'));
+
+            $('#modal-pesquisa-cliente').modal('hide');
+            $('#concluir-reserva').removeAttr('disabled');
+        });
+
         Date.prototype.toInputFormat = function() {
             var yyyy = this.getFullYear().toString();
             var mm = (this.getMonth()+1).toString();
@@ -354,74 +460,6 @@
     // BS-Stepper Init
     document.addEventListener('DOMContentLoaded', function () {
         window.stepper = new Stepper(document.querySelector('.bs-stepper'));
-    });
-    $(function () {
-        //Comodidades Autocomplete
-        $('input[name=\'comodidade\']').autocomplete({
-            minLength: 0,
-            autoFocus: true,
-            'source': function(request, response) {
-                $.ajax({
-                url: "{{ url('comodidade_autocomplete') }}?filter_name=" + encodeURIComponent(request.term),
-                dataType: 'json',
-                success: function(json) {
-                    response($.map(json, function(item) {
-                    return {
-                        label: item['nome'],
-                        value: item['id']
-                    }
-                    }));
-                }
-                });
-            },
-            'select': function(event, ui) {
-                $('#quarto-comodidade' + ui.item['value']).remove();
-
-                $('#quarto-comodidade').append('<div id="quarto-comodidade' + ui.item['value'] + '"><i class="fa fa-minus-circle"></i> ' + ui.item['label'] + '<input type="hidden" name="quarto_comodidade[]" value="' + ui.item['value'] + '" /></div>');
-
-                $('input[name=\'comodidade\']').val('');
-                event.preventDefault();
-            }
-        }).focus(function() {
-            $(this).autocomplete("search", "");
-        });
-
-        $('#quarto-comodidade').delegate('.fa-minus-circle', 'click', function() {
-            $(this).parent().remove();
-        });
-        //Servicos Autocomplete
-        $('input[name=\'servico\']').autocomplete({
-            minLength: 0,
-            autoFocus: true,
-            'source': function(request, response) {
-                $.ajax({
-                url: "{{ url('servico_autocomplete') }}?filter_name=" + encodeURIComponent(request.term),
-                dataType: 'json',
-                success: function(json) {
-                    response($.map(json, function(item) {
-                    return {
-                        label: item['nome'],
-                        value: item['id']
-                    }
-                    }));
-                }
-                });
-            },
-            'select': function(event, ui) {
-                $('#quarto-servico' + ui.item['value']).remove();
-
-                $('#quarto-servico').append('<div id="quarto-servico' + ui.item['value'] + '"><i class="fa fa-minus-circle"></i> ' + ui.item['label'] + '<input type="hidden" name="quarto_servico[]" value="' + ui.item['value'] + '" /></div>');
-
-                $('input[name=\'servico\']').val('');
-                event.preventDefault();
-            }
-        }).focus(function() {
-            $(this).autocomplete("search", "");
-        });
-
-        $('#quarto-servico').delegate('.fa-minus-circle', 'click', function() {
-            $(this).parent().remove();
-        });
     });
 </script>  
 @endsection

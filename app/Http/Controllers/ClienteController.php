@@ -23,7 +23,12 @@ class ClienteController extends Controller
 
     public function pesquisa_cliente(Request $request)
     {
-        return $this->service->pesquisa_cliente($request);
+        $clientes = $this->service->pesquisa_cliente($request);
+        $content = array(
+            'success'=>true,
+            'data'=>view('pages.cliente.listaCliente',compact('clientes'))->render()
+        );
+        return response()->json($content, 200);
     }
     
     /**
@@ -83,6 +88,7 @@ class ClienteController extends Controller
         $data = $request->all();
         //dd($data);
         DB::transaction(function () use ($data) {
+            //Check if BI Exists
             Cliente::create($data);
         });
 

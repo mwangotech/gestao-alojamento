@@ -41,6 +41,7 @@ class QuartoController extends Controller
     public function pesquisa_quarto(Request $request)
     {
         $quartos = $this->service->pesquisa_quarto($request);
+        //dd($quartos);
         $content = array(
             'success'=>true,
             'data'=>view('pages.quarto.listaQuarto',compact('quartos'))->render()

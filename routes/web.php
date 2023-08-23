@@ -50,7 +50,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             $route->resource('quartos', QuartoController::class)->parameters(['quartos' => 'quarto']);
             $route->post('pesquisa_quarto', [QuartoController::class, 'pesquisa_quarto']);
             $route->resource('clientes', ClienteController::class)->parameters(['clientes' => 'cliente']);
-            $route->get('pesquisa_cliente', [ClienteController::class, 'pesquisa_cliente']);
+            $route->post('pesquisa_cliente', [ClienteController::class, 'pesquisa_cliente']);
             $route->get('/logout', 'AuthController@logout')->name('logout');
         }
     );

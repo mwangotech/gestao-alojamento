@@ -24,6 +24,15 @@ class ClienteRepository
          if(!empty($filters["filter_bi"])) {
             $query->where('BI', $filters["filter_bi"]);
          }
+         if(!empty($filters["filter_name"])) {
+            $query->where('nome', 'LIKE','%'.$filters["filter_name"].'%');
+         }
+         if(!empty($filters["filter_telefone"])) {
+            $query->where('telefone', $filters["filter_telefone"]);
+         }
+         if(!empty($filters["filter_email"])) {
+            $query->where('email', $filters["filter_email"]);
+         }
 
          return $query->get();
      }
