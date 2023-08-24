@@ -20,6 +20,93 @@ class QuartoRepository
     return $this->model->all();
    }
 
+   public function todayDisponibilities() {
+      $numDias = 1;
+      
+      //Calculate EndDate
+      $config = CheckinConfig::find(1);
+      $tempoInicio = date('d/m/Y').' '.$config->horaCheckin.':'.($config->minuteCheckin<10?'0'.$config->minuteCheckin:$config->minuteCheckin);
+      $tempoFim = date('d/m/Y', strtotime('+ 1 days')).' '.$config->horaCheckout.':'.($config->minuteCheckout<10?'0'.$config->minuteCheckout:$config->minuteCheckout);
+
+      $start_date = DateTime::createFromFormat('d/m/Y H:i', $tempoInicio)->format('Y-m-d H:i');
+      $end_date = DateTime::createFromFormat('d/m/Y H:i', $tempoFim)->format('Y-m-d H:i');
+
+      //dd($start_date.' - '.$end_date);
+      $sql = "SELECT 
+         q.id,
+         tq.nome as nomeTipoQuarto,
+         eq.cor as corEstadoQuarto,
+         eq.icon as iconEstadoQuarto,
+         eq.nome as nomeEstadoQuarto,
+         q.`nome`,
+         q.`numero`,
+         q.`idTipoQuarto`,
+         q.`idEstadoQuarto`,
+         q.`limit_adulto`,
+         q.`limit_crianca`,
+         q.`preco`,
+         (q.`preco`*?) as valor,
+         (q.limit_adulto + q.limit_crianca) as totalHospedes,
+         (
+            SELECT 
+               COUNT(*)
+            FROM
+               reserva r
+            WHERE
+               r.idQuarto = q.id AND
+               r.idEstadoReserva IN (1,2) AND
+               (
+                  r.dataInicio <= '".$start_date."' AND 
+                  r.dataFim >= '".$end_date."'
+               )
+         ) as is_reserved,
+         (
+            SELECT 
+               r.dataFim as dataFim
+            FROM
+               reserva r
+            WHERE
+               r.idQuarto = q.id AND
+               r.idEstadoReserva IN (1,2) AND
+               (
+                  r.dataInicio <= '".$start_date."' AND 
+                  r.dataFim >= '".$end_date."'
+               )
+            LIMIT 1
+         ) as fimReserva,
+         (
+            SELECT 
+               r.dataInicio as dataInicio
+            FROM
+               reserva r
+            WHERE
+               r.idQuarto = q.id AND
+               r.idEstadoReserva IN (1,2) AND
+               (
+                  r.dataInicio > '".$end_date."'
+               )
+            LIMIT 1
+         ) as inicioReserva
+   FROM 
+      `quarto` q 
+      LEFT JOIN tipo_quarto tq ON (tq.id=q.idTipoQuarto)
+      LEFT JOIN comodidade_quarto cq ON (cq.idQuarto = q.id)
+      LEFT JOIN servico_quarto sq ON (sq.idQuarto = q.id)
+      LEFT JOIN estado_quarto eq ON (eq.id = q.idEstadoQuarto)
+   WHERE 
+      q.`idEstadoQuarto` >= 1
+   GROUP BY 
+      q.id
+   ORDER BY 
+      is_reserved DESC,
+      fimReserva ASC,
+      eq.ordem ASC,
+      inicioReserva ASC";
+
+      //dd($sql);
+      return DB::select($sql,[$numDias]);
+   }
+
    public function pesquisa_quarto($filters=array()) {
 
       $numDias = 1;
@@ -59,8 +146,8 @@ class QuartoRepository
                r.idQuarto = q.id AND
                r.idEstadoReserva IN (1,2) AND
                (
-                  r.dataFim > '".$start_date."' AND 
-                  r.dataFim < '".$end_date."'
+                  r.dataFim >= '".$start_date."' AND 
+                  r.dataInicio <= '".$end_date."'
                )
          ) as is_reserved
    FROM 

@@ -20,6 +20,11 @@ class QuartoService
         return $this->repository->list();
     }
 
+    public function todayDisponibilities()
+    {
+        return $this->repository->todayDisponibilities();
+    }
+
     public function pesquisa_quarto(Request $request)
     {
         $filters = array(

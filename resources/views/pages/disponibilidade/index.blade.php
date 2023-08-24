@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Disponibilidades')
+@section('title', 'Disponibilidades 24h')
  
 @section('content')
     <div class="row">
@@ -13,15 +13,16 @@
     <div class="row">
         @foreach ($disponibilidades as $disponibilidade)
         <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box bg-{{ $disponibilidade->corEstadoQuarto }}">
+            <div class="info-box @if($disponibilidade->is_reserved) bg-info @else bg-{{ $disponibilidade->corEstadoQuarto }} @endif">
                 <span class="info-box-icon"><i class="{{$disponibilidade->iconEstadoQuarto}}"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">{{$disponibilidade->nome}}</span>
-                    <span class="info-box-number">{{number_format($disponibilidade->preco,0,',',' ')}}kz</span>
+                    <span class="info-box-text">{{$disponibilidade->nome}}({{$disponibilidade->numero}})</span>
+                    <span class="info-box-number"><i class="fas fa-hand-holding-usd" data-toggle="tooltip" title="" data-original-title="Preço"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{number_format($disponibilidade->preco,0,',',' ')}}kz</span>
+                    <span class="info-box-number"><i class="fas fa-users" data-toggle="tooltip" title="" data-original-title="Capacidade de Hospedes"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{number_format($disponibilidade->totalHospedes,0,',',' ')}}</span>
                     <div class="progress">
-                        <div class="progress-bar" style="width: 90%"></div>
+                        <div class="progress-bar" style="width: 100%"></div>
                     </div>
-                    <span class="progress-description">90% {{$disponibilidade->nomeEstadoQuarto}}</span>
+                    <span class="progress-description">@if($disponibilidade->is_reserved) Ocupado <i class="fas fa-info-circle" data-toggle="tooltip" title="" data-original-title="Data e Hora do Fim da Ocupação: {{$disponibilidade->fimReserva}}"></i> @else {{$disponibilidade->nomeEstadoQuarto}} @if($disponibilidade->inicioReserva) <i class="fas fa-info-circle" data-toggle="tooltip" title="" data-original-title="Data e Hora do Inicio da Proxima Reserva: {{$disponibilidade->inicioReserva}}"></i> @endif @endif</span>
                 </div>
             </div>
         </div>

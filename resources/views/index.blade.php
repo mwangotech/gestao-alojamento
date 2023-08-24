@@ -40,7 +40,7 @@
               <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Reservas em Curso</span>
+                <span class="info-box-text">Checkin em Curso</span>
                 <span class="info-box-number">50</span>
               </div>
               <!-- /.info-box-content -->
@@ -69,7 +69,7 @@
             <div class="card">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                  <a href="javascript:void(0);"><h3 class="card-title">Reservas por Semana</h3></a>
+                  <a href="javascript:void(0);"><h3 class="card-title">Faturação por Semana</h3></a>
                 </div>
               </div>
               <div class="card-body">
@@ -126,7 +126,7 @@
             <div class="card">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title"><a href="javascript:void(0);"><h3 class="card-title">Reservas por Mês</h3></a></h3>
+                  <h3 class="card-title"><a href="javascript:void(0);"><h3 class="card-title">Faturação por Mês</h3></a></h3>
                 </div>
               </div>
               <div class="card-body">

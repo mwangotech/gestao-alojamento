@@ -23,7 +23,7 @@ class DisponibilidadeController extends Controller
     */
     public function index(Request $request): View
     {
-        $disponibilidades = $this->service->list();
+        $disponibilidades = $this->service->todayDisponibilities();
 
         $breadcrumbs = array(
             ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],

@@ -19,7 +19,7 @@ class EstadoQuartoSeeder extends Seeder
     {
         DB::table('estado_quarto')->insert([[
             'id' => 1,
-            'nome' => 'Ativo',
+            'nome' => 'Disponível',
             'cor' => 'success',
             'icon' => 'fa fa-bed',
             'ordem' => 0,
