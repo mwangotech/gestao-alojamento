@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Services\ClienteService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ClienteRequest;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 
 class ClienteController extends Controller
@@ -87,14 +88,52 @@ class ClienteController extends Controller
     {        
         $data = $request->all();
         //dd($data);
-        DB::transaction(function () use ($data) {
-            //Check if BI Exists
-            Cliente::create($data);
-        });
+        $this->gravarNovoCliente($data);
+        //errors
 
         return redirect()->route('clientes.index')->with('success','Cliente criado com sucesso.');
     }
+    
+    private function gravarNovoCliente($data) {
+        return DB::transaction(function () use ($data) {
+            //Check if BI Exists
+            $exist = Cliente::where('BI', $data["BI"])->first();
+            if($exist) {
+                return false;
+            }
+           return Cliente::create($data);
+        });
+    }
 
+    public function cadastro_quarto(Request $request)
+    {
+        $data = $request->all();
+        try {
+            $cliente = $this->gravarNovoCliente($data);
+            if($cliente) {
+                $content = array(
+                    'success'=>true,
+                    'data'=>$cliente
+                );
+            } else {
+                $exist = Cliente::where('BI', $data["BI"])->first();
+                $content = array(
+                    'success'=>false,
+                    'exists' => $exist,
+                    'message'=> "Cliente já cadastrado anteriormente!"
+                );
+            }
+        }catch(Exception $e){
+            $content = array(
+                'success'=>false,
+                'message'=> "Erro ao criar o cliente!"
+            );
+        }
+        
+        
+        return response()->json($content, 200);
+    }
+    
     /**
     * Show the form for editing the specified resource.
     */

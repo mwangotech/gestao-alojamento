@@ -26,7 +26,7 @@ class EstadoReservaSeeder extends Seeder
             'estado' => 1
         ],[
             'id' => 2,
-            'nome' => 'Em Checkin',
+            'nome' => 'Checkin',
             'cor' => 'success',
             'icon' => 'fa fa-bed',
             'ordem' => 1,

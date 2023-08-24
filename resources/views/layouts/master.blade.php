@@ -33,6 +33,11 @@
         <link rel="stylesheet" href="{{asset('/assets/plugins/devextreme_v21_2_6/dx.light.css')}}">
     </head>
     <body class="hold-transition sidebar-mini">
+    <style>
+        .ui-front {
+            z-index: 9999999 !important;
+        }
+    </style>
     <div class="wrapper">
     
 

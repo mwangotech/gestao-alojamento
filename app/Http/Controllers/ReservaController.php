@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DateTime;
 use Exception;
+use App\Models\Genero;
 use App\Models\Quarto;
 use App\Models\Cliente;
 use App\Models\Reserva;
@@ -12,6 +13,8 @@ use App\Models\Pagamento;
 use Illuminate\View\View;
 use App\Models\Comodidade;
 use App\Models\TipoQuarto;
+use App\Models\EstadoCivil;
+use App\Models\TipoCliente;
 use Illuminate\Http\Request;
 use App\Models\CheckinConfig;
 use App\Models\EstadoReserva;
@@ -62,12 +65,22 @@ class ReservaController extends Controller
         }
         $divida = ((float)$reserva->valor - (float)$totalPagamentos);
         if($divida <= 0) {
-            $estados = EstadoReserva::where('estado', 1)->get();
+            if($reserva->idEstadoReserva == 3){
+                $estados = EstadoReserva::where('estado', 1)->where('id', 3)->get();
+            } else if($reserva->idEstadoReserva == 2 ) {
+                $estados = EstadoReserva::where('estado', 1)->get();
+            } else {
+                if(!$reserva->canCheckin) {
+                    $estados = EstadoReserva::where('estado', 1)->whereNotIn('id', [2,3])->get();
+                } else {
+                    $estados = EstadoReserva::where('estado', 1)->where('id', '!=', 3)->get();
+                }
+                
+            }
         } else {
             $estados = EstadoReserva::where('estado', 1)->whereNotIn('id', [2,3])->get();
         }
         
-
         $breadcrumbs = array(
             ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],
             ['name'=> 'Reserva','url' => route('reservas.index'),'active' => 0],
@@ -127,17 +140,7 @@ class ReservaController extends Controller
                 $data = $request->all();
                 $sucesso = DB::transaction(function() use($idReserva, $data) {
                     $data['idUtilizador'] =auth()->user()->id;   
-                    $data['dataPagamento'] = date('Y-m-d H:i:s');   
-                    /*$reserva = Reserva::find($idReserva);  
-                    $pagamentos = Pagamento::where('idReserva', $reserva->id)->get();
-                    $totalPagamentos = 0;
-                    foreach($pagamentos as $pagamento) {
-                        $totalPagamentos += $pagamento->montante;
-                    }
-                    $divida = ((float)$reserva->valor - (float)$totalPagamentos);  
-                    if($divida <= 0) {
-                        return false;
-                    }*/          
+                    $data['dataPagamento'] = date('Y-m-d H:i:s');      
                     Pagamento::create($data);
                    return true;
                 });
@@ -167,6 +170,10 @@ class ReservaController extends Controller
         $mPagamentos = MetodoPagamento::where('estado', 1)->get();
         $comodidades = Comodidade::where('estado', 1)->get();
         $servicos = Servico::where('estado', 1)->get();
+        //Quarto
+        $tipoQuatos = TipoCliente::where('estado', 1)->get();
+        $generos = Genero::where('estado', 1)->get();
+        $estadoCivils = EstadoCivil::where('estado', 1)->get();
 
         //dd($quartosTest);
         $breadcrumbs = array(
@@ -174,7 +181,7 @@ class ReservaController extends Controller
             ['name'=> 'Reserva','url' => route('reservas.index'),'active' => 0],
             ['name'=> 'Novo','url' => '','active' => 1]
         );
-        return view('pages.reserva.create',compact('breadcrumbs','tipos','mPagamentos','comodidades','servicos'));
+        return view('pages.reserva.create',compact('breadcrumbs','tipos','mPagamentos','comodidades','servicos','tipoQuatos','generos','estadoCivils'));
     }
 
     /**

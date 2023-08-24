@@ -117,7 +117,7 @@
                 </div>
               </div>
               
-                <form id="form-quarto" action="{{ route('reservas.store') }}" method="POST">
+                <form name="form-reserva" id="form-quarto" action="{{ route('reservas.store') }}" method="POST">
                     @csrf
                     <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
                         <input type="hidden" value="{{ old('idQuarto') }}" name="idQuarto" id="input-idQuarto" />
@@ -270,11 +270,95 @@
              </button>
           </div>
           <div class="modal-body">
-             <p>One fine body…</p>
+            <form id="modal-form-novo-cliente">
+                @csrf
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <label>Nº de Identificação(BI/NIF):<span style="color:red">*</span></label>
+                            <input type="text" required name="BI" value="{{ old('BI') }}" class="form-control" placeholder="Nº de Identificação(BI/NIF)">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-8">
+                        <div class="form-group">
+                            <label>Nome:<span style="color:red">*</span></label>
+                            <input type="text" required name="nome" value="{{ old('nome') }}" class="form-control" placeholder="Nome">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <label>Tipo:</label>
+                            <select name="idTipo" class="form-control">
+                                @foreach ($tipoQuatos as $tipo)
+                                    <option value="{{$tipo->id}}">{{$tipo->nome}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <label>Genero:</label>
+                            <select name="idGenero" class="form-control">
+                                @foreach ($generos as $genero)
+                                    <option value="{{$genero->id}}">{{$genero->nome}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <label>Data de Nascimento:</label>
+                            <input type="date" name="dataNascimento" value="{{ old('dataNascimento') }}" class="form-control" placeholder="Data de Nascimento">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <label>Email:<span style="color:red">*</span></label>
+                            <input type="email" required name="email" value="{{ old('email') }}" class="form-control" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <label>Telefone:</label>
+                            <input type="tel" name="telefone" value="{{ old('telefone') }}" class="form-control" placeholder="244 xxx xxx xxx">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <label>Profissão:</label>
+                            <input type="text" name="profissao" value="{{ old('profissao') }}" class="form-control" placeholder="Profissão">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <label for="input-pais"><span data-toggle="tooltip" title="Filtro letra-a-letra">Nacionalidade:</span><span style="color:red">*</span></label>
+                            <input type="text" required name="nacionalidade" value="{{ old('nacionalidade') }}" placeholder="Nacionalidade" id="input-nacionalidade" class="form-control"/>
+                            <input type="hidden" id="input-nacionalidade-id" name="idNacionalidade" value="{{ old('idNacionalidade') }}"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <label for="input-provincia"><span data-toggle="tooltip" title="Filtro letra-a-letra">Província:</span><span style="color:red">*</span></label>
+                            <input type="text" required name="provincia" value="{{ old('provincia') }}" placeholder="Provincia" id="input-provincia" class="form-control"/>
+                            <input type="hidden" id="input-provincia-id" name="idProvincia" value="{{ old('idProvincia') }}"/>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <label>Estado Civil:</label>
+                            <select name="idEstadoCivil" class="form-control">
+                                @foreach ($estadoCivils as $estadocivil)
+                                    <option value="{{$estadocivil->id}}">{{$estadocivil->nome}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
           </div>
           <div class="modal-footer text-right">
              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-             <button type="button" class="btn btn-primary">Gravar</button>
+             <button type="button" id="btn-form-novo-cliente" class="btn btn-primary">Gravar</button>
           </div>
        </div>
     </div>
@@ -439,15 +523,89 @@
 
         $("#modal-lista-clientes" ).delegate(".select-modal-pesquisa-cliente", "click", function() {
        
-            $("input[name='idCliente']").val($(this).attr('data-idCliente'));
-            $("input[name='BI']").val($(this).attr('data-bi'));
-            $("input[name='nomeTipo']").val($(this).attr('data-nome'));
-            $("input[name='nomeCliente']").val($(this).attr('data-nomeTipo'));
+            $("form[name='form-reserva'] input[name='idCliente']").val($(this).attr('data-idCliente'));
+            $("form[name='form-reserva'] input[name='BI']").val($(this).attr('data-bi'));
+            $("form[name='form-reserva'] input[name='nomeTipo']").val($(this).attr('data-nomeTipo'));
+            $("form[name='form-reserva'] input[name='nomeCliente']").val($(this).attr('data-nome'));
 
             $('#modal-pesquisa-cliente').modal('hide');
             $('#concluir-reserva').removeAttr('disabled');
         });
 
+        $('#btn-form-novo-cliente').on('click', function(){
+            if (!$('#modal-form-novo-cliente')[0].checkValidity()) {
+                $('#modal-form-novo-cliente')[0].reportValidity()
+            } else {
+                var formElement = document.querySelector("#modal-form-novo-cliente");
+		        var formData = new FormData(formElement); 
+
+                $.ajax({
+                    url: "{{ url('cadastro_quarto') }}",
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $('#btn-form-novo-cliente').button('loading');
+                    },
+                    complete: function() {
+                        $('#btn-form-novo-cliente').button('reset');
+                    },
+                    success: function(json) {
+                        if(json.success) {
+                            console.log(json.data);
+                            Swal.fire({
+                                title: 'Sucesso',
+                                text: "Cliente cadastrado com sucesso.",
+                                icon: 'success'
+                            }).then((result) => {
+                                $("form[name='form-reserva'] input[name='idCliente']").val(json.data.id);
+                                $("form[name='form-reserva'] input[name='BI']").val(json.data.BI);
+                                $("form[name='form-reserva'] input[name='nomeTipo']").val(json.data.nomeTipo);
+                                $("form[name='form-reserva'] input[name='nomeCliente']").val(json.data.nome);
+
+                                $('#modal-novo-cliente').modal('hide');
+                                $('#concluir-reserva').removeAttr('disabled');
+                                $("#modal-form-novo-cliente").trigger('reset');
+                            });
+                        } else {
+                            if(json.exists) {
+                                Swal.fire({
+                                    title: 'Cliente com o Nº de Identificação '+json.exists.BI+' já existe.',
+                                    text: "Deseja utiliza-lo para reserva do quarto selecionado?.",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#28A745',
+                                    cancelButtonColor: '#3085d6',
+                                    cancelButtonText: 'Não',
+                                    confirmButtonText: 'Sim, Utilizar!'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        $("form[name='form-reserva'] input[name='idCliente']").val(json.exists.id);
+                                        $("form[name='form-reserva'] input[name='BI']").val(json.exists.BI);
+                                        $("form[name='form-reserva'] input[name='nomeTipo']").val(json.exists.nomeTipo);
+                                        $("form[name='form-reserva'] input[name='nomeCliente']").val(json.exists.nome);
+
+                                        $('#modal-novo-cliente').modal('hide');
+                                        $('#concluir-reserva').removeAttr('disabled');
+                                        $("#modal-form-novo-cliente").trigger('reset');
+                                    }
+                                })
+                            } else {
+                                Swal.fire({
+                                    title: 'Oops',
+                                    text: "Ocorreu um erro ao cadastrar o cliente.",
+                                    icon: 'error',
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+        })
         Date.prototype.toInputFormat = function() {
             var yyyy = this.getFullYear().toString();
             var mm = (this.getMonth()+1).toString();
@@ -461,5 +619,65 @@
     document.addEventListener('DOMContentLoaded', function () {
         window.stepper = new Stepper(document.querySelector('.bs-stepper'));
     });
-</script>  
+</script> 
+<script>
+    $(function () {
+        //Nacionalidades Autocomplete
+        $('input[name=\'nacionalidade\']').autocomplete({
+            minLength: 0,
+            autoFocus: true,
+            'source': function(request, response) {
+                $.ajax({
+                url: "{{ url('pais_autocomplete') }}?filter_name=" + encodeURIComponent(request.term),
+                dataType: 'json',
+                success: function(json) {
+                    response($.map(json, function(item) {
+                    return {
+                        label: item['nome'],
+                        value: item['id']
+                    }
+                    }));
+                }
+                });
+            },
+            'select': function(event, ui) {
+
+                $('#input-nacionalidade-id').val(ui.item['value']);
+                $('input[name=\'nacionalidade\']').val(ui.item['label']);
+                event.preventDefault();
+            }
+        }).focus(function() {
+            $(this).autocomplete("search", "");
+        });
+        //$('input[name=\'nacionalidade\']').autocomplete( "option", "appendTo", ".eventInsForm" );
+
+        //Provincias Autocomplete
+        $('input[name=\'provincia\']').autocomplete({
+            'source': function(request, response) {
+                console.log(request.term);
+                $.ajax({
+                url: "{{ url('provincia_autocomplete') }}?filter_country_id="+encodeURIComponent($('#input-nacionalidade-id').val())+"&filter_name=" + encodeURIComponent(request.term),
+                dataType: 'json',
+                success: function(json) {
+                    response($.map(json, function(item) {
+                    return {
+                        label: item['nome'],
+                        value: item['id']
+                    }
+                    }));
+                }
+                });
+            },
+            'select': function(event, ui) {
+                
+                $('#input-provincia-id').val(ui.item['value']);
+                $('input[name=\'provincia\']').val(ui.item['label']);
+                event.preventDefault();
+            }
+        }).focus(function() {
+            $(this).autocomplete("search", "");
+        });
+        //$('input[name=\'provincia\']').autocomplete( "option", "appendTo", ".eventInsForm" );
+    });
+</script> 
 @endsection

@@ -23,12 +23,12 @@
                     <th width="10px">Cod.</th>
                     <th>Cliente</th>
                     <th>Quarto</th>
-                    <th class="text-right" width="100px">Preço</th>
+                    <th class="text-right" width="50px">Preço</th>
                     <th class="text-right" width="50px">Nº Dias</th>
-                    <th class="text-right" width="100px">Valor</th>
-                    <th class="text-right" width="80px">Checkin</th>
-                    <th class="text-right" width="80px">Checkout</th>
-                    <th class="text-center" width="100px">Estado</th>
+                    <th class="text-right" width="60px">Valor</th>
+                    <th class="text-right" width="110px">Data Inicio</th>
+                    <th class="text-right" width="80px">Data Fim</th>
+                    <th class="text-center" width="70px">Estado</th>
                     <th  class="text-center" width="40px">Acção</th>
                 </tr>
                 </thead>
@@ -38,11 +38,11 @@
                     <td>{{ $reserva->id }}</td>
                     <td>{{ $reserva->nomeCliente }}</td>
                     <td>{{ $reserva->numeroQuarto }}</td>
-                    <td class="text-right">{{number_format($reserva->preco,0,',',' ')}}kz</td>
-                    <td class="text-right">{{$reserva->qtdDias}}Dias</td>
-                    <td class="text-right">{{number_format($reserva->valor,0,',',' ')}}kz</td>
-                    <td class="text-right">{{ $reserva->checkin }}</td>
-                    <td class="text-right">{{ $reserva->checkout }}</td>
+                    <td class="text-right">{{number_format($reserva->preco,0,',',' ')}} kz</td>
+                    <td class="text-right">{{$reserva->qtdDias}} dias</td>
+                    <td class="text-right">{{number_format($reserva->valor,0,',',' ')}} kz</td>
+                    <td class="text-right">{{ $reserva->dataInicio }}</td>
+                    <td class="text-right">{{ $reserva->dataFim }}</td>
                     <td class="text-center"><span class="right badge badge-{{ $reserva->corEstadoReserva }}">{{ $reserva->nomeEstadoReserva }}</span></td>
                     <td>
                         <a class="btn btn-success" href="{{ route('reservas.show',$reserva->id) }}"><i class="fa fa-eye"></i></a>

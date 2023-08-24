@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Reserva extends Model
 {
@@ -60,7 +61,11 @@ class Reserva extends Model
      * @var array<int, string>
      */
     protected $hidden = [
-        'pivot'
+        'pivot',
+        'cliente',
+        'quarto',
+        'estadoReserva',
+        'utilizador'
     ];
 
     /**
@@ -77,17 +82,28 @@ class Reserva extends Model
         'numeroQuarto',
         'nomeEstadoReserva',
         'corEstadoReserva',
-        'nomeUtilizador'
+        'nomeUtilizador',
+        'canCheckin'
     ];
 
     protected function cliente()
     {
         return $this->belongsTo(Cliente::class, 'idCliente');
     }
-
+    
     protected function getNomeClienteAttribute()
     {
         return $this->cliente->nome;
+    }
+    
+    protected function getCanCheckinAttribute()
+    {
+        $date = new Carbon;
+        if($date >= $this->dataInicio) {
+            return true;
+        } else {
+            return false;
+        }
     }
     
 
