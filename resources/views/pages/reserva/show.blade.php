@@ -75,11 +75,11 @@
                                    <td>{{number_format($reserva->valor,0,',',' ')}} kz &nbsp;&nbsp;@if($divida>0) <span class="right badge badge-danger">{{ number_format($divida,0,',',' ')}} kz</span> @else <span class="right badge badge-success"><i class="fas fa-check-circle"></i></span> @endif</td>
                                 </tr>
                                  <tr>
-                                    <td style="width: 1%;"><button data-toggle="tooltip" title="" class="btn btn-info btn-xs" data-original-title="Quantidade de Adultos"><i class="fas fa-restroom fa-fw"></i></button></td>
+                                    <td style="width: 1%;"><button data-toggle="tooltip" title="" class="btn btn-info btn-xs" data-original-title="Quantidade de Adultos"><i class="fas fa-male"></i></button></td>
                                     <td>{{$reserva->totalAdulto}}</td>
                                  </tr>
                                  <tr>
-                                    <td style="width: 1%;"><button data-toggle="tooltip" title="" class="btn btn-info btn-xs" data-original-title="Quantidade de Adultos"><i class="fa fa-user-friends fa-fw"></i></button></td>
+                                    <td style="width: 1%;"><button data-toggle="tooltip" title="" class="btn btn-info btn-xs" data-original-title="Quantidade de Crianças"><i class="fas fa-baby"></i></button></td>
                                     <td>{{$reserva->totalCrianca}}</td>
                                  </tr>
                                  <tr>
@@ -112,7 +112,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12" id="lista-historico">
-                                        <table class="table-list-reserva table table-bordered table-striped">
+                                        <table class="table-list-no-search table table-bordered table-striped">
                                             <thead>
                                             <tr>
                                                 <th>Criado por</th>
@@ -181,7 +181,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         @if(count($pagamentos) > 0)
-                                        <table class="table table-striped">
+                                        <table class="table-list-no-search table table-bordered table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>Adicionado por</th>

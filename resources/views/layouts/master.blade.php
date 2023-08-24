@@ -121,17 +121,16 @@
                 "autoWidth": false,
                 "responsive": true,
             });
-            $(".table-list-reserva").DataTable({
+            $(".table-list-no-search").DataTable({
                 "paging": true,
                 "lengthChange": false,
-                "pageLength": 3,
-                "searching": true,
+                "pageLength": 5,
+                "searching": false,
                 "ordering": false,
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
             });
-            
         });
     </script> 
     <script>

@@ -79,6 +79,7 @@ class Reserva extends Model
 
     protected $appends = [
         'nomeCliente',
+        'nomeQuarto',
         'numeroQuarto',
         'nomeEstadoReserva',
         'corEstadoReserva',
@@ -115,6 +116,11 @@ class Reserva extends Model
     protected function getNumeroQuartoAttribute()
     {
         return $this->quarto->numero;
+    }
+    
+    protected function getNomeQuartoAttribute()
+    {
+        return $this->quarto->nome;
     }
     
 

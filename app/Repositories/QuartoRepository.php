@@ -98,9 +98,9 @@ class QuartoRepository
    GROUP BY 
       q.id
    ORDER BY 
-      is_reserved DESC,
-      fimReserva ASC,
       eq.ordem ASC,
+      is_reserved ASC,
+      fimReserva ASC,
       inicioReserva ASC";
 
       //dd($sql);

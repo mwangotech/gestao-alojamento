@@ -23,6 +23,7 @@
                     <th width="10px">Cod.</th>
                     <th>Cliente</th>
                     <th>Quarto</th>
+                    <th class="text-center" width="50px">Hospedes</th>
                     <th class="text-right" width="50px">Preço</th>
                     <th class="text-right" width="50px">Nº Dias</th>
                     <th class="text-right" width="60px">Valor</th>
@@ -37,7 +38,8 @@
                 <tr>
                     <td>{{ $reserva->id }}</td>
                     <td>{{ $reserva->nomeCliente }}</td>
-                    <td>{{ $reserva->numeroQuarto }}</td>
+                    <td><span class="right badge badge-info">{{ $reserva->numeroQuarto }}</span>&nbsp;&nbsp;{{ $reserva->nomeQuarto }}</td>
+                    <td class="text-center"><span class="right badge badge-primary"><i class="fas fa-male"></i>&nbsp;&nbsp;{{ $reserva->totalAdulto }}</span>&nbsp;<span class="right badge badge-info"><i class="fas fa-baby"></i>&nbsp;&nbsp;{{ $reserva->totalCrianca }}</span></td>
                     <td class="text-right">{{number_format($reserva->preco,0,',',' ')}} kz</td>
                     <td class="text-right">{{$reserva->qtdDias}} dias</td>
                     <td class="text-right">{{number_format($reserva->valor,0,',',' ')}} kz</td>

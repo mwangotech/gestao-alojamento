@@ -8,6 +8,7 @@ use App\Http\Controllers\QuartoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\ServicoController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\ComodidadeController;
 
@@ -30,7 +31,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
                 return view('index');
             });
             $route->get('me',  [AuthController::class, 'me'])->name('me');
-            $route->get('dashboard', function () { return view('index');})->name('dashboard');
+            $route->get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+            $route->get('dashboardReservasPorEstados', [DashboardController::class, 'dashboardReservasPorEstados']);
+            $route->get('dashboardFaturacaoSemanal', [DashboardController::class, 'dashboardFaturacaoSemanal']);
+            $route->get('dashboardFaturacaoMensal', [DashboardController::class, 'dashboardFaturacaoMensal']);
+            
+
             $route->resource('perfis', PerfilController::class)->parameters(['perfis' => 'perfil']);
             $route->resource('utilizadores', UtilizadorController::class)->parameters(['utilizadores' => 'utilizador']);
             $route->resource('menus', MenuController::class)->parameters(['menus' => 'menu']);
