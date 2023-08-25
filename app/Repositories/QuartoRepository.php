@@ -98,6 +98,7 @@ class QuartoRepository
    GROUP BY 
       q.id
    ORDER BY 
+      q.numero,
       eq.ordem ASC,
       is_reserved ASC,
       fimReserva ASC,

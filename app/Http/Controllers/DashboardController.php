@@ -24,12 +24,12 @@ class DashboardController extends Controller
     */
     public function index(Request $request): View
     {
-        $checkinCurso = Reserva::where('idEstadoReserva', 2)->count();
+        $checkinCurso = Reserva::where('idEstadoReserva', 2)->count() ?? 0;
 
-        $reservasPendente = Reserva::where('idEstadoReserva', 1)->count();
+        $reservasPendente = Reserva::where('idEstadoReserva', 1)->count() ?? 0;
 
-        $totalAdultos = Reserva::where('idEstadoReserva', 2)->sum('totalAdulto');
-        $totalCrianca = Reserva::where('idEstadoReserva', 2)->sum('totalCrianca');
+        $totalAdultos = Reserva::where('idEstadoReserva', 2)->sum('totalAdulto') ?? 0;
+        $totalCrianca = Reserva::where('idEstadoReserva', 2)->sum('totalCrianca') ?? 0;
         $totalHospedes = $totalAdultos+$totalCrianca;
         
         $totalFaturacao = Reserva::whereDate('dataInicio', '>=', date('Y-m-01'))->whereDate('dataInicio', '<=', date('Y-m-t'))->sum('valor');

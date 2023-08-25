@@ -20,7 +20,8 @@ class DashboardService
 
     public function dashboardReservasPorEstados(Request $request)
     {
-        $res = $this->repository->dashboardReservasPorEstados();
+        $periodos = $this->getAnalisysPeriods();
+        $res = $this->repository->dashboardReservasPorEstados($periodos[9]);
         return response()->json($res, 200);
     }
 
@@ -32,6 +33,7 @@ class DashboardService
         foreach($res as $key => $data) {
             $res[$key]->montante = (float)$data->montante;
             $res[$key]->nomeDiaSemana = $this->getMysqlWeekDayNamePT($data->diaSemana,true);
+            $res[$key]->nomeDiaMes = $data->dia.' '.strtoupper($this->getMonthNamePT($data->mes,true));
         }
         return response()->json($res, 200);
     }

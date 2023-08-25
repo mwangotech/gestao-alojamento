@@ -15,7 +15,7 @@ class ReservaRepository
     }
 
     public function list($limit=20) {
-        return $this->model->all();
+        return $this->model->orderBy('dataInicio', 'ASC')->orderBy('idEstadoReserva', 'ASC')->orderBy('qtdDias', 'ASC')->get();
     }
     public function autocomplete($filter_name) {
         if(!empty($filter_name)) {

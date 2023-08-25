@@ -18,7 +18,7 @@ class DashboardRepository
       
    }
 
-   public function dashboardReservasPorEstados() {    
+   public function dashboardReservasPorEstados($period) {    
       return DB::select("SELECT 
          er.nome as label,
          COUNT(*) as valor
@@ -26,17 +26,18 @@ class DashboardRepository
          `reserva` r
          LEFT JOIN estado_reserva er ON (er.id = r.`idEstadoReserva`)
       WHERE 
-         r.`dataInicio` >= ? AND 
-         r.`dataInicio` <= ?
+         r.`created_at` >= ? AND 
+         r.`created_at` <= ?
       GROUP BY
          label
-      ",[date('Y-m-01'),date('Y-m-t')]);
+      ",[$period['start_date'], $period['end_date']]);
    }
 
    public function dashboardFaturacaoSemanal($period) {
       return DB::select("SELECT 
       DAY(`dataPagamento`) as dia,
       WeekDay(`dataPagamento`) as diaSemana,
+      MONTH(`dataPagamento`) as mes,
       SUM(`montante`) as montante
    FROM 
    `pagamento`
@@ -45,7 +46,11 @@ class DashboardRepository
       DATE(`dataPagamento`) <= ?
    GROUP BY 
       dia,
-      diaSemana
+      diaSemana,
+      mes
+   ORDER BY
+      mes,
+      dia
       ",[$period['start_date'],$period['end_date']]);
    }
    
@@ -62,6 +67,8 @@ class DashboardRepository
       GROUP BY 
          ano,
          mes
+      ORDER BY 
+         ano, mes
       ",[$period['start_date'],$period['end_date']]);
    }
 }

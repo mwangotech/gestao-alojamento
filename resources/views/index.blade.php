@@ -32,6 +32,19 @@
           </div>
           <!-- /.col -->
 
+          <div class="col-12 col-sm-6 col-md-2">
+            <div class="info-box mb-3">
+              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-users"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Hospedes Activos</span>
+                <span class="info-box-number">{{$totalHospedes}}</span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
           <!-- fix for small devices only -->
           <div class="col-12 col-sm-6 col-md-3">
             <div class="info-box mb-3">
@@ -52,19 +65,6 @@
               <div class="info-box-content">
                 <span class="info-box-text">Faturação Confirmada (Mês)</span>
                 <span class="info-box-number">{{number_format($totalFaturacaoRecebido,0,',',' ')}} kz</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-12 col-sm-6 col-md-2">
-            <div class="info-box mb-3">
-              <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-users"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Hospedes Activos</span>
-                <span class="info-box-number">{{$totalHospedes}}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -108,7 +108,7 @@
         <div class="card">
           <div class="card-header border-0">
             <div class="d-flex justify-content-between">
-              <h3 class="card-title"><a href="javascript:void(0);"><h3 class="card-title">Reservas (Este Mês)</h3></a></h3>
+              <h3 class="card-title"><a href="javascript:void(0);"><h3 class="card-title">Reservas nos ultimos 30 dias</h3></a></h3>
             </div>
           </div>
           <div class="card-body">
@@ -134,6 +134,7 @@
       if(dataSource) {
         $('#week-chart').dxChart({
           dataSource: dataSource,
+          palette: "Material",  
           series: {
               argumentField: 'nomeDiaSemana',
               valueField: 'montante',
@@ -141,8 +142,11 @@
                   visible: false
               },
               type: 'bar',
-              color: '#5B9D95',
           },
+           commonSeriesSettings: {  
+            type: "bar",  
+            ignoreEmptyPoints: true  
+        } , 
           legend: {
               visible:false
           },
@@ -202,7 +206,7 @@
                 visible: false
             },
             type: 'bar',
-            color: '#5B9D95',
+            color: '#1DB2F5',
         },
         legend: {
             visible:false
@@ -257,7 +261,7 @@
       if(dataSource) {
         $('#monthly-pie-chart').dxPieChart({
           type: 'doughnut',
-          palette: 'Green Mist',
+          palette: 'Material',
           dataSource,
           title: false,
           tooltip: {
@@ -297,13 +301,13 @@
       $('#monthly-line-chart').dxChart({
         dataSource: dataSource,
         series: {
-            argumentField: 'dia',
+            argumentField: 'nomeDiaMes',
             valueField: 'montante',
             name: {
                 visible: false
             },
-            type: 'bar',
-            color: '#5B9D95',
+            type: 'spline',
+            color: '#1DB2F5',
         },
         legend: {
             visible:false

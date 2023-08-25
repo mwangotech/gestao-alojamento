@@ -5,8 +5,8 @@
         <th class="text-right" width="20px">Nº</th>
         <th>Tipo de Quarto</th>
         <th>Descrição</th>
-        <th class="text-right">Preço</th>
-        <th class="text-right" width="50px">Valor</th>
+        <th class="text-right" width="100px">Preço</th>
+        <th class="text-right" width="100px">Valor</th>
         <th class="text-right" width="50px">Adultos</th>
         <th class="text-right" width="50px">Crianças</th>
         <th class="text-center" width="10px"></th>
@@ -20,7 +20,7 @@
         <td>{{ $quarto->nomeTipoQuarto }}</td>
         <td>{{ $quarto->nome }}</td>
         <td class="text-right">{{number_format($quarto->preco,0,',',' ')}} kz</td>
-        <td class="text-right">{{number_format($quarto->valor,0,',',' ')}} kz</td>
+        <td class="text-right"><span class="right badge badge-warning">{{number_format($quarto->valor,0,',',' ')}} kz</span></td>
         <td class="text-right">{{$quarto->limit_adulto}}</td>
         <td class="text-right">{{$quarto->limit_crianca}}</td>
         <td class="text-center">

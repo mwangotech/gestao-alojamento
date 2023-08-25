@@ -27,9 +27,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             'middleware' => ['web','auth'],
         ],
         function ($route) {
-            $route->get('/', function () {
-                return view('index');
-            });
+            $route->get('/', [DashboardController::class, 'index']);
             $route->get('me',  [AuthController::class, 'me'])->name('me');
             $route->get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
             $route->get('dashboardReservasPorEstados', [DashboardController::class, 'dashboardReservasPorEstados']);
