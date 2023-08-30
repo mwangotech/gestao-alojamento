@@ -72,6 +72,7 @@ class Pagamento extends Model
     ];
 
     protected $appends = [
+        'nomeCliente',
         'nomeUtilizador',
         'nomeEstadoPagamento',
         'nomeMetodoPagamento',
@@ -102,6 +103,17 @@ class Pagamento extends Model
     protected function getNomeMetodoPagamentoAttribute()
     {
         return $this->metodoPagamento->nome;
+    }
+    
+    
+    protected function cliente()
+    {
+        return $this->belongsTo(Cliente::class, 'idCliente');
+    }
+
+    protected function getNomeClienteAttribute()
+    {
+        return $this->cliente->nome;
     }
     
     

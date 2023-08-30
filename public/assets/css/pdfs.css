@@ -1,0 +1,141 @@
+body {
+    font-family: "Roboto",sans-serif;
+    font-size: 13px;
+    color: #6c757d;
+    margin: 0;
+    padding: 0;
+}
+.red {
+    color: #bf2f38;
+}
+.font-14 {
+    font-size: 14px;
+}
+.font-11 {
+    font-size: 11px;
+}
+.font-22 {
+    font-size: 22px;
+}
+.font-42 {
+    font-size: 42px;
+}
+.bold {
+    font-weight: bold;
+}
+.normal {
+    font-weight: normal;
+    text-transform: initial;
+}
+.underline {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #6c757d;
+    ;
+}
+.doc-type {
+    font-size: 18px;
+    display: block;
+    width: 500px;
+    text-align: right;
+}
+.doc-title {
+    font-size: 24px;
+}
+.header-info {
+    float: right;
+    text-align: right;
+    padding-top: 30px;
+}
+hr {
+    border-top: 1px solid #ebebeb;
+    float: left;
+    width: 100%;
+}
+.title {
+    border-bottom: 2px solid #6c757d;
+    padding: 8px 5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+.title span{
+    margin-right: 10px;
+}
+section {
+    margin-bottom: 20px;
+    display: block;
+    float: left;
+    page-break-inside: avoid;
+    page-break-after: avoid;
+    width: 100%;
+}
+.line {
+    padding: 5px;
+    color: #333;
+    display: block;
+    width: 100%;
+    float: left;
+}
+.line.big {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 1.5;
+}
+.line div{
+    float: left;
+}
+.line div.float-right {
+    float: right;
+}
+.line b{
+    margin-right: 8px;
+}
+
+.line .w1-3{width: 33.333333333%;}
+.line .w1-4{width: 25%;}
+.line .w3-4{width: 75%;} 
+.line .w1-2{width: 50%;}
+.line .w1{width: 100%;}
+.line .w1-6{width: 16.6666666%;}
+.line .w4-6{width: 66.666666%;}
+table {
+    width: 100%;
+    margin: auto;
+}  
+table th {
+    color: white;
+    padding: 8px;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: #6c757d;
+}
+table td {
+    padding: 8px;
+    text-align: center;
+    text-transform: uppercase;
+    background-color: #ebebeb;
+    font-size: 14px;
+}
+table th.red {
+    background-color: #bf2f38;
+    color: white;
+}
+table td.line-through {
+    text-decoration: line-through;
+}
+table td span {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+footer .line > div{
+    margin-bottom: 5px;
+}
+.gray {
+    color: #6c757d;
+}
+.bg-gray {
+    background-color: #faf9f5;
+}

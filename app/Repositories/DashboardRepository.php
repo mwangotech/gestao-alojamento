@@ -33,7 +33,7 @@ class DashboardRepository
       ",[$period['start_date'], $period['end_date']]);
    }
 
-   public function dashboardFaturacaoSemanal($period) {
+   public function dashboardFaturacaoPorPeriodo($period) {
       return DB::select("SELECT 
       DAY(`dataPagamento`) as dia,
       WeekDay(`dataPagamento`) as diaSemana,

@@ -9,6 +9,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\ServicoController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PagamentoController;
 use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\ComodidadeController;
 
@@ -33,7 +34,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             $route->get('dashboardReservasPorEstados', [DashboardController::class, 'dashboardReservasPorEstados']);
             $route->get('dashboardFaturacaoSemanal', [DashboardController::class, 'dashboardFaturacaoSemanal']);
             $route->get('dashboardFaturacaoMensal', [DashboardController::class, 'dashboardFaturacaoMensal']);
+            $route->get('getAnalisysPeriods', [DashboardController::class, 'getAnalisysPeriods']);
             
+
+            $route->get('relatorio-pagamentos', [PagamentoController::class, 'index'])->name('relatorio-pagamentos');
+            $route->get('download-pagamentos', [PagamentoController::class, 'downloadPagamentos'])->name('download-pagamentos');
 
             $route->resource('perfis', PerfilController::class)->parameters(['perfis' => 'perfil']);
             $route->resource('utilizadores', UtilizadorController::class)->parameters(['utilizadores' => 'utilizador']);

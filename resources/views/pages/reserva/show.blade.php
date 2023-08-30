@@ -12,6 +12,15 @@
     <input type="hidden" value="{{$reserva->idCliente}}" id="input-idCliente">
       <div class="card card-default">
         <div class="card-body p-3">
+            <div class="row">
+                @if ($reserva->idEstadoReserva == 3)
+                <div class="col-xs-12 col-sm-12 col-md-12 text-right">
+                    <button type="button" id="btn-ver-fatura" class="btn btn-info">Gerar Fatura <i class="fas fa-file-pdf"></i></button>
+                    <br/>
+                    <br/>
+                </div>
+                @endif
+            </div>
             <div id="information-part">
                 <div class="row">
                     <div class="col-md-6">
@@ -208,11 +217,11 @@
                                         @else 
                                         <div class="alert alert-warning alert-dismissible">
                                             <h5><i class="icon fas fa-exclamation-triangle"></i> Nenhum pagamento adicionado!</h5>
-                                            Fazer o primeiro pagamaneto para continuar com a reserva!
                                         </div>
                                         @endif
                                     </div>
                                 </div>
+                                @if ($reserva->idEstadoReserva != 4)
                                 <fieldset>
                                     <legend>Adicionar Pagamento</legend>
                                     <form id="form-add-pagamento">
@@ -243,6 +252,7 @@
                                         </div>
                                     </form>
                                 </fieldset>
+                                @endif
                             </div>
                         </div>
                     </div>

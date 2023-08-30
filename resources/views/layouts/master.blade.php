@@ -32,7 +32,7 @@
         <!-- DevExtrem CSS -->
         <link rel="stylesheet" href="{{asset('/assets/plugins/devextreme_v21_2_6/dx.light.css')}}">
     </head>
-    <body class="hold-transition sidebar-mini">
+    <body class="hold-transition  sidebar-mini sidebar-collapse">
     <style>
         .ui-front {
             z-index: 9999999 !important;
@@ -113,11 +113,11 @@
                 "responsive": true,
             });
             $(".table-home").DataTable({
-                "paging": false,
+                "paging": true,
                 "lengthChange": false,
                 "searching": false,
-                "ordering": true,
-                "info": false,
+                "ordering": false,
+                "info": true,
                 "autoWidth": false,
                 "responsive": true,
             });

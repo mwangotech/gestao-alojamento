@@ -8,7 +8,7 @@
               <span class="info-box-icon bg-info elevation-1"><i class="fas fa-bed"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Checkin em Curso</span>
+                <span class="info-box-text">Checkin</span>
                 <span class="info-box-number">
                   {{$checkinCurso}}
                 </span>
@@ -23,7 +23,7 @@
               <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-dolly-flatbed"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Reservas Pendentes</span>
+                <span class="info-box-text">Reservas</span>
                 <span class="info-box-number">{{$reservasPendente}}</span>
               </div>
               <!-- /.info-box-content -->
@@ -37,7 +37,7 @@
               <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-users"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Hospedes Activos</span>
+                <span class="info-box-text">Hospedes</span>
                 <span class="info-box-number">{{$totalHospedes}}</span>
               </div>
               <!-- /.info-box-content -->
@@ -79,7 +79,7 @@
             <div class="card">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                  <a href="javascript:void(0);"><h3 class="card-title">Faturação por Semana</h3></a>
+                  <a href="javascript:void(0);"><h3 class="card-title">Faturação Semanal</h3></a>
                 </div>
               </div>
               <div class="card-body">
@@ -93,7 +93,7 @@
             <div class="card">
               <div class="card-header border-0">
                 <div class="d-flex justify-content-between">
-                  <h3 class="card-title"><a href="javascript:void(0);"><h3 class="card-title">Faturação por Mês</h3></a></h3>
+                  <h3 class="card-title"><a href="javascript:void(0);"><h3 class="card-title">Faturação Mensal</h3></a></h3>
                 </div>
               </div>
               <div class="card-body">

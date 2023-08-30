@@ -29,10 +29,10 @@ class DashboardService
     {
         $filtro_p = $request->input('periodo') ?? null;
         $periodos = $this->getAnalisysPeriods();
-        $res = $this->repository->dashboardFaturacaoSemanal($periodos[$filtro_p]);
+        $res = $this->repository->dashboardFaturacaoPorPeriodo($periodos[$filtro_p]);
         foreach($res as $key => $data) {
             $res[$key]->montante = (float)$data->montante;
-            $res[$key]->nomeDiaSemana = $this->getMysqlWeekDayNamePT($data->diaSemana,true);
+            $res[$key]->nomeDiaSemana = $data->dia.'-'.$this->getMysqlWeekDayNamePT($data->diaSemana,true);
             $res[$key]->nomeDiaMes = $data->dia.' '.strtoupper($this->getMonthNamePT($data->mes,true));
         }
         return response()->json($res, 200);
@@ -50,7 +50,7 @@ class DashboardService
         return response()->json($res, 200);
     }
     
-    private function getAnalisysPeriods() {
+    public function getAnalisysPeriods() {
         $today = new DateTime("today");
         $yesterday = new DateTime("yesterday");
         $same_day_last_week=new DateTime("last ".$today->format("l"));
