@@ -267,8 +267,9 @@
           tooltip: {
             enabled: true,
             customizeTooltip(arg) {
+              console.log(arg);
               return {
-                text: `${arg.valueText} -> ${(arg.percent * 100).toFixed(2)}%`,
+                text: `${arg.valueText} - ${arg.argumentText} | ${(arg.percent * 100).toFixed(2)}%`,
               };
             },
           },

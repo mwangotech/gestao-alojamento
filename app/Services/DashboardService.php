@@ -45,7 +45,7 @@ class DashboardService
         $res = $this->repository->dashboardFaturacaoMensal($periodos[$filtro_p]);
         foreach($res as $key => $data) {
             $res[$key]->montante = (float)$data->montante;
-            $res[$key]->nomeMesAno = $this->getMonthNamePT($data->mes,true)."(".$data->ano.")";
+            $res[$key]->nomeMesAno = $this->getMonthNamePT($data->mes, true)."(".$data->ano.")";
         }
         return response()->json($res, 200);
     }

@@ -19,9 +19,9 @@ class ServicoRepository
     }
     public function autocomplete($filter_name) {
         if(!empty($filter_name)) {
-            return $this->model->where('nome', 'LIKE', "%{$filter_name}%")->limit(6)->get();
+            return $this->model->where('nome', 'LIKE', "%{$filter_name}%")->limit(10)->get();
         } else {
-            return $this->model->limit(6)->get();
+            return $this->model->limit(10)->get();
         }
     }
    public function get($id){
