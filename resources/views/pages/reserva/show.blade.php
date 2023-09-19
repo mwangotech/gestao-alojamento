@@ -15,7 +15,7 @@
             <div class="row">
                 @if ($reserva->idEstadoReserva == 3)
                 <div class="col-xs-12 col-sm-12 col-md-12 text-right">
-                    <button type="button" id="btn-ver-fatura" class="btn btn-info">Gerar Fatura <i class="fas fa-file-pdf"></i></button>
+                    <button type="button" id="btn-ver-fatura" class="btn btn-info">Gerar Factura <i class="fas fa-file-pdf"></i></button>
                     <br/>
                     <br/>
                 </div>
