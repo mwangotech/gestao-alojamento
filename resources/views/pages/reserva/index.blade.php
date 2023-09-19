@@ -36,7 +36,7 @@
                 <tbody>
                 @foreach ($reservas as $reserva)
                 <tr>
-                    <td>RN-{{ $reserva->id }}</td>
+                    <td>RN-{{ $reserva->id }}/<?php echo date("Y");?></td>
                     <td>{{ $reserva->nomeCliente }}</td>
                     <td><span class="right badge badge-info">{{ $reserva->numeroQuarto }}</span>&nbsp;&nbsp;{{ $reserva->nomeQuarto }}</td>
                     <td class="text-center"><span class="right badge badge-primary"><i class="fas fa-male"></i>&nbsp;&nbsp;{{ $reserva->totalAdulto }}</span>&nbsp;<span class="right badge badge-info"><i class="fas fa-baby"></i>&nbsp;&nbsp;{{ $reserva->totalCrianca }}</span></td>

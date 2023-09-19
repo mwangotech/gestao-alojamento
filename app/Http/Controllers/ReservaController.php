@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use PDF;
 use DateTime;
 use Exception;
 use App\Models\Genero;
@@ -49,6 +50,20 @@ class ReservaController extends Controller
         return view('pages.reserva.index',compact('breadcrumbs','reservas'))->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
+    public function downloadFatura($id, Request $request) 
+    {
+        $reserva = Reserva::find($id);
+        $pagamentos = Pagamento::where('idReserva', $id)->get();
+        $cliente = Cliente::firstWhere('id', $reserva->idCliente);
+        //dd($reserva);
+
+        $html = view('pages.reserva.fatura',compact('reserva', 'pagamentos','cliente'))->render();
+        
+        $pdf = PDF::loadHTML($html)->setOptions(['defaultFont' => 'sans-serif']);;
+     
+        $export_filename = "fatura_".date('YmdHis').".pdf";
+        return $pdf->download($export_filename);
+    }
     /**
     * Display the specified resource.
     */

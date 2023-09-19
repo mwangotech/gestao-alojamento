@@ -3,14 +3,12 @@
 namespace App\Http\Controllers;
 use PDF;
 use App\Models\Perfil;
-use App\Models\Pagamento;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Services\DashboardService;
 use App\Services\PagamentoService;
 use App\Http\Requests\PerfilRequest;
 use Illuminate\Http\RedirectResponse;
-use Symfony\Component\Console\Input\Input;
 
 class PagamentoController extends Controller
 {

@@ -39,15 +39,18 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
             $route->get('relatorio-pagamentos', [PagamentoController::class, 'index'])->name('relatorio-pagamentos');
             $route->get('download-pagamentos', [PagamentoController::class, 'downloadPagamentos'])->name('download-pagamentos');
-
+            
             $route->resource('perfis', PerfilController::class)->parameters(['perfis' => 'perfil']);
             $route->resource('utilizadores', UtilizadorController::class)->parameters(['utilizadores' => 'utilizador']);
             $route->resource('menus', MenuController::class)->parameters(['menus' => 'menu']);
             $route->resource('prestadores', PrestadorController::class)->parameters(['prestadores' => 'prestador']);
             $route->resource('disponibilidades', DisponibilidadeController::class)->parameters(['disponibilidades' => 'disponibilidade']);
+            
             $route->resource('reservas', ReservaController::class)->parameters(['reservas' => 'reserva']);
             $route->post('add_historico_reserva', [ReservaController::class, 'add_historico_reserva']);
             $route->post('add_pagamento_reserva', [ReservaController::class, 'add_pagamento_reserva']);
+            $route->get('download-fatura/{id}', [ReservaController::class, 'downloadFatura'])->name('download-fatura');
+
             $route->resource('paises', PaisController::class)->parameters(['paises' => 'pais']);
             $route->resource('provincias', ProvinciaController::class)->parameters(['provincias' => 'provincia']);
             $route->get('pais_autocomplete', [PaisController::class, 'autocomplete']);

@@ -79,6 +79,15 @@
                 text-align: right;
                 padding-top: 30px;
             }
+            .text-right{
+                text-align: right !important;
+            }
+            .text-left{
+                text-align: left !important;
+            }
+            .text-center{
+                text-align: center !important;
+            }
             hr {
                 border-top: 1px solid #ebebeb;
                 float: left;
@@ -187,7 +196,7 @@
         <header>    
             <p>
                 <span style="float: left">SIGALO</span>
-                <span style="float: right">ORIGINAL</span>
+                <span style="float: right">*ORIGINAL*</span>
             </p>
         </header>
 

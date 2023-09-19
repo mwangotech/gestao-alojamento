@@ -29,7 +29,7 @@
                               <tbody>
                                 <tr>
                                    <td style="width: 1%;"><button data-toggle="tooltip" title="" class="btn btn-info btn-xs" data-original-title="Nº da Reserva"><i class="fas fa-ticket-alt fa-fw"></i></button></td>
-                                   <td>#{{$reserva->id}}</td>
+                                   <td>RN-{{$reserva->id}}/<?php echo date("Y");?></td>
                                 </tr>
                                  <tr>
                                     <td style="width: 1%;"><button data-toggle="tooltip" title="" class="btn btn-info btn-xs" data-original-title="Cliente"><i class="fa fa-user fa-fw"></i></button></td>
@@ -268,6 +268,10 @@
 @endsection
 @section('footer-scripts')
 <script>
+    $('#btn-ver-fatura').on('click', function() {
+        var id = $("#input-idReserva").val();
+        window.location.href = "{{ url('download-fatura') }}/"+id;
+    })
     $(function () {
         $('#btn-add-pagamento').on('click', function () {
             if (!$('#form-add-pagamento')[0].checkValidity()) {
