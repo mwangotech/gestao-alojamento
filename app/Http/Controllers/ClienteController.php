@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Genero;
 use App\Models\Cliente;
+use App\Models\Reserva;
+use App\Models\Pagamento;
 use Illuminate\View\View;
 use App\Models\EstadoCivil;
 use App\Models\TipoCliente;
@@ -11,7 +14,6 @@ use Illuminate\Http\Request;
 use App\Services\ClienteService;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ClienteRequest;
-use Exception;
 use Illuminate\Http\RedirectResponse;
 
 class ClienteController extends Controller
@@ -53,12 +55,15 @@ class ClienteController extends Controller
     */
     public function show(Cliente $cliente): View
     {
+        $reservas = Reserva::where('idCliente', $cliente->id)->orderBy('idEstadoReserva')->orderBy('dataInicio', 'DESC')->get();
+        $pagamentos = Pagamento::where('idCliente', $cliente->id)->orderBy('dataPagamento', 'DESC')->get();;
+
         $breadcrumbs = array(
             ['name'=> 'Dashboard','url' => route('dashboard'),'active' => 0],
             ['name'=> 'Cliente','url' => route('clientes.index'),'active' => 0],
             ['name'=> 'Detalhes','url' => '','active' => 1]
         );
-        return view('pages.cliente.show', compact('cliente','breadcrumbs'));
+        return view('pages.cliente.show', compact('cliente','breadcrumbs','reservas','pagamentos'));
     }
 
     /**

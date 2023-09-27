@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -103,7 +104,13 @@ class Reserva extends Model
         if($date >= $this->dataInicio) {
             return true;
         } else {
-            return false;
+            $is_reserved = Reserva::where('idQuarto', $this->idQuarto)->whereNull('checkout')->count();
+            if($is_reserved) {
+                return false;
+            } else {
+                return true;
+            }
+            
         }
     }
     

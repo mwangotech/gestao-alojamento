@@ -40,87 +40,73 @@
         <div class="card">
             <div class="card-header p-2">
                <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#timeline" data-toggle="tab">Actividades</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#documentos" data-toggle="tab">Documentos</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#reservas" data-toggle="tab">Reservas</a></li>
+                  {{--<li class="nav-item"><a class="nav-link active" href="#timeline" data-toggle="tab">Actividades</a></li>--}}
+                  {{--<li class="nav-item"><a class="nav-link" href="#documentos" data-toggle="tab">Documentos</a></li>--}}
+                  <li class="nav-item"><a class="nav-link active" href="#reservas" data-toggle="tab">Reservas</a></li>
                   <li class="nav-item"><a class="nav-link" href="#pagamentos" data-toggle="tab">Pagamentos</a></li>
                </ul>
             </div>
             <div class="card-body">
                <div class="tab-content">
-                  <div class="tab-pane active" id="timeline">
-                    <div class="timeline timeline-inverse">
-                        <div class="time-label">
-                           <span class="bg-success">
-                           28 Jun. 2023
-                           </span>
-                        </div>
-                        {{--<div>
-                           <i class="fas fa-envelope bg-primary"></i>
-                           <div class="timeline-item">
-                              <span class="time"><i class="far fa-clock"></i> 12:05</span>
-                              <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-                              <div class="timeline-body">
-                                 Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                 weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                 jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                 quora plaxo ideeli hulu weebly balihoo...
-                              </div>
-                              <div class="timeline-footer">
-                                 <a href="#" class="btn btn-primary btn-sm">Read more</a>
-                                 <a href="#" class="btn btn-danger btn-sm">Delete</a>
-                              </div>
-                           </div>
-                        </div>--}}
-                        <div>
-                           <i class="fas fa-user bg-info"></i>
-                           <div class="timeline-item">
-                              <span class="time"><i class="far fa-clock"></i> Há 5 minutos</span>
-                              <h3 class="timeline-header border-0"><a href="#">Maria Francisco</a> Finalizou a limpeza do quarto</h3>
-                           </div>
-                        </div>
-                        <div>
-                            <i class="fas fa-user bg-info"></i>
-                            <div class="timeline-item">
-                               <span class="time"><i class="far fa-clock"></i> Há 25 minutos</span>
-                               <h3 class="timeline-header border-0"><a href="#">Maria Francisco</a> Iniciou a limpeza do quarto</h3>
-                            </div>
-                         </div>
-                        <div>
-                           <i class="fas fa-comments bg-warning"></i>
-                           <div class="timeline-item">
-                              <span class="time"><i class="far fa-clock"></i> Há 22 horas</span>
-                              <h3 class="timeline-header"><a href="#">Recepção</a> Check-in Reserva #987</h3>
-                              <div class="timeline-body">
-                                 Está incluido na reserva os seguintes serviços: pequeno almoço, acesso a biblioteca
-                              </div>
-                           </div>
-                        </div>
-                        <div class="time-label">
-                           <span class="bg-success">
-                           3 Jan. 2014
-                           </span>
-                        </div>
-                        <div>
-                            <i class="fas fa-comments bg-warning"></i>
-                            <div class="timeline-item">
-                               <span class="time"><i class="far fa-clock"></i> Há 2 meses</span>
-                               <h3 class="timeline-header"><a href="#">Recepção</a> check-out Reserva #587</h3>
-                            </div>
-                         </div>
-                        <div>
-                           <i class="far fa-clock bg-grey"></i>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane" id="documentos">
-                    Documentos
-                  </div>
-                  <div class="tab-pane" id="reservas">
-                    Reservas
+                  <div class="tab-pane active" id="reservas">
+                     <div class="card-body">
+                        <table class="table-home-search table table-bordered table-striped">
+                           <thead>
+                           <tr>
+                                 <th width="10px">Cod.</th>
+                                 <th>Quarto</th>
+                                 <th class="text-center" width="50px">Hospedes</th>
+                                 <th class="text-right" width="70px">Preço</th>
+                                 <th class="text-right" width="50px">Nº Dias</th>
+                                 <th class="text-right" width="70px">Valor</th>
+                                 <th class="text-right" width="110px">Data Inicio</th>
+                                 <th class="text-right" width="80px">Data Fim</th>
+                                 <th class="text-center" width="70px">Estado</th>
+                           </tr>
+                           </thead>
+                           <tbody>
+                           @foreach ($reservas as $reserva)
+                           <tr>
+                                 <td>RN-{{ $reserva->id }}/<?php echo date("Y");?></td>
+                                 <td><span class="right badge badge-info">{{ $reserva->numeroQuarto }}</span>&nbsp;&nbsp;{{ $reserva->nomeQuarto }}</td>
+                                 <td class="text-center"><span class="right badge badge-primary"><i class="fas fa-male"></i>&nbsp;&nbsp;{{ $reserva->totalAdulto }}</span>&nbsp;<span class="right badge badge-info"><i class="fas fa-baby"></i>&nbsp;&nbsp;{{ $reserva->totalCrianca }}</span></td>
+                                 <td class="text-right">{{number_format($reserva->preco,0,',',' ')}} kz</td>
+                                 <td class="text-right">{{$reserva->qtdDias}} dias</td>
+                                 <td class="text-right">{{number_format($reserva->valor,0,',',' ')}} kz</td>
+                                 <td class="text-right">{{ $reserva->dataInicio }}</td>
+                                 <td class="text-right">{{ $reserva->dataFim }}</td>
+                                 <td class="text-center"><span class="right badge badge-{{ $reserva->corEstadoReserva }}">{{ $reserva->nomeEstadoReserva }}</span></td>
+                           </tr>
+                           @endforeach
+                           </tbody>
+                        </table>
+                     </div>
                   </div>
                   <div class="tab-pane" id="pagamentos">
-                    Pagamentos
+                     <div class="card-body">        
+                        <table class="table-home-search table table-bordered table-striped">
+                           <thead>
+                           <tr>
+                              <th width="10px">Cod.</th>
+                              <th width="50px">Reserva</th>
+                              <th class="text-right" width="100px">Valor</th>
+                              <th class="text-center">Metodo</th>
+                              <th class="text-center">Criado por</th>
+                              <th  class="text-right" width="80px">Criado Em</th>
+                           </tr>
+                        </thead>
+                           @foreach ($pagamentos as $pagamento)
+                           <tr>
+                              <td>{{ $pagamento->id }}</td>
+                              <td>RN-{{ $pagamento->idReserva }}/<?php echo date("Y");?></td>
+                              <td class="text-right">{{number_format($pagamento->montante,0,',',' ')}} kz</td>
+                              <td class="text-center">{{ $pagamento->nomeMetodoPagamento }}</td>
+                              <td class="text-center">{{ $pagamento->nomeUtilizador }}</td>
+                              <td class="text-right">{{ $pagamento->created_at }}</td>
+                           </tr>
+                           @endforeach
+                        </table>
+                  </div>
                   </div>
                </div>
             </div>

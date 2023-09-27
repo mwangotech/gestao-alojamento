@@ -133,7 +133,6 @@ class ReservaController extends Controller
                    return true;
                 });
             } catch(Exception $e) {
-                //print_r($e);die();
                 $sucesso = false;
             }
         } else {

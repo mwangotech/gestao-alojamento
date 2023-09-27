@@ -17,7 +17,7 @@
         </div>
         <div class="card-body">
             @include('components.messages')
-            <table class="table-list table table-bordered table-striped">
+            <table class="table-home-search table table-bordered table-striped">
                 <thead>
                 <tr>
                     <th width="10px">Cod.</th>
