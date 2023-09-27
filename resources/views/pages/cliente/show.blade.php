@@ -10,8 +10,11 @@
                <p class="text-muted text-center">{{ $cliente->nomeTipo }}</p>
                <ul class="list-group list-group-unbordered mb-3">
                   <li class="list-group-item">
-                    <strong class="text-info"><i class="fas fa-venus-mars mr-1"></i> Género</strong> <span class="float-right">{{ $cliente->nomeGenero }}</span>
+                    <strong class="text-info"><i class="fas fa-address-card mr-1"></i> Nº de Identificação</strong> <span class="float-right">{{ $cliente->BI }}</span>
                   </li>
+                  <li class="list-group-item">
+                     <strong class="text-info"><i class="fas fa-venus-mars mr-1"></i> Género</strong> <span class="float-right">{{ $cliente->nomeGenero }}</span>
+                   </li>
                   <li class="list-group-item">
                     <strong class="text-info"><i class="fas fa-venus-double mr-1"></i> Estado Civil</strong> <span class="float-right">{{ $cliente->nomeEstadoCivil }}</span>
                   </li>
